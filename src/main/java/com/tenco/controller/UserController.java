@@ -64,7 +64,7 @@ public class UserController extends HttpServlet {
 		}
 		
 	}
-
+	int a;
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) {
 		//userLogin return 값은 1로 리턴! || Impl 수정 필요
 		if (userRepositoryImpl.userLogin("", "") == 1) {
@@ -72,7 +72,7 @@ public class UserController extends HttpServlet {
 			
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			HttpSession session = request.getSession();
-			session.setAttribute("principal", );
+			session.setAttribute("principal",  a);
 		}else {
 			//TODO 로그인 실패
 		}
