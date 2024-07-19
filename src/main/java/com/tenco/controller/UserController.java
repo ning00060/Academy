@@ -2,18 +2,14 @@ package com.tenco.controller;
 
 import java.io.IOException;
 
+import com.tenco.Repo.user.UserRepositoryImpl;
+
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
-
-import java.io.IOException;
->>>>>>> dev
-
-import com.tenco.Repo.user.UserRepositoryImpl;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
