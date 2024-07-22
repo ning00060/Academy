@@ -23,19 +23,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-				
-//				studentDTO = StudentDTO.builder()
-//				.id(rs.getString("id"))
-//				.name(rs.getString("name"))
-//				.birth_date(rs.getString("birth_date"))
-//				.gender(rs.getString("gender"))
-//				.tel(rs.getString("tel"))
-//				.email(rs.getString("email"))
-//				.dept_id(rs.getInt("dept_id"))
-//				.grade(rs.getInt("grade"))
-//				.semester(rs.getInt("semester"))
-//				.entrance_date(rs.getString("entrance_date"))
-//				.build();	
+
 		}
 		
 		} catch (SQLException e) {
