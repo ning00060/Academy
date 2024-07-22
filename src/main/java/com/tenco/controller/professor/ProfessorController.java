@@ -82,7 +82,7 @@ public class ProfessorController extends HttpServlet {
 			request.setAttribute("professorId", user.getId());
 		}
 		
-		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(Integer.parseInt(user.getId()), Integer.parseInt(year), Integer.parseInt(semester));
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(user.getId(), Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("subjectList", subjectList);
 		request.setAttribute("UserDTO", user);
 		

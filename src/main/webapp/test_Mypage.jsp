@@ -8,7 +8,9 @@
 <body>
 
 	<li>
-		<ul><a href="/user/My">내 정보 조회</a></ul>
+		<ul>
+			<form action="${pageContext.request.contextPath}/My_information" method="post"> <a href="">내 정보 조회</a> </form>
+		</ul>
 		<ul>비밀번호 변경</ul>
 		<ul>휴학 신청</ul>
 		<ul>휴학 신청 조회</ul>
