@@ -79,24 +79,19 @@ footer{
 			
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 -->
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/home">홈</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/subjectList">수강신청</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/notice">학사정보</a> </h2>
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 2}">
 				<!-- 교수 카테고리   -->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   -->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">학사관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/Semester">등록</a> </h2>

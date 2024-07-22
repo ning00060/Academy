@@ -2,6 +2,7 @@ package com.tenco.controller;
 
 import java.io.IOException;
 
+import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.user.UserDTO;
 
@@ -19,6 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserRepositoryImpl userRepositoryImpl;
+	private StudentRepositoryImpl studentRepositoryImpl;
 
 	public UserController() {
 		super();
@@ -28,6 +30,7 @@ public class UserController extends HttpServlet {
     @Override
     public void init() throws ServletException {
     	userRepositoryImpl = new UserRepositoryImpl();
+    	studentRepositoryImpl = new StudentRepositoryImpl();
     	System.out.println("12");
     }
     
@@ -47,7 +50,7 @@ public class UserController extends HttpServlet {
 		case "/My":
 			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
 			handleMypage(request, response);
-			request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
+			// request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
 			break;
 
 		case "/home":
@@ -59,12 +62,19 @@ public class UserController extends HttpServlet {
 		}
 	}
 	/**
-	 * 학생 Mypage 로그인 후 내 정보 조회가 먼저 출력된다.
+	 * 학생 Mypage 버튼 클릭 후 내 정보 조회가 먼저 출력된다.
 	 * @param request
 	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
 	 */
-	private void handleMypage(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
+	private void handleMypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UserDTO userDTO = (UserDTO) request.getSession().getAttribute("verifiedUser");
+		System.out.println(userDTO.toString());
+		System.out.println("@@@@@");
+		
+		System.out.println(userDTO.getId());
+		request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
 		
 	}
 
