@@ -6,12 +6,12 @@ import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.user.UserDTO;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 
 
 
@@ -39,11 +39,17 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/findId":	
-
 			break;
 		case "/findPw":
-
 			break;
+
+		
+		case "/My":
+			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
+			handleMypage(request, response);
+			request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
+			break;
+
 		case "/home":
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;	
@@ -52,6 +58,16 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
+	/**
+	 * 학생 Mypage 로그인 후 내 정보 조회가 먼저 출력된다.
+	 * @param request
+	 * @param response
+	 */
+	private void handleMypage(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -61,7 +77,8 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/login":
-			handleLogin(request,response);
+			System.out.println("/login 됨");
+			handleLogin(request, response);
 			break;
 
 		default:
@@ -72,7 +89,13 @@ public class UserController extends HttpServlet {
 	
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
+<<<<<<< HEAD
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
+=======
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		System.out.println("asdf");
+>>>>>>> cd6f7d1373d0d7f04d2ac18f50f474a1c08290d1
 		UserDTO userDTO = null;
 		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
 		
@@ -85,6 +108,7 @@ public class UserController extends HttpServlet {
 			System.out.println("login성공");
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
+
 			response.sendRedirect(request.getContextPath()+"/user/home");
 		}else {
 			System.out.println("login실패");
@@ -92,6 +116,5 @@ public class UserController extends HttpServlet {
 		}
 		
 	}
-
 
 }

@@ -1,14 +1,50 @@
 package com.tenco.Repo.student;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.model.student.StudentDTO;
+
+import com.tenco.util.DBUtil;
 
 public class StudentRepositoryImpl implements StudentRepository {
 
 	@Override
 	public StudentDTO search(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String sql = " select * from tb_student where id = ? ";
+		StudentDTO studentDTO = null;
+		
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				new StudentDTO();
+				studentDTO = StudentDTO.builder()
+				.id(rs.getString("id"))
+				.name(rs.getString("name"))
+				.birth_date(rs.getString("birth_date"))
+				.gender(rs.getString("gender"))
+				.tel(rs.getString("tel"))
+				.email(rs.getString("email"))
+				.dept_id(rs.getInt("dept_id"))
+				.grade(rs.getInt("grade"))
+				.semester(rs.getInt("semester"))
+				.entrance_date(rs.getString("entrance_date"))
+				.build();	
+		}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return null; 
+		
 	}
 
 }
