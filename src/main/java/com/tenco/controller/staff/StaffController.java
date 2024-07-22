@@ -7,32 +7,49 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.tenco.Repo.interfaces.staff.StaffRepository;
+import com.tenco.Repo.staff.StaffRepositoryImpl;
+
 @WebServlet("/staff/*")
 public class StaffController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       private static StaffRepository staffRepository;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public StaffController() {
-        super();
-        // TODO Auto-generated constructor stub
+    	staffRepository=new StaffRepositoryImpl();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		String action = request.getPathInfo();
+
+		switch (action) {
+
+		case "/notice":
+			System.out.println("notice이동");
+			noticePage(request, response);
+
+			break;
+
+		default:
+			break;
+		}
+
 	}
+
+
+	private void noticePage(HttpServletRequest request, HttpServletResponse response) {
+		request.getParameter("noticeTitle");
+		request.getParameter("noticeContent");
+		request.getParameter("noticeCreated");
+		
+	}
+	
 
 }

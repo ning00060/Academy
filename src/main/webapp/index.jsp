@@ -25,7 +25,7 @@ input[type=number] {
 			<a href="#"><img class="logo" alt="" src="/images/logo.png"></a>
 		</div>
 
-		<form action="${pageContext.request.contextPath}/user/signin" method="post">
+		<form action="${pageContext.request.contextPath}/user/login" method="post">
 			<div class="form-group">
 				<label for="username">학번 : </label> 
 				<input type="text" id="username" name="username" value="고길동" required>
