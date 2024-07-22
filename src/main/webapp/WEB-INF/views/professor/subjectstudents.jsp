@@ -18,7 +18,6 @@
 		<tr>
 			<th>학번:</th>
 			<th>이름:</th>
-			<th>성별:</th>
 			<th>중간성적 입력:</th>
 			<th>기말성적 입력:</th>
 			<th>학점 입력:</th>
@@ -28,10 +27,8 @@
 		while(rs.next()){
 		%>
 		<tr>
-		<%--
-			<td><%=rs.getId%></td>
-			<td><%=rs.getStudentName%></td>
-			<td><%=rs.getGender%></td>
+			<td><%=rs.getInt("id")%></td>
+			<td><%=rs.getString("name")%></td>
 			<td><input type="text" name="midExamScore" size="10" style="width:100vh"></td>
 			<td><input type="text" name="finalExamScore" size="10" style="width:100vh"></td>
 			<td><input type="text" name="grade" size="10" style="width:100vh"></td>
@@ -41,7 +38,6 @@
 					<button type="submit">성적 입력</button>
 				</form>
 			</td>
-		 --%>
 		</tr>
 		
 		<%}%>

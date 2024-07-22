@@ -1,19 +1,19 @@
-package com.tenco.model.user;
+package com.tenco.model.student;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
+@Data
 @AllArgsConstructor
-@Getter
+@NoArgsConstructor
 @Builder
 @ToString
-
-public class UserDTO {
+public class StudentDTO {
 	
 	private String id;
-	private int permissionLevel;
+	private String dept_id;
+
 }

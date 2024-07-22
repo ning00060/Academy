@@ -4,6 +4,6 @@ import com.tenco.model.user.UserDTO;
 
 public interface UserRepository {
 
-	UserDTO userLogin(String id, String password);
+	UserDTO userLogin(int id, String password);
 	
 }
