@@ -10,7 +10,7 @@ import java.io.IOException;
 import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.Repo.professor.ProfessorRepositoryImpl;
 
-@WebServlet("/professor")
+@WebServlet("/professor/*")
 public class ProfessorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProfessorRepository professorRepository;

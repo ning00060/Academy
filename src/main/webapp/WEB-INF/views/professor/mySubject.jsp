@@ -41,10 +41,13 @@
 			<td><%=rs.getYear%></td>
 			<td><%=rs.getSemester%></td>
 			<td><%=rs.getGrades%></td>
+			<td>
+				<form action="${pageContext.request.contextPath}/professor/input-grade" method="GET">
+					<input type="hidden" name="subjectId" value="<%=rs.getInt("id")%>">
+					<button type="submit">성적 입력</button>
+				</form>
+			</td>
 		 --%>
-			<form actiron="input-grade" method="GET">
-				<button type="submit">성적 기입</button>
-			</form>
 		</tr>
 		
 		<%}%>
