@@ -14,7 +14,6 @@ import lombok.ToString;
 public class SubjectDTO {
 	private int id;
 	private String name;
-	private String professorName;
 	private int roomId;
 	private String departmentName;
 	private String majorType;
