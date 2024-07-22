@@ -2,6 +2,7 @@ package com.tenco.controller;
 
 import java.io.IOException;
 
+import com.mysql.cj.Session;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.user.UserDTO;
@@ -69,11 +70,11 @@ public class UserController extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void handleMypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UserDTO userDTO = (UserDTO) request.getSession().getAttribute("verifiedUser");
-		System.out.println(userDTO.toString());
-		System.out.println("@@@@@");
-		
-		System.out.println(userDTO.getId());
+//		UserDTO userDTO = (UserDTO) request.getSession().getAttribute("verifiedUser");
+//		System.out.println(userDTO.toString());
+//		System.out.println("@@@@@");
+//		
+//		System.out.println(userDTO.getId());
 		request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
 		
 	}
@@ -90,13 +91,29 @@ public class UserController extends HttpServlet {
 			System.out.println("/login 됨");
 			handleLogin(request, response);
 			break;
+		
+		case "/My_information":
+			System.out.println("/학생 정보 조회시도");
+			handleInformation(request, response);
 
 		default:
 			break;
 		}
 
 	}
-	
+	/**
+	 * 학생이 정보 조회 시도
+	 * @param request
+	 * @param response
+	 */
+	private void handleInformation(HttpServletRequest request, HttpServletResponse response) {
+	UserDTO dto = (UserDTO) request.getSession().getAttribute("verifiedUser");
+	System.out.println("@@@@@");
+		System.out.println(dto.toString());
+		
+	}
+
+
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

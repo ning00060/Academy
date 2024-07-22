@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<<<<<<< HEAD
-<%@ include file="main_head.jsp"%>
 
-=======
-<%@ include file="../../main_head.jsp"%>
+<%@ include file="main_head.jsp"%>
 	
->>>>>>> 519f0165b3b6996fbfe0a99d6e9feab6869a0c42
 <div class="homeMainDiv">
 
 	<div style=" align-items: center;	">
@@ -26,8 +22,14 @@
 
 		<div style="flex-grow: 1">
 		
+		<div><p>${verifiedUser.name}님, 환영합니다.</p></div>
+		<div><p>이메일: ${verifiedUser.email}</p> </div>
+		<div><p>소속:</p> </div>
+		<div><p>학기:</p> </div>
+		<div><p>학번: ${verifiedUser.id}</p></div>
+		
+		
 		</div>
-	
 	
 	</div>
 
