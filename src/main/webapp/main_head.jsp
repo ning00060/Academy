@@ -11,6 +11,8 @@ body{
 background-color: #f0f0f0;
 display: flex;
 flex-direction: column;
+align-items: center;
+
 }
 header{
 background-color: black;
@@ -18,6 +20,7 @@ color: white;
 display: flex;
 justify-content: space-between;
 align-items: center;
+width: 100%;
 
 }
 
@@ -50,6 +53,18 @@ footer{
 	width: 300px;	
 	
 }
+.homeMainDiv{
+	
+	display: flex;
+	width: 1300px;
+	flex-direction: column;
+
+}
+.homeChildDiv{
+	display: flex;
+	
+}
+
 
 </style>
 </head>
@@ -60,6 +75,7 @@ footer{
 				
 			
 			<%request.getSession().getAttribute("verifiedUser");%>
+			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 			
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 -->

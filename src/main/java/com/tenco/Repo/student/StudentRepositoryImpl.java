@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.model.student.StudentDTO;
+
 import com.tenco.util.DBUtil;
 
 public class StudentRepositoryImpl implements StudentRepository {
@@ -45,7 +46,5 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return null; 
 		
 	}
-		
-	
 
 }
