@@ -23,5 +23,9 @@ public class UserDTO {
 	private String address;
 	private String phoneNum;
 	private String email;
+	//only student
+	private int deptId;
+	private int grade;
+	private int semester;
 	
 }
