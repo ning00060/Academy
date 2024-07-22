@@ -3,26 +3,18 @@ package com.tenco.controller;
 import java.io.IOException;
 
 import com.tenco.Repo.user.UserRepositoryImpl;
-<<<<<<< HEAD
 import com.tenco.model.user.UserDTO;
-=======
->>>>>>> c3a544e11fbb61427eb1886c5ab70525f34b4a2b
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-<<<<<<< HEAD
 
 
-@WebServlet("/user/*") 
-=======
 @WebServlet("/user/*")
->>>>>>> c3a544e11fbb61427eb1886c5ab70525f34b4a2b
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserRepositoryImpl userRepositoryImpl;
@@ -47,16 +39,30 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/findId":	
-
 			break;
 		case "/findPw":
-
 			break;
-
+		
+		case "/My":
+			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
+			handleMypage(request, response);
+			request.getRequestDispatcher("/test_Mypage.jsp").forward(request, response);
+			break;
+	
 		default:
 			break;
 		}
 	}
+	/**
+	 * 학생 Mypage 로그인 후 내 정보 조회가 먼저 출력된다.
+	 * @param request
+	 * @param response
+	 */
+	private void handleMypage(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -66,13 +72,9 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/login":
-<<<<<<< HEAD
-			handleLogin(request,response);
-=======
 			System.out.println("/login 됨");
 			handleLogin(request, response);
 
->>>>>>> c3a544e11fbb61427eb1886c5ab70525f34b4a2b
 			break;
 
 		default:
@@ -80,11 +82,10 @@ public class UserController extends HttpServlet {
 		}
 
 	}
-<<<<<<< HEAD
 	
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) {
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("asdf");
 		UserDTO userDTO = null;
 		
@@ -100,6 +101,7 @@ public class UserController extends HttpServlet {
 			System.out.println("login성공");
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
+			request.getRequestDispatcher("/main_body.jsp").forward(request, response);
 		}else {
 			System.out.println("login실패");
 			//TODO 로그인 실패 알람 전송
@@ -107,26 +109,7 @@ public class UserController extends HttpServlet {
 		
 	}
 
-=======
 
 
-int a;
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usename = request.getParameter("username");
-		String password = request.getParameter("password");
-		// userLogin return 값은 1로 리턴! || Impl 수정 필요
-		// if (userRepositoryImpl.userLogin("", "") == 1) {
-		// 로그인 성공
-		// permission-level 확인 1=학생, 2=교수, 3= 관리직
-		HttpSession session = request.getSession();
-		System.out.println("로그인까지옴");
-		session.setAttribute("principal", a);
-		 request.getRequestDispatcher("/WEB-INF/main-body.jsp").forward(request, response);
-	}// else {
-		// TODO 로그인 실패
-		// }
-
-	// }
->>>>>>> c3a544e11fbb61427eb1886c5ab70525f34b4a2b
 
 }
