@@ -103,7 +103,6 @@ public class UserController extends HttpServlet {
 
 		System.out.println("asdf");
 		UserDTO userDTO = null;
-		
 		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
 		
 		int id = Integer.parseInt(request.getParameter("id"));
