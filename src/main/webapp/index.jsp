@@ -27,12 +27,12 @@ input[type=number] {
 
 		<form action="${pageContext.request.contextPath}/user/login" method="post">
 			<div class="form-group">
-				<label for="username">학번 : </label> 
-				<input type="text" id="username" name="username" value="고길동" required>
+				<label for="id">학번 : </label> 
+				<input type="text" id="id" name="id" value="1111" required>
 			</div>
 			<div class="form-group">
 				<label for="password">비밀번호 : </label> 
-				<input type="text" id="password" name="password" value="asd1234" required>
+				<input type="text" id="password" name="password" value="1111" required>
 			</div>
 			<div class="form-group">
 				<input class="btn btn-primary" type="submit" value="로그인">
