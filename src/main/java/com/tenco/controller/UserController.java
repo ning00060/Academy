@@ -33,10 +33,9 @@ public class UserController extends HttpServlet {
     
     // 아이디 찾기, 비밀번호 찾기 sendredirect
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
+	
 		String action = request.getPathInfo();
-
+		System.out.println(action+"/doget");
 		switch (action) {
 
 		case "/findId":	
@@ -45,6 +44,9 @@ public class UserController extends HttpServlet {
 		case "/findPw":
 
 			break;
+		case "/home":
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+			break;	
 
 		default:
 			break;
@@ -70,7 +72,7 @@ public class UserController extends HttpServlet {
 	
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) {
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		System.out.println("asdf");
 		UserDTO userDTO = null;
 		
@@ -85,6 +87,7 @@ public class UserController extends HttpServlet {
 			System.out.println("login성공");
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
+			response.sendRedirect(request.getContextPath()+"/user/home");
 		}else {
 			System.out.println("login실패");
 			//TODO 로그인 실패 알람 전송
