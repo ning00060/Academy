@@ -75,12 +75,10 @@ public class UserController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
-
 		case "/login":
 			System.out.println("/login 됨");
 			handleLogin(request, response);
 			break;
-
 		default:
 			break;
 		}
@@ -94,7 +92,6 @@ public class UserController extends HttpServlet {
 		System.out.println("asdf");
 		UserDTO userDTO = null;
 		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
-		
 		int id = Integer.parseInt(request.getParameter("id"));
 		String password = (String) request.getParameter("password");
 		if ((userDTO = userRepositoryImpl.userLogin(id, password)) != null) {
