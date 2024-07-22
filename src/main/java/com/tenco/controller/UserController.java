@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/user")
+@WebServlet("/user/*")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserRepositoryImpl userRepositoryImpl;
@@ -54,7 +54,7 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/login":
-
+			System.out.println("/login 됨");
 			handleLogin(request, response);
 
 			break;
@@ -65,16 +65,19 @@ public class UserController extends HttpServlet {
 
 	}
 
-	int a;
 
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) {
+int a;
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String usename = request.getParameter("username");
+		String password = request.getParameter("password");
 		// userLogin return 값은 1로 리턴! || Impl 수정 필요
 		// if (userRepositoryImpl.userLogin("", "") == 1) {
 		// 로그인 성공
-
 		// permission-level 확인 1=학생, 2=교수, 3= 관리직
 		HttpSession session = request.getSession();
+		System.out.println("로그인까지옴");
 		session.setAttribute("principal", a);
+		 request.getRequestDispatcher("/WEB-INF/main-body.jsp").forward(request, response);
 	}// else {
 		// TODO 로그인 실패
 		// }
