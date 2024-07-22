@@ -19,4 +19,14 @@
     <servlet-name>UserController</servlet-name>
     <url-pattern>/UserController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfessorController</display-name>
+    <servlet-name>ProfessorController</servlet-name>
+    <servlet-class>com.tenco.controller.professor.ProfessorController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfessorController</servlet-name>
+    <url-pattern>/ProfessorController</url-pattern>
+  </servlet-mapping>
 </web-app>

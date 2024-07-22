@@ -1,5 +1,24 @@
 package com.tenco.model.subject;
 
-public class SubjectDTO {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class SubjectDTO {
+	private int id;
+	private String name;
+	private String professorName;
+	private int roomId;
+	private String departmentName;
+	private String majorType;
+	private String year;
+	private String semester;
+	private String grades;
 }
