@@ -8,4 +8,5 @@ public interface NoticeRepository {
 
 	NoticeDTO SelectNoticeById();
 	List<NoticeDTO> SelectNoitceAll();
+	List<NoticeDTO> SelectNoitceAll5();
 }
