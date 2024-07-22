@@ -10,6 +10,8 @@ body{
 background-color: #f0f0f0;
 display: flex;
 flex-direction: column;
+align-items: center;
+
 }
 header{
 background-color: black;
@@ -17,6 +19,7 @@ color: white;
 display: flex;
 justify-content: space-between;
 align-items: center;
+width: 100%;
 
 }
 
@@ -49,6 +52,18 @@ footer{
 	width: 300px;	
 	
 }
+.homeMainDiv{
+	
+	display: flex;
+	width: 1300px;
+	flex-direction: column;
+
+}
+.homeChildDiv{
+	display: flex;
+	
+}
+
 
 </style>
 </head>
