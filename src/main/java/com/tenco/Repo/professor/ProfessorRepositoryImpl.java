@@ -19,7 +19,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository{
 			+ "left join tb_professor as pf on sj.professor_id = pf.id"
 			+ "left join tb_department as dp on sj.dept_id = dp.id"
 			+ "where sj.professor_id = ? and sj.year = ? and sj.semester = ? ";
-	private final static String SEL = "  ";
+	private final static String SELECT  = "  ";
 	
 	
 	// 교수 id와 강의의 개설년도, 개설학기로 자신의 모든 강의를 조회 / 과목 DTO 리스트로 반환
