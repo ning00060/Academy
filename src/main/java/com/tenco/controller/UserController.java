@@ -15,33 +15,35 @@ import jakarta.servlet.http.HttpSession;
 
 
 
-@WebServlet("/user/*")
+@WebServlet("/user/*") 
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private UserRepositoryImpl userRepositoryImpl;
-  
-    public UserController() {
-        super();
-        
-    }
+	private UserRepositoryImpl userRepositoryImpl;
 
+	public UserController() {
+		super();
+	}
+
+	
     @Override
     public void init() throws ServletException {
     	userRepositoryImpl = new UserRepositoryImpl();
     	System.out.println("12");
     }
+    
     // 아이디 찾기, 비밀번호 찾기 sendredirect
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String action = request.getPathInfo();
-		
-		switch (action) {
-		case "/findId":	
-			
-			break;
 
+		String action = request.getPathInfo();
+
+		switch (action) {
+
+		case "/findId":	
+
+			break;
 		case "/findPw":
-			
+
 			break;
 
 		default:
@@ -49,13 +51,13 @@ public class UserController extends HttpServlet {
 		}
 	}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
-		
+
 		case "/login":
 			handleLogin(request,response);
 			break;
@@ -63,7 +65,7 @@ public class UserController extends HttpServlet {
 		default:
 			break;
 		}
-		
+
 	}
 	
 	// TODO 여기 들어오기전 필터 체크 
@@ -90,5 +92,6 @@ public class UserController extends HttpServlet {
 		}
 		
 	}
+
 
 }
