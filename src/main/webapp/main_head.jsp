@@ -55,7 +55,7 @@ footer{
 .homeMainDiv{
 	
 	display: flex;
-	width: 1300px;
+	width: 1500px;
 	flex-direction: column;
 
 }

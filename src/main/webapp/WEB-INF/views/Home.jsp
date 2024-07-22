@@ -6,7 +6,7 @@
 <div class="homeMainDiv">
 
 	<div style=" align-items: center;	">
-		<img alt="" src="../resource/main_photo.jpg">
+		<img alt="" src="../resource/main_img.png">
 	</div>
 	
 	<div class="homeChildDiv" style="height: 400px">

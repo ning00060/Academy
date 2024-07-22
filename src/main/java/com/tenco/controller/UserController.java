@@ -73,9 +73,7 @@ public class UserController extends HttpServlet {
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("asdf");
 		UserDTO userDTO = null;
-		
 		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
 		
 		int id = Integer.parseInt(request.getParameter("id"));
