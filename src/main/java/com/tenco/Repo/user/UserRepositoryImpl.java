@@ -32,39 +32,77 @@ public class UserRepositoryImpl implements UserRepository{
 				tempPL = rs.getInt("permission_level");
 				if(tempPL == 1) {
 					tempSql = sqlStudent;
+					verifiedUser = checkStudent(conn,tempSql,tempId,tempPL);
 				}else if(tempPL == 2) {
 					tempSql = sqlProfessor;
+					verifiedUser = checkCommon(conn,tempSql,tempId,tempPL);
 				}else if(tempPL == 3) {
 					tempSql = sqlStaff;
+					verifiedUser = checkCommon(conn,tempSql,tempId,tempPL);
 				}else {
 					//TODO handle exception
 				}
 				System.out.println(tempPL);
-				try (PreparedStatement pstmt2 = conn.prepareStatement(tempSql)){
-					pstmt2.setInt(1, tempId);
-					ResultSet rs2 = pstmt2.executeQuery();
-					if (rs2.next()) {
-						verifiedUser = UserDTO.builder()
-									.id(tempId)
-									.permissionLevel(tempPL)
-									.name(rs2.getString("name"))
-									.birth(rs2.getString("birth_date"))
-									.gender(rs2.getString("gender"))
-									.address(rs2.getString("address"))
-									.phoneNum(rs2.getString("tel"))
-									.email(rs2.getString("email"))
-									.build();
-					}
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println(verifiedUser.toString()+" /UserRepositoryImpl");
 		return verifiedUser;
+	}
+
+	private UserDTO checkCommon(Connection conn,String tempSql, int tempId, int tempPL) {
+
+		
+		UserDTO verifiedUser = null;
+		try (PreparedStatement pstmt2 = conn.prepareStatement(tempSql)){
+			pstmt2.setInt(1, tempId);
+			ResultSet rs2 = pstmt2.executeQuery();
+			if (rs2.next()) {
+				verifiedUser = UserDTO.builder()
+							.id(tempId)
+							.permissionLevel(tempPL)
+							.name(rs2.getString("name"))
+							.birth(rs2.getString("birth_date"))
+							.gender(rs2.getString("gender"))
+							.address(rs2.getString("address"))
+							.phoneNum(rs2.getString("tel"))
+							.email(rs2.getString("email"))
+							.build();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return verifiedUser;
+		
+	}
+
+	private UserDTO checkStudent(Connection conn, String tempSql,int tempId, int tempPL) {
+		UserDTO verifiedUser = null;
+		try (PreparedStatement pstmt2 = conn.prepareStatement(tempSql)){
+			pstmt2.setInt(1, tempId);
+			ResultSet rs2 = pstmt2.executeQuery();
+			if (rs2.next()) {
+				verifiedUser = UserDTO.builder()
+							.id(tempId)
+							.permissionLevel(tempPL)
+							.name(rs2.getString("name"))
+							.birth(rs2.getString("brith_date"))
+							.gender(rs2.getString("gender"))
+							.address(rs2.getString("address"))
+							.phoneNum(rs2.getString("tel"))
+							.email(rs2.getString("email"))
+							.build();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return verifiedUser;
+		
+		
 	}
 
 }
