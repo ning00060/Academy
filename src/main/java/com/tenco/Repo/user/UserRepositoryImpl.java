@@ -18,6 +18,7 @@ public class UserRepositoryImpl implements UserRepository{
 		String sqlProfessor = " SELECT * FROM tb_professor where id = ? ";
 		String sqlStaff = " SELECT * FROM tb_staff where id = ? ";
 		UserDTO verifiedUser = null;
+		
 		String tempSql = null;
 		int tempId = 0;
 		int tempPL=0;
@@ -89,7 +90,7 @@ public class UserRepositoryImpl implements UserRepository{
 							.id(tempId)
 							.permissionLevel(tempPL)
 							.name(rs2.getString("name"))
-							.birth(rs2.getString("brith_date"))
+							.birth(rs2.getString("birth_date"))
 							.gender(rs2.getString("gender"))
 							.address(rs2.getString("address"))
 							.phoneNum(rs2.getString("tel"))

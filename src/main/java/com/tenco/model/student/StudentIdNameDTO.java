@@ -1,4 +1,4 @@
-package com.tenco.model.subject;
+package com.tenco.model.student;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,17 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SubjectDTO {
+@Builder
+public class StudentIdNameDTO {
 	private int id;
 	private String name;
-	private String roomId;
-	private String departmentName;
-	private String majorType;
-	private int year;
-	private int semester;
-	private int grades;
 }

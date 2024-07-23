@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>학점 입력하기</title>
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
 	<h2>학점 입력하기</h2>
