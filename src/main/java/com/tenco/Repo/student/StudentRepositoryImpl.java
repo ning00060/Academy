@@ -13,20 +13,19 @@ import com.tenco.util.DBUtil;
 public class StudentRepositoryImpl implements StudentRepository {
 
 	@Override
-	public StudentDTO search(String id) {
+	public StudentDTO search(int id) {
 		
 		String sql = " select * from tb_student where id = ? ";
 		StudentDTO studentDTO = null;
 		
 		try(Connection conn = DBUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, id);
+			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-//				new StudentDTO();
-//				studentDTO = StudentDTO.builder()
-//				.id(rs.getString("id"))
-//				.name(rs.getString("name"))
+				studentDTO = StudentDTO.builder()
+				.id(rs.getInt("id"))
+				.name(rs.getString("name"))
 //				.birth_date(rs.getString("birth_date"))
 //				.gender(rs.getString("gender"))
 //				.tel(rs.getString("tel"))
@@ -35,7 +34,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 //				.grade(rs.getInt("grade"))
 //				.semester(rs.getInt("semester"))
 //				.entrance_date(rs.getString("entrance_date"))
-//				.build();	
+				.build();	
 		}
 		
 		} catch (SQLException e) {
@@ -43,7 +42,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 		}
 		
 		
-		return null; 
+		return studentDTO; 
 		
 	}
 
