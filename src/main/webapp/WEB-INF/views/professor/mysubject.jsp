@@ -1,3 +1,8 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="org.apache.tomcat.jakartaee.commons.lang3.ArrayUtils"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.tenco.model.subject.SubjectDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -6,13 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>내 강의</title>
-<link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
 	<h2>내 강의</h2>
 	<%
-	ResultSet rs = (ResultSet) request.getAttribute("subjectList");
-	if (rs != null) {
+	List<SubjectDTO> subjectList = (List<SubjectDTO>)request.getAttribute("subjectList");
+	if (subjectList != null) {
 	%>
 	<table border="1">
 		<tr>
@@ -28,22 +32,23 @@
 			<th>
 		</tr>
 		<%
-		while (rs.next()) {
+
+			for(int i = 0; i< subjectList.size(); i++){
 		%>
 		<tr>
-			<td><%=rs.getInt("id")%></td>
-			<td><%=rs.getString("name")%></td>
-			<td><%=rs.getInt("roomId")%></td>
-			<td><%=rs.getString("departmentName")%></td>
-			<td><%=rs.getString("majorType")%></td>
-			<td><%=rs.getString("year")%></td>
-			<td><%=rs.getString("semester")%></td>
-			<td><%=rs.getString("grades")%></td>
+			<td><%=subjectList.get(i).getId()%></td>
+			<td><%=subjectList.get(i).getName()%></td>
+			<td><%=subjectList.get(i).getRoomId()%></td>
+			<td><%=subjectList.get(i).getDepartmentName()%></td>
+			<td><%=subjectList.get(i).getMajorType()%></td>
+			<td><%=subjectList.get(i).getYear()%></td>
+			<td><%=subjectList.get(i).getSemester()%></td>
+			<td><%=subjectList.get(i).getGrades()%></td>
 			<td>
 				<form
 					action="${pageContext.request.contextPath}/professor/input-grade"
 					method="GET">
-					<input type="hidden" name="subjectId" value="<%=rs.getInt("id")%>">
+					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
 					<button type="submit">성적 입력</button>
 				</form>
 			</td>

@@ -18,6 +18,7 @@ public class UserRepositoryImpl implements UserRepository{
 		String sqlProfessor = " SELECT * FROM tb_professor where id = ? ";
 		String sqlStaff = " SELECT * FROM tb_staff where id = ? ";
 		UserDTO verifiedUser = null;
+		
 		String tempSql = null;
 		int tempId = 0;
 		int tempPL=0;
