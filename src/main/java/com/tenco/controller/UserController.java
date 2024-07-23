@@ -97,7 +97,6 @@ public class UserController extends HttpServlet {
 		System.out.println(action);
 		switch (action) {
 		case "/login":
-			System.out.println("/login 됨");
 			handleLogin(request, response);
 			break;
 		
