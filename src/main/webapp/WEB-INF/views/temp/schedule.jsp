@@ -53,7 +53,7 @@
 		<input value="<%=enrollList.get(0).getStudentId() %>">
 		<input value="<%=userDTO.getName() %>">
 	
-	
+	<p>테스트</p>
 	</div>
 	
 	
