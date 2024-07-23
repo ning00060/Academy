@@ -38,7 +38,7 @@
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   -->
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">학사관리</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/staff/subjectList">학사관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/Semester">등록</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
 			</c:if>
