@@ -43,12 +43,12 @@ public class UserController extends HttpServlet {
     public void init() throws ServletException {
     	userRepositoryImpl = new UserRepositoryImpl();
     	noticeRepository= new NoticeRepositoryImpl();
-<<<<<<< HEAD
+
     	scheduleRepository=new ScheduleRepositoryImpl();
     	studentRepository=new StudentRepositoryImpl();
-=======
+
     	scheduleRepository = new ScheduleRepositoryImpl();
->>>>>>> 935f16ebf2ca08989bf269db32b77fb4c454f60c
+
     	System.out.println("12");
     }
     
@@ -92,9 +92,15 @@ public class UserController extends HttpServlet {
 	 * @throws ServletException 
 	 */
 	private void handleMypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
+		UserDTO userDTO=(UserDTO) session.getAttribute("verifiedUser");
+		System.out.println("handleMypage : " +userDTO.toString());
+		System.out.println(userDTO.getId());
+		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
+		System.out.println(studentDTO.toString()+"학생DTO@"); 
+		request.setAttribute("studentDTO", studentDTO);
 
-
-//		System.out.println(userDTO.getId());
+		System.out.println(userDTO.getId());
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 		
 	}
@@ -110,11 +116,10 @@ public class UserController extends HttpServlet {
 		HttpSession session=request.getSession();
 		UserDTO userDTO=(UserDTO) session.getAttribute("verifiedUser");
 		
-		StudentDTO studentDTO=studentRepository.search(userDTO.getId());
+		StudentDTO studentDTO=studentRepository.studentInfo(userDTO.getId());
 		System.out.println(studentDTO.toString()+"학생DTO@");
 		request.setAttribute("studentDTO", studentDTO);
-		
-		request.getRequestDispatcher("/My_page2.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 	}
 
 
