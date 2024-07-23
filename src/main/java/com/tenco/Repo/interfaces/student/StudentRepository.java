@@ -4,6 +4,7 @@ import com.tenco.model.student.StudentDTO;
 
 public interface StudentRepository {
 
+
     StudentDTO studentInfo(int id);
 
 //    StudentDTO selectStudentById(int id);
