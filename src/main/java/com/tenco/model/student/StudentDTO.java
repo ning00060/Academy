@@ -12,8 +12,28 @@ import lombok.ToString;
 @Builder
 @ToString
 public class StudentDTO {
-	
-	private String id;
-	private String dept_id;
+    // 학생 기본 데이터
+    private int id;
+    private String name;
+    private String birth_date;
+    private String gender;
+    private String address;
+    private String tel;
+    private String email;
+    private int dept_id;
+    private int grade;
+    private int semester;
+    private String entrance_date;
+    private String graduation_date;
+
+    // 학과 기본 데이터
+    private int d_number;
+    private String d_name;
+    private int d_id;
+
+    // 유저 기본 데이터
+
+
+
 
 }

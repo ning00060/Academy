@@ -146,7 +146,6 @@ public class UserController extends HttpServlet {
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
 
-			response.sendRedirect(request.getContextPath()+"/user/home");
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		}else {
 			System.out.println("login실패");
