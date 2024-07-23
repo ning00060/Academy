@@ -64,6 +64,7 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
+			
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;	
 

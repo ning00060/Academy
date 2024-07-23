@@ -10,8 +10,7 @@
               connectionTimeout="30000"
               idleTimeout="600000"
               maxLifetime="1800000"
-              
-              jdbcUrl="jdbc:mysql://localhost:3306/db_uni?serverTimezone=Asia/Seoul"
+              jdbcUrl="jdbc:mysql://192.168.0.144:3306/db_uni?serverTimezone=Asia/Seoul"
               driverClassName="com.mysql.cj.jdbc.Driver"
               username="root"
               password="asd123"/>
