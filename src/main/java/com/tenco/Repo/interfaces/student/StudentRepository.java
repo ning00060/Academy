@@ -4,6 +4,6 @@ import com.tenco.model.student.StudentDTO;
 
 public interface StudentRepository {
 	
-	StudentDTO search(String id);
+	StudentDTO search(int id);
 
 }
