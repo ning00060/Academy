@@ -32,6 +32,6 @@
 	</form>
 	<br>
 	<br>
-	<a href="">홈으로 돌아가기</a>
+	<a href="index.jsp">홈으로 돌아가기</a>
 </body>
 </html>
