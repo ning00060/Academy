@@ -23,6 +23,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
+<<<<<<< HEAD
 				studentDTO = StudentDTO.builder()
 				.id(rs.getInt("id"))
 				.name(rs.getString("name"))
@@ -35,6 +36,9 @@ public class StudentRepositoryImpl implements StudentRepository {
 //				.semester(rs.getInt("semester"))
 //				.entrance_date(rs.getString("entrance_date"))
 				.build();	
+=======
+
+>>>>>>> 935f16ebf2ca08989bf269db32b77fb4c454f60c
 		}
 		
 		} catch (SQLException e) {

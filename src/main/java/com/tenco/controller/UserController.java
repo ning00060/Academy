@@ -43,8 +43,12 @@ public class UserController extends HttpServlet {
     public void init() throws ServletException {
     	userRepositoryImpl = new UserRepositoryImpl();
     	noticeRepository= new NoticeRepositoryImpl();
+<<<<<<< HEAD
     	scheduleRepository=new ScheduleRepositoryImpl();
     	studentRepository=new StudentRepositoryImpl();
+=======
+    	scheduleRepository = new ScheduleRepositoryImpl();
+>>>>>>> 935f16ebf2ca08989bf269db32b77fb4c454f60c
     	System.out.println("12");
     }
     
@@ -68,6 +72,7 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
+			
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;	
 			
@@ -120,7 +125,6 @@ public class UserController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
-
 		case "/login":
 			System.out.println("/login 됨");
 			handleLogin(request, response);
@@ -142,7 +146,6 @@ public class UserController extends HttpServlet {
 		System.out.println("asdf");
 		UserDTO userDTO = null;
 		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
-		
 		int id = Integer.parseInt(request.getParameter("id"));
 		String password = (String) request.getParameter("password");
 		if ((userDTO = userRepositoryImpl.userLogin(id, password)) != null) {
