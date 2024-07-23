@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class StudentDTO {
 	
-	private String id;
+	private int id;
 	private String dept_id;
-
+	private String name;
 }

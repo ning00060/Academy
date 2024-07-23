@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -23,11 +23,7 @@
 
 <a href="${pageContext.request.contextPath}/user/logout">로그아웃 logout</a>
 <a href="${pageContext.request.contextPath}/user/My">마이페이지</a>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="main_head.jsp"%>
->>>>>>> 0a38832d9c566942a498be227b3c2addd25f63dc
 
 
 
