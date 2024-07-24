@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의목록 조회하기</title>
+<title>수강과목 조회하기</title>
 </head>
 <body>
-	<h2>강의목록 조회하기</h2>
-	<form action="${pageContext.request.contextPath}/professor/mysubject" method="GET">
+	<h2>강의평가 수강과목 조회</h2>
+	<form action="${pageContext.request.contextPath}/user/readmysubject" method="GET">
 		<select id="year" name="year">
 			<option value="2014">2014</option>
 			<option value="2015">2015</option>
@@ -27,7 +27,7 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-		<input type="text"id="professorId" name="professorId" placeholder="담당교수 ID를 입력하시오.">
+		<input type="text"id="studentId" name="studnetId" placeholder="학번을 입력하시오.">
 		<button type="submit">조회</button>
 	</form>
 	<br>

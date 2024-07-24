@@ -21,9 +21,8 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 	private final static String INSERT_TB_STUDENT_SUBJECT_DETAIL = " insert into tb_stu_sub_detail(student_id, mid_exam, final_exam, converted_mark) values(?, ?, ?, ?) ";
 
 	private final static String SELECT_STUDENTS_BY_SUBJECT_ID = " select er.student_id, st.name from tb_enroll as er left join tb_student as st on er.student_id = st.id where er.subject_id = ? ";
-	
-	
-	// subjectID로 해당 강의를 수강하는 학생의 학번, 이름 받아오기 
+
+	// subjectID로 해당 강의를 수강하는 학생의 학번, 이름 받아오기
 	public List<StudentIdNameDTO> selectStudentIdNameBySubjectId(int subjectId) {
 		List<StudentIdNameDTO> studentList = new ArrayList<>();
 		try (Connection conn = DBUtil.getConnection();
@@ -32,8 +31,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				studentList
-						.add(StudentIdNameDTO.builder().id(rs.getInt("student_id"))
-														.name(rs.getString("name")).build());
+						.add(StudentIdNameDTO.builder().id(rs.getInt("student_id")).name(rs.getString("name")).build());
 			}
 
 		} catch (Exception e) {
@@ -73,16 +71,15 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			pstmt.setInt(3, semester);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				subjectList.add(SubjectDTO.builder()
-						.id(rs.getInt("id")).name(rs.getString("name"))
+				subjectList.add(SubjectDTO.builder().id(rs.getInt("id")).name(rs.getString("name"))
 						.roomId(rs.getString("room_id")).departmentName(rs.getString("department_name"))
-						.majorType(rs.getString("major_type")).year(rs.getInt("year"))
-						.semester(rs.getInt("semester")).grades(rs.getInt("grades"))
-						.build());
+						.majorType(rs.getString("major_type")).year(rs.getInt("year")).semester(rs.getInt("semester"))
+						.grades(rs.getInt("grades")).build());
 
 			}
-		
-			//System.out.println("교수Id, 개설년도, 개설학기 로 모든 강의 조회 쿼리 실행 -- 강의의 수 : " + subjectList.size());
+
+			// System.out.println("교수Id, 개설년도, 개설학기 로 모든 강의 조회 쿼리 실행 -- 강의의 수 : " +
+			// subjectList.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();

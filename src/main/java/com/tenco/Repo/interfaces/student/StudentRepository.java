@@ -1,8 +1,12 @@
 package com.tenco.Repo.interfaces.student;
 
+import java.util.List;
+
 import com.tenco.model.student.StudentDTO;
+import com.tenco.model.subject.UsersSubjectDTO;
 
 public interface StudentRepository {
+
 	// 학생 정보 출력
 	StudentDTO studentInfo(int id);
 	// 학생 정보 수정
@@ -14,4 +18,9 @@ public interface StudentRepository {
 //	StudentDTO studentInfoModify(int password, String email, String tel, String address, int id);
 	
 
+	
+	StudentDTO search(int id);
+	List<UsersSubjectDTO> readMySubject(int studentId, int year, int semester);
+
 }
+
