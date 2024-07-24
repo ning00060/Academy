@@ -79,11 +79,31 @@ public class UserController extends HttpServlet {
 		case "/Myinformation":
 			System.out.println("/학생 정보 조회시도");
 			handleInformation(request, response);
+		
+		case "/update":
+			System.out.println("/학생 정보 수정페이지 이동시도");
+			handleInfoModify(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/myInfo2.jsp").forward(request, response);
 			
 		default:
 			break;
 		}
 	}
+
+	/**
+	 * 학생 정보 수정 페이지로 이동
+	 * @param request
+	 * @param response
+	 */
+	private void handleInfoModify(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
+		request.setAttribute("studentDTO", studentDTO);
+		System.out.println("학생 정보 수정: "+studentDTO.toString());
+	}
+
+
 	/**
 	 * 학생 Mypage 버튼 클릭 후 내 정보 조회가 먼저 출력된다.
 	 * @param request
@@ -143,10 +163,8 @@ public class UserController extends HttpServlet {
 
 	}
 
-
 	// TODO 여기 들어오기전 필터 체크 
 	// index.html - login button Pressed, Activate
-
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		System.out.println("asdf");
 		UserDTO userDTO = null;

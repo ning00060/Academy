@@ -32,7 +32,9 @@ public class StudentDTO {
 	private int d_id;
 	
 	// 유저 기본 데이터
-	
+	private int u_number;
+	private String u_password;
+	private int u_permission_level;
 	
 	
 	
