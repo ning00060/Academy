@@ -75,6 +75,10 @@ public class StaffController extends HttpServlet {
 
 
 	private void subjectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< HEAD
+=======
+		HttpSession session = request.getSession();
+>>>>>>> 61459a7e0d62eb3bd851ee1941e7fa8319ceada5
 //		StudentDTO studentDTO=studentRepository.selectStudentById(2023000001);
 //		List<EnrollDTO> enrollList=enrollRepository.selectByStudentId( studentDTO.getId());
 //		request.setAttribute("enrollList", enrollList);
