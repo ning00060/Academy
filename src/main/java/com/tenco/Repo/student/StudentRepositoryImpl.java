@@ -10,6 +10,7 @@ import java.util.List;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
+import com.tenco.model.temp.EvaluationQuestionDTO;
 import com.tenco.util.DBUtil;
 
 public class StudentRepositoryImpl implements StudentRepository {
@@ -25,6 +26,15 @@ public class StudentRepositoryImpl implements StudentRepository {
 			+ " where er.student_id = ? and (sj.year = ? and sj.semester = ?) ";
 	
 	private final static String SELECT_ALL_QUESTION_FOR_EVALUATION = " select * from tb_question where id = 1 ";
+	
+	public EvaluationQuestionDTO getEvaluationQuestion() {
+		EvaluationQuestionDTO questions = new EvaluationQuestionDTO();
+		
+		
+		
+		
+		return questions;
+	}
 	
 	@Override
 	public StudentDTO studentInfo(int id) {

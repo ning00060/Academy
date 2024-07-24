@@ -11,7 +11,6 @@ import com.tenco.Repo.temp.NoticeRepositoryImpl;
 import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.student.StudentDTO;
-import com.tenco.model.subject.SubjectDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.NoticeDTO;
 import com.tenco.model.temp.ScheduleDTO;

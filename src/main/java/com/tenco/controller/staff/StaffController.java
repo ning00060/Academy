@@ -60,9 +60,9 @@ public class StaffController extends HttpServlet {
 
 	private void subjectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		StudentDTO studentDTO=studentRepository.selectStudentById(2023000001);
-		List<EnrollDTO> enrollList=enrollRepository.selectByStudentId( studentDTO.getId());
-		request.setAttribute("enrollList", enrollList);
+//		StudentDTO studentDTO=studentRepository.selectStudentById(2023000001);
+//		List<EnrollDTO> enrollList=enrollRepository.selectByStudentId( studentDTO.getId());
+//		request.setAttribute("enrollList", enrollList);
 		request.getRequestDispatcher("/WEB-INF/views/temp/schedule.jsp").forward(request, response);
 	}
 
