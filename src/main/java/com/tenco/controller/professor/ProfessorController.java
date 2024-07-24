@@ -45,8 +45,7 @@ public class ProfessorController extends HttpServlet {
 			break;
 
 		// 학생 성적 입력 폼에서 성적 입력 후 입력받은 값을 DB에 저장하기
-			// TODO : 하나식 입력? 전부 입력?  현재화면 그대로? 이전화면? 회의 필요
-		case "/inputgrade":
+		case "/input-grade":
 			enterStudentGrade(request, response);
 			break;
 
@@ -60,19 +59,34 @@ public class ProfessorController extends HttpServlet {
 	private void moveentergrade(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String subjectId = request.getParameter("subjectId");
+		System.out.println("subjectId : " + subjectId);
+		request.setAttribute("subjectId", subjectId);
 		List<StudentIdNameDTO> studentList = new ArrayList<>();
+		studentList = professorRepository.selectStudentIdNameBySubjectId(Integer.parseInt(subjectId));
 		request.setAttribute("studentList", studentList);
-		request.getRequestDispatcher("/WEB-INF/views/professor/subjectstudent.jsp").forward(request, response);
+		System.out.println(studentList.toString());
+		request.getRequestDispatcher("/WEB-INF/views/professor/subjectstudents.jsp").forward(request, response);
+		System.out.println("외않댆?");
 
 	}
 
-	private void enterStudentGrade(HttpServletRequest request, HttpServletResponse response) {
-		int studentId = Integer.parseInt(request.getParameter("studentId"));
-		int midExam = Integer.parseInt(request.getParameter("midExamScore"));
-		int finalExam = Integer.parseInt(request.getParameter("finalExamScore"));
-		int convertedMark = Integer.parseInt(request.getParameter("grade"));
-		professorRepository.insertStudentsGradesByStudentId(studentId, midExam, finalExam, convertedMark);
-		
+	private void enterStudentGrade(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int subjectId = Integer.parseInt(request.getParameter("subjectId"));
+		int studentSize = Integer.parseInt(request.getParameter("studentSize"));
+		int studentId = 0;
+		int midExam;
+		int finalExam;
+		int convertedMark;
+		System.out.println("studentSize : " + studentSize);
+		for(int i = 1; i <= studentSize; i++) {
+			studentId = Integer.parseInt(request.getParameter("studentId"+i));
+			midExam = Integer.parseInt(request.getParameter("midExamScore"+i));
+			finalExam = Integer.parseInt(request.getParameter("finalExamScore"+i));
+			convertedMark = Integer.parseInt(request.getParameter("grade"+i));
+			professorRepository.insertStudentsGradesByStudentId(studentId, subjectId, midExam, finalExam, convertedMark);
+		}
+		// TODO = 현재 학생 성적 DB에 전송 후 내 강의 선택 페이지로 가는데 기존 조회한 강의로 가도록 수정!. 
+		request.getRequestDispatcher("/WEB-INF/views/professor/select.jsp").forward(request, response);
 	}
 
 

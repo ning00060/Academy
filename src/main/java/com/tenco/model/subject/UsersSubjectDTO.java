@@ -14,10 +14,10 @@ import lombok.ToString;
 
 public class UsersSubjectDTO {
 	
-	private int studentId;
+	private int subjectId;
 	private String subjectName;
 	private String professorName;
-	private int roomId;
+	private String roomId;
 	private String departmentName;
 	private String majorType;
 	private String year;

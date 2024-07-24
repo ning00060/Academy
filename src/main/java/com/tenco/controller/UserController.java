@@ -12,6 +12,7 @@ import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
+import com.tenco.model.temp.EvaluationQuestionDTO;
 import com.tenco.model.temp.NoticeDTO;
 import com.tenco.model.temp.ScheduleDTO;
 import com.tenco.model.user.UserDTO;
@@ -75,12 +76,15 @@ public class UserController extends HttpServlet {
 			handleEvaluation(request,response);
 			break;
 
+
+
 		case "/myInfo":
 			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
 			handleMypage(request, response);
 			break;
 
 		case "/home":
+
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 
@@ -118,7 +122,6 @@ public class UserController extends HttpServlet {
 		
 	}
 
-
 	/**
 	 * 학생 정보 수정 페이지로 이동
 	 * 
@@ -147,9 +150,12 @@ public class UserController extends HttpServlet {
 		String studnetId = request.getParameter("studentId");
 		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId),
 				Integer.parseInt(year), Integer.parseInt(semester));
+		System.out.println(subjectList.toString());
 		request.setAttribute("subjectList", subjectList);
+
 		
 		request.getRequestDispatcher("/WEB-INF/views/student/studentsubject.jsp").forward(request, response);
+
 
 	}
 

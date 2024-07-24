@@ -28,8 +28,7 @@
 			<th>개설 년도:</th>
 			<th>학기:</th>
 			<th>학점:</th>
-			<th>
-			<th>
+			<th></th>
 		</tr>
 		<%
 
@@ -46,7 +45,7 @@
 			<td><%=subjectList.get(i).getGrades()%></td>
 			<td>
 				<form
-					action="${pageContext.request.contextPath}/professor/input-grade"
+					action="${pageContext.request.contextPath}/professor/selectsubject"
 					method="GET">
 					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
 					<button type="submit">성적 입력</button>
