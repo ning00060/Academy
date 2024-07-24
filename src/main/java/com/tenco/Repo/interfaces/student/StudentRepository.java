@@ -6,14 +6,9 @@ import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 
 public interface StudentRepository {
-<<<<<<< HEAD
 	
 	StudentDTO search(int id);
 	List<UsersSubjectDTO> readMySubject(int studentId, int year, int semester);
-}
-=======
-
-
     StudentDTO studentInfo(int id);
 
 //    StudentDTO selectStudentById(int id);
@@ -23,4 +18,4 @@ public interface StudentRepository {
 
 
 }
->>>>>>> c3cc76563f1f4c720ec167e804a8492cd28f599e
+ 

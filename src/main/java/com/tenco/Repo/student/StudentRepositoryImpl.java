@@ -24,7 +24,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 			+ " left join tb_enroll as er on sj.id = er.subject_id "
 			+ " where er.student_id = ? and (sj.year = ? and sj.semester = ?) ";
 	
-	
+	private final static String SELECT_ALL_QUESTION_FOR_EVALUATION = " select * from tb_question where id = 1 ";
 	
 	@Override
 	public StudentDTO studentInfo(int id) {
@@ -68,7 +68,6 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return studentDTO; 
 	}
 
-<<<<<<< HEAD
 
 
 	@Override
@@ -96,7 +95,12 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return subjectList;
 	}
 
+
+
+	@Override
+	public StudentDTO search(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
-=======
-}
->>>>>>> c3cc76563f1f4c720ec167e804a8492cd28f599e

@@ -73,7 +73,11 @@ public class UserController extends HttpServlet {
 			System.out.println("학생ID, 강의 개설년도, 개설학기 정보를 받아 내 강의 리스트 폼 진입");
 			handleMySubject(request, response);
 			break;
-
+		case "/goevaluation":
+			System.out.println("강의평가 설문 폼 진입");
+			handleEvaluation(request,response);
+			break;
+			
 		
 		case "/myInfo":
 			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
@@ -82,7 +86,6 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
-			
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;	
 			
@@ -94,8 +97,15 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		
+	}
+
+
 	private void handleMySubject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("내 강의 조회 메서드 진입");
+		System.out.println("학생 -> 내 강의 조회 메서드 진입");
 
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
@@ -103,7 +113,7 @@ public class UserController extends HttpServlet {
 		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId), Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("subjectList", subjectList);
 		
-		request.getRequestDispatcher("/WEB-INF/views/student/.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/student/studentsubject.jsp").forward(request, response);
 	}
 
 	/**
