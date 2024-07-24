@@ -38,7 +38,14 @@
 				<!-- 관리직 카테고리   -->
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/staff/subjectList">학사관리</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/test/Semester">등록</a> </h2>
+			    <div class="dropdown">
+			        <button class="dropbtn">등록</button>
+			        <div class="dropdown-content">
+			            <a href="${pageContext.request.contextPath}/staff/registPro">교수</a>
+			            <a href="${pageContext.request.contextPath}/staff/registStaff">직원</a>
+			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
+			        </div>
+			    </div>
 				<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
 			</c:if>
 			
