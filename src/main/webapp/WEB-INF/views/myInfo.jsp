@@ -1,3 +1,4 @@
+<%@page import="com.tenco.model.student.StudentDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -5,11 +6,13 @@
  
  <div class="myInfoMainDiv">
  
- 	<div>
+ 	<div style="flex-direction: row;">
  		
  		<div>
  		<h2>MY</h2>
  		</div>
+ 
+
  
  		<div >
  		
@@ -40,7 +43,7 @@
         
         
  		
- 		</div>
+ 	<% StudentDTO student = (StudentDTO)request.getAttribute("studentDTO"); %>	
  		
  	</div>
  	
@@ -59,21 +62,22 @@
             </colgroup>
                 <tr>
                     <th>학번</th>
-                    <td>${student.id}</td>
-                    <th>소속</th>
-                    <td>${student.collegeName}&nbsp;${student.deptName}</td>
+                    <td> <%= student.getId() %> </td>
+                    <th>소속 student.collegeName</th>
+                    <td><%= student.getD_name() %></td>
                 </tr>
                 <tr>
                     <th>학년</th>
-                    <td>${student.grade}</td>
+                    <td><%= student.getGrade() %></td>
                     <th>학기</th>
-                    <td>${student.semester}</td>
+                    <td><%= student.getSemester() %></td>
                 </tr>
                 <tr>
                     <th>입학일</th>
-                    <td>${student.entranceDate}</td>
+                    <td><%= student.getEntrance_date() %></td>
                     <th>졸업일(졸업예정일)</th>
-                    <td>${student.graduationDate}</td>
+                    <!-- 학생 졸업날짜가 null 값이라면 빈 공간을 출력 아니라면 졸업날짜 출력  -->
+                    <td><%= student.getGraduation_date() == null ? "" : student.getGraduation_date() %></td>
                 </tr>
             </table>
             <table border="1" class="input--table" >
@@ -85,24 +89,26 @@
             </colgroup>
                 <tr>
                     <th>성명</th>
-                    <td>${student.name}</td>
+                    <td><%= student.getName() %></td>
                     <th>생년월일</th>
-                    <td>${student.birthDate}</td>
+                    <td><%= student.getBirth_date() %></td>
                 </tr>
                 <tr>
                     <th>성별</th>
-                    <td>${student.gender}</td>
+                    <td><%= student.getGender() %></td>
                     <th>주소</th>
-                    <td>${student.address}</td>
+                    <td><%= student.getAddress() %></td>
                 </tr>
                 <tr>
                     <th>연락처</th>
-                    <td>${student.tel}</td>
+                    <td><%= student.getTel() %></td>
                     <th>email</th>
-                    <td>${student.email}</td>
+                    <td><%= student.getEmail() %></td>
                 </tr>
             </table>
-            <button type="button" onclick="location.href='/update'" class="btn btn-dark update--button">수정하기</button>
+            <input type="button"></button>
+            <button type="button" 
+            onclick="location.href='/Academy/user/update?id=<%= student.getId()%>'" class="btn btn-dark update--button">수정하기</button>
  	
  	</div>
  	

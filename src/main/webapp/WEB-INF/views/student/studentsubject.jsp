@@ -1,3 +1,4 @@
+<%@page import="com.tenco.model.subject.UsersSubjectDTO"%>
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="org.apache.tomcat.jakartaee.commons.lang3.ArrayUtils"%>
 <%@page import="java.util.ArrayList"%>
@@ -15,7 +16,7 @@
 <body>
 	<h2>내 강의</h2>
 	<%
-	List<SubjectDTO> subjectList = (List<SubjectDTO>)request.getAttribute("subjectList");
+	List<UsersSubjectDTO> subjectList = (List<UsersSubjectDTO>) request.getAttribute("subjectList");
 	if (subjectList != null) {
 	%>
 	<table border="1">
@@ -32,12 +33,12 @@
 			<th>
 		</tr>
 		<%
-
-			for(int i = 0; i< subjectList.size(); i++){
+		for (int i = 0; i < subjectList.size(); i++) {
 		%>
 		<tr>
-			<td><%=subjectList.get(i).getId()%></td>
-			<td><%=subjectList.get(i).getName()%></td>
+			<td><%=subjectList.get(i).getStudentId()%></td>
+			<td><%=subjectList.get(i).getSubjectName()%></td>
+			<td><%=subjectList.get(i).getProfessorName()%></td>
 			<td><%=subjectList.get(i).getRoomId()%></td>
 			<td><%=subjectList.get(i).getDepartmentName()%></td>
 			<td><%=subjectList.get(i).getMajorType()%></td>
@@ -46,9 +47,10 @@
 			<td><%=subjectList.get(i).getGrades()%></td>
 			<td>
 				<form
-					action="${pageContext.request.contextPath}/professor/input-grade"
+					action="${pageContext.request.contextPath}/user/goevaluation"
 					method="GET">
-					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
+					<input type="hidden" name="subjectId"
+						value="<%=subjectList.get(i).getSubjectName()%>">
 					<button type="submit">성적 입력</button>
 				</form>
 			</td>
@@ -60,7 +62,7 @@
 	<%
 	} else {
 	%>
-	<p>해당 학기에 개설된 강좌가 없습니다.</p>
+	<p>해당 학기에 수강한 강좌가 없습니다.</p>
 	<%
 	}
 	%>

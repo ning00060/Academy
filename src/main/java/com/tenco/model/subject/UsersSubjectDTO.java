@@ -7,17 +7,21 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SubjectDTO {
-	private int id;
-	private String name;
-	private String roomId;
+@Builder
+
+public class UsersSubjectDTO {
+	
+	private int studentId;
+	private String subjectName;
+	private String professorName;
+	private int roomId;
 	private String departmentName;
 	private String majorType;
-	private int year;
-	private int semester;
-	private int grades;
+	private String year;
+	private String semester; 
+	private String grades;
+	
 }
