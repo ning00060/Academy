@@ -1,3 +1,4 @@
+<%@page import="com.tenco.model.temp.EvaluationQuestionDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,8 +10,8 @@
 <body>
 	<h2> 강의 평가 설문 </h2>
 	<%
-	List<UsersSubjectDTO> subjectList = (List<UsersSubjectDTO>) request.getAttribute("subjectList");
-	if (subjectList != null) {
+	EvaluationQuestionDTO questions = (EvaluationQuestionDTO)request.getAttribute("questions");
+	if (questions != null) {
 	%>
     <label>본 평가는 본 학교의 강의 환경 개선에 활용됩니다. <br> 진지한 답변 작성 부탁드립니다. <br> (1). 매우 그렇지 않다. (2). 약간 그렇지 않다. (3). 보통이다. (4). 약간 그렇다. (5). 매우 그렇다 </label>
 	
@@ -35,7 +36,7 @@
         <tr>
         	<td rowspan="2">강의 준비</td>
         	<td>1</td>
-        	<td>질문테이블1</td>
+        	<td><%=questions.getQuestion1()%></td>
         	<td><input type="radio" id="que1-1" name="que1" value="1"></td>
         	<td><input type="radio" id="que1-2" name="que1" value="2"></td>
         	<td><input type="radio" id="que1-3" name="que1" value="3"></td>
@@ -45,7 +46,7 @@
         
         <tr>
         	<td>2</td>
-        	<td>질문테이블2</td>
+        	<td><%=questions.getQuestion2()%></td>
         	<td><input type="radio" id="que2-1" name="que2" value="1"></td>
         	<td><input type="radio" id="que2-2" name="que2" value="2"></td>
         	<td><input type="radio" id="que2-3" name="que2" value="3"></td>
@@ -56,7 +57,7 @@
         <tr>
         	<td rowspan="2">강의 내용</td>
         	<td>3</td>
-        	<td>질문테이블3</td>
+        	<td><%=questions.getQuestion3()%></td>
         	<td><input type="radio" id="que3-1" name="que3" value="1"></td>
         	<td><input type="radio" id="que3-2" name="que3" value="2"></td>
         	<td><input type="radio" id="que3-3" name="que3" value="3"></td>
@@ -66,7 +67,7 @@
         
         <tr>
         	<td>4</td>
-        	<td>질문테이블4</td>
+        	<td><%=questions.getQuestion4()%></td>
         	<td><input type="radio" id="que4-1" name="que4" value="1"></td>
         	<td><input type="radio" id="que4-2" name="que4" value="2"></td>
         	<td><input type="radio" id="que4-3" name="que4" value="3"></td>
@@ -77,7 +78,7 @@
 		<tr>
         	<td rowspan="3">강의 태도</td>
         	<td>5</td>
-        	<td>질문테이블5</td>
+        	<td><%=questions.getQuestion5()%></td>
         	<td><input type="radio" id="que5-1" name="que5" value="1"></td>
         	<td><input type="radio" id="que5-2" name="que5" value="2"></td>
         	<td><input type="radio" id="que5-3" name="que5" value="3"></td>
@@ -87,7 +88,7 @@
         
         <tr>
         	<td>6</td>
-        	<td>질문테이블6</td>
+        	<td><%=questions.getQuestion6()%></td>
         	<td><input type="radio" id="que6-1" name="que6" value="1"></td>
         	<td><input type="radio" id="que6-2" name="que6" value="2"></td>
         	<td><input type="radio" id="que6-3" name="que6" value="3"></td>
@@ -97,7 +98,7 @@
         
         <tr>
         	<td>7</td>
-        	<td>질문테이블7</td>
+        	<td><%=questions.getQuestion7()%></td>
         	<td><input type="radio" id="que7-1" name="que7" value="1"></td>
         	<td><input type="radio" id="que7-2" name="que7" value="2"></td>
         	<td><input type="radio" id="que7-3" name="que7" value="3"></td>
@@ -108,7 +109,7 @@
         <tr>
         	<td rowspan="3">학습 평가</td>
         	<td>8</td>
-        	<td>질문테이블8</td>
+        	<td><%=questions.getQuestion8()%></td>
         	<td><input type="radio" id="que8-1" name="que8" value="1"></td>
         	<td><input type="radio" id="que8-2" name="que8" value="2"></td>
         	<td><input type="radio" id="que8-3" name="que8" value="3"></td>
@@ -118,7 +119,7 @@
         
         <tr>
         	<td>9</td>
-        	<td>질문테이블9</td>
+        	<td><%=questions.getQuestion9()%></td>
         	<td><input type="radio" id="que9-1" name="que9" value="1"></td>
         	<td><input type="radio" id="que9-2" name="que9" value="2"></td>
         	<td><input type="radio" id="que9-3" name="que9" value="3"></td>
@@ -128,7 +129,7 @@
         
         <tr>
         	<td>10</td>
-        	<td>질문테이블10</td>
+        	<td><%=questions.getQuestion10()%></td>
         	<td><input type="radio" id="que10-1" name="que10" value="1"></td>
         	<td><input type="radio" id="que10-2" name="que10" value="2"></td>
         	<td><input type="radio" id="que10-3" name="que10" value="3"></td>
@@ -138,13 +139,16 @@
         
 
     </table>
+    <%}%>
+  
+    
     
     <p>건의사항 - 강의에 대한 건의사항이 있다면 자유롭게 써 주세요</p>
-    <textarea rows="10" cols="100">
+    <textarea name="sugContent" rows="10" cols="100">
     </textarea>
     <br> <br>
     <button type="submit">제출하기</button>
-    <a href="${pageContext.request.contextPath}/temp/home.jsp">홈 화면으로 돌아가기</a>
+    <a href="${pageContext.request.contextPath}/WEB-INF/views/Home.jsp">홈 화면으로 돌아가기</a>
     
     </form>
 </body>

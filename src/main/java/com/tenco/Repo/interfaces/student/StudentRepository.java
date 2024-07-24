@@ -7,11 +7,7 @@ import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
 
 public interface StudentRepository {
-<<<<<<< HEAD
 	
-	StudentDTO search(int id);
-	List<UsersSubjectDTO> readMySubject(int studentId, int year, int semester);
-    StudentDTO studentInfo(int id);
     EvaluationQuestionDTO getEvaluationQuestion();
 //    StudentDTO selectStudentById(int id);
 
@@ -19,9 +15,7 @@ public interface StudentRepository {
 //    StudentDTO studentInfoModify(int password, String email, String tel, String address, int id);
 
 
-}
  
-=======
 
 	// 학생 정보 출력
 	StudentDTO studentInfo(int id);
@@ -40,4 +34,3 @@ public interface StudentRepository {
 
 }
 
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b

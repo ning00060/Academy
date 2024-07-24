@@ -12,6 +12,7 @@ import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
+import com.tenco.model.temp.EvaluationQuestionDTO;
 import com.tenco.model.temp.NoticeDTO;
 import com.tenco.model.temp.ScheduleDTO;
 import com.tenco.model.user.UserDTO;
@@ -69,16 +70,13 @@ public class UserController extends HttpServlet {
 			System.out.println("학생ID, 강의 개설년도, 개설학기 정보를 받아 내 강의 리스트 폼 진입");
 			handleMySubject(request, response);
 			break;
-<<<<<<< HEAD
 		case "/goevaluation":
 			System.out.println("강의평가 설문 폼 진입");
 			handleEvaluation(request,response);
 			break;
 			
 		
-=======
 
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 		case "/myInfo":
 			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
 			handleMypage(request, response);
@@ -86,10 +84,7 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
-<<<<<<< HEAD
-=======
 
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 
@@ -106,17 +101,17 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
-<<<<<<< HEAD
-	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) {
-		
-		
-		
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
+		request.setAttribute("questions", questions);
+		System.out.println("questions 키 값에 강의평가 설문 정보가 담긴 DTO 저장");
+		String subjectName = request.getParameter("subjectName");
+		request.setAttribute("subjectName", subjectName);
+		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+		System.out.println("외않됆?");
 	}
 
 
-	private void handleMySubject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("학생 -> 내 강의 조회 메서드 진입");
-=======
 
 	/**
 	 * 학생 정보 수정 페이지로 이동
@@ -135,21 +130,15 @@ public class UserController extends HttpServlet {
 	private void handleMySubject(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("내 강의 조회 메서드 진입");
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
 		String studnetId = request.getParameter("studentId");
 		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId),
 				Integer.parseInt(year), Integer.parseInt(semester));
+		System.out.println(subjectList.toString());
 		request.setAttribute("subjectList", subjectList);
-<<<<<<< HEAD
-		
 		request.getRequestDispatcher("/WEB-INF/views/student/studentsubject.jsp").forward(request, response);
-=======
-
-		request.getRequestDispatcher("/WEB-INF/views/student/.jsp").forward(request, response);
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 	}
 
 	/**
