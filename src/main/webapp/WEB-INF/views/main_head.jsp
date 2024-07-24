@@ -55,7 +55,7 @@
 			
 			<nav>
 				<ul>
-					<li>홈</li>
+					<li> <a>홈</a> </li>
 					<li>로그인</li>
 				</ul>
 			</nav>

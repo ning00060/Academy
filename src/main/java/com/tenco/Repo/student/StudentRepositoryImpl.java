@@ -86,10 +86,9 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return studentDTO; 
 	}
 
-<<<<<<< HEAD
-=======
+// 학생 상세 정보 수정
 	@Override
-	public StudentDTO studentInfoModify(String password, String email, String tel, String address, int id) {
+	public void studentInfoModify(String password, String email, String tel, String address, int id) {
 			String sql = " Update tb_student as s "
 					+ " join tb_user as u "
 					+ " on s.id = u.id "
@@ -100,7 +99,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 					+ " where s.id = ? ";
 			
 			StudentDTO dto = null;
-			int rowCount = 1;
+			int rowCount = 0;
 			
 			try(Connection conn = DBUtil.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -110,17 +109,14 @@ public class StudentRepositoryImpl implements StudentRepository {
 					pstmt.setString(3, tel);
 					pstmt.setString(4, address);
 					pstmt.setInt(5, id);
-					rowCount = pstmt.executeUpdate();
-					conn.commit();
+					pstmt.executeUpdate();
+				 conn.commit();
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			
-		return ;
 	}
-	
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 
 
 	@Override
@@ -157,7 +153,4 @@ public class StudentRepositoryImpl implements StudentRepository {
 	}
 
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
