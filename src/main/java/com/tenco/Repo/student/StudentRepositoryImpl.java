@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.model.student.StudentDTO;
+import com.tenco.model.user.UserDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
 import com.tenco.util.DBUtil;
@@ -39,10 +40,13 @@ public class StudentRepositoryImpl implements StudentRepository {
 	@Override
 	public StudentDTO studentInfo(int id) {
 		
-		String sql = " select s.*, d.id as d_number, d.name as d_name, d.college_id as d_id "
+		String sql = " select s.*, d.id as d_number, d.name as d_name, d.college_id as d_id, u.id as u_number, u.password as u_password, u.permission_level as u_permission_level "
 				+ " from tb_student as s "
 				+ " join tb_department as d "
-				+ " on s.dept_id = d.id where s.id = ? ";
+				+ "	on s.dept_id = d.id "
+				+ " join tb_user as u "
+				+ " on s.id = u.id "
+				+ " where s.id = ? ";
 		StudentDTO studentDTO = null;
 		
 		try(Connection conn = DBUtil.getConnection();
@@ -67,6 +71,10 @@ public class StudentRepositoryImpl implements StudentRepository {
 				.d_number(rs.getInt("d_number"))
 				.d_name(rs.getString("d_name"))
 				.d_id(rs.getInt("d_id"))
+				
+				.u_number(rs.getInt("u_number"))
+				.u_password(rs.getString("u_password"))
+				.u_permission_level(rs.getInt("u_permission_level"))
 				.build();
 		}
 		
@@ -78,6 +86,41 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return studentDTO; 
 	}
 
+<<<<<<< HEAD
+=======
+	@Override
+	public StudentDTO studentInfoModify(String password, String email, String tel, String address, int id) {
+			String sql = " Update tb_student as s "
+					+ " join tb_user as u "
+					+ " on s.id = u.id "
+					+ " set u.password = ?, "
+					+ "	s.email = ?, "
+					+ " s.tel = ?, "
+					+ " s.address = ? "
+					+ " where s.id = ? ";
+			
+			StudentDTO dto = null;
+			int rowCount = 1;
+			
+			try(Connection conn = DBUtil.getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+					conn.setAutoCommit(false);
+					pstmt.setString(1, password);
+					pstmt.setString(2, email);
+					pstmt.setString(3, tel);
+					pstmt.setString(4, address);
+					pstmt.setInt(5, id);
+					rowCount = pstmt.executeUpdate();
+					conn.commit();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		return ;
+	}
+	
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 
 
 	@Override
@@ -114,3 +157,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 	}
 
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b

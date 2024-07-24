@@ -23,47 +23,44 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
-
-
-@WebServlet("/user/*") 
+@WebServlet("/user/*")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserRepositoryImpl userRepositoryImpl;
-	private NoticeRepository noticeRepository;//공지사항
-	private ScheduleRepository scheduleRepository;//학사일정
+	private NoticeRepository noticeRepository;// 공지사항
+	private ScheduleRepository scheduleRepository;// 학사일정
 	private StudentRepository studentRepository;
 
 	public UserController() {
 		super();
 	}
 
-	
-    @Override
-    public void init() throws ServletException {
-    	userRepositoryImpl = new UserRepositoryImpl();
-    	noticeRepository= new NoticeRepositoryImpl();
+	@Override
+	public void init() throws ServletException {
+		userRepositoryImpl = new UserRepositoryImpl();
+		noticeRepository = new NoticeRepositoryImpl();
 
-    	scheduleRepository=new ScheduleRepositoryImpl();
-    	studentRepository=new StudentRepositoryImpl();
+		scheduleRepository = new ScheduleRepositoryImpl();
+		studentRepository = new StudentRepositoryImpl();
 
-    	scheduleRepository = new ScheduleRepositoryImpl();
+		scheduleRepository = new ScheduleRepositoryImpl();
 
-    	System.out.println("12");
-    }
-    
-    // 아이디 찾기, 비밀번호 찾기 sendredirect
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		System.out.println("12");
+	}
+
+	// 아이디 찾기, 비밀번호 찾기 sendredirect
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String action = request.getPathInfo();
-		System.out.println(action+"/doget");
+		System.out.println(action + "/doget");
 		switch (action) {
 
-		case "/findId":	
+		case "/findId":
 			break;
 		case "/findPw":
 			break;
-			
+
 		case "/evaluation":
 			System.out.println("학생 -> 강의평가를 위한 내 강의 조회 폼 진입");
 			request.getRequestDispatcher("/WEB-INF/views/student/select.jsp").forward(request, response);
@@ -72,12 +69,16 @@ public class UserController extends HttpServlet {
 			System.out.println("학생ID, 강의 개설년도, 개설학기 정보를 받아 내 강의 리스트 폼 진입");
 			handleMySubject(request, response);
 			break;
+<<<<<<< HEAD
 		case "/goevaluation":
 			System.out.println("강의평가 설문 폼 진입");
 			handleEvaluation(request,response);
 			break;
 			
 		
+=======
+
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 		case "/myInfo":
 			// TODO - /학생이 My 페이지로 이동하는지 확인하기 위해서 임시로 jsp를 생성함 - 경로 및 파일 삭제예정
 			handleMypage(request, response);
@@ -85,17 +86,27 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
+<<<<<<< HEAD
+=======
+
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
-			break;	
-			
+			break;
+
 		case "/Myinformation":
 			System.out.println("/학생 정보 조회시도");
 			handleInformation(request, response);
-			
+
+		case "/update":
+			System.out.println("/학생 정보 수정페이지 이동시도");
+			handleInfoModify(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/myInfo2.jsp").forward(request, response);
+
 		default:
 			break;
 		}
 	}
+<<<<<<< HEAD
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) {
 		
 		
@@ -105,55 +116,83 @@ public class UserController extends HttpServlet {
 
 	private void handleMySubject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("학생 -> 내 강의 조회 메서드 진입");
+=======
+
+	/**
+	 * 학생 정보 수정 페이지로 이동
+	 * 
+	 * @param request
+	 * @param response
+	 */
+	private void handleInfoModify(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
+		request.setAttribute("studentDTO", studentDTO);
+		System.out.println("학생 정보 수정: " + studentDTO.toString());
+	}
+
+	private void handleMySubject(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("내 강의 조회 메서드 진입");
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
 		String studnetId = request.getParameter("studentId");
-		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId), Integer.parseInt(year), Integer.parseInt(semester));
+		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId),
+				Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("subjectList", subjectList);
+<<<<<<< HEAD
 		
 		request.getRequestDispatcher("/WEB-INF/views/student/studentsubject.jsp").forward(request, response);
+=======
+
+		request.getRequestDispatcher("/WEB-INF/views/student/.jsp").forward(request, response);
+>>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 	}
 
 	/**
 	 * 학생 Mypage 버튼 클릭 후 내 정보 조회가 먼저 출력된다.
+	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException 
-	 * @throws ServletException 
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	private void handleMypage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
-		UserDTO userDTO=(UserDTO) session.getAttribute("verifiedUser");
-		System.out.println("handleMypage : " +userDTO.toString());
+	private void handleMypage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+		System.out.println("handleMypage : " + userDTO.toString());
 		System.out.println(userDTO.getId());
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
-		System.out.println(studentDTO.toString()+"학생DTO@"); 
+		System.out.println(studentDTO.toString() + "학생DTO@");
 		request.setAttribute("studentDTO", studentDTO);
 
 		System.out.println(userDTO.getId());
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
-		
+
 	}
-	
+
 	/**
 	 * 학생이 정보 조회 시도
+	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException 
-	 * @throws ServletException 
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	private void handleInformation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session=request.getSession();
-		UserDTO userDTO=(UserDTO) session.getAttribute("verifiedUser");
-		
-		StudentDTO studentDTO=studentRepository.studentInfo(userDTO.getId());
-		System.out.println(studentDTO.toString()+"학생DTO@");
+	private void handleInformation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+
+		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
+		System.out.println(studentDTO.toString() + "학생DTO@");
 		request.setAttribute("studentDTO", studentDTO);
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 	}
-
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -165,8 +204,6 @@ public class UserController extends HttpServlet {
 			System.out.println("/login 됨");
 			handleLogin(request, response);
 			break;
-		
-
 
 		default:
 			break;
@@ -174,14 +211,13 @@ public class UserController extends HttpServlet {
 
 	}
 
-
-	// TODO 여기 들어오기전 필터 체크 
+	// TODO 여기 들어오기전 필터 체크
 	// index.html - login button Pressed, Activate
-
-	private void handleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void handleLogin(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		System.out.println("asdf");
 		UserDTO userDTO = null;
-		//TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
+		// TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
 		int id = Integer.parseInt(request.getParameter("id"));
 		String password = (String) request.getParameter("password");
 		if ((userDTO = userRepositoryImpl.userLogin(id, password)) != null) {
@@ -189,23 +225,22 @@ public class UserController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("verifiedUser", userDTO);
 			// 공지사항 getAll
-			List<NoticeDTO> noticeList=noticeRepository.SelectNoitceAll5();
+			List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAll5();
 			request.setAttribute("noticeList", noticeList);
 			// 학사일정 getAll
-			List<ScheduleDTO> scheduleList=scheduleRepository.SelectScheduleAll5();
+			List<ScheduleDTO> scheduleList = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList);
 			System.out.println("login성공");
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
 
-
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
-		}else {
+		} else {
 			System.out.println("login실패");
-			response.sendRedirect(request.getContextPath()+"/user/login");
-			//TODO 로그인 실패 알람 전송
+			response.sendRedirect(request.getContextPath() + "/user/login");
+			// TODO 로그인 실패 알람 전송
 		}
-		
+
 	}
 
 }
