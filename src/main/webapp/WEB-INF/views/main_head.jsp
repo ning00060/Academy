@@ -13,8 +13,6 @@
 </head>
 <body>
 	<header>
-			<h2>  </h2>
-			
 				
 			
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
@@ -22,20 +20,26 @@
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
-				<!-- 학생 카테고리 -->
+				<!-- 학생 카테고리 6-->
+				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/subjectList">수강신청</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 2}">
-				<!-- 교수 카테고리   -->
+				<!-- 교수 카테고리  4 -->
+				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">
-				<!-- 관리직 카테고리   -->
+				<!-- 관리직 카테고리   5-->
+				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">학사관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/Semester">등록</a> </h2>

@@ -43,12 +43,8 @@ public class UserController extends HttpServlet {
     public void init() throws ServletException {
     	userRepositoryImpl = new UserRepositoryImpl();
     	noticeRepository= new NoticeRepositoryImpl();
-<<<<<<< HEAD
     	scheduleRepository=new ScheduleRepositoryImpl();
     	studentRepository=new StudentRepositoryImpl();
-=======
-    	scheduleRepository = new ScheduleRepositoryImpl();
->>>>>>> 935f16ebf2ca08989bf269db32b77fb4c454f60c
     	System.out.println("12");
     }
     
