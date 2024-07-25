@@ -11,6 +11,7 @@ header{
 background-color: black;
 color: white;
 display: flex;
+height: 10%;
 justify-content: space-between;
 align-items: center;
 width: 100%;
@@ -33,9 +34,8 @@ margin-right: 20px;
 footer{
 	background-color: #f0f0f0;
 	display:flex;
-	padding: 20px;
 	border-radius: 8px;
-	height:70vh;
+	height:10vh;
 	justify-content:center;
 	width: 100%;
 	
@@ -123,6 +123,14 @@ input[type="submit"]{
 }
 .button--container {
 	margin-left: 200px;
+}
+
+.studentEvaluation-inner {
+	display: flex;
+	flex-direction: row;
+	height: 80vh;
+	align-items: center;
+	width: 100%;
 }
 
 

@@ -11,6 +11,7 @@ import java.util.List;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.model.student.AnswerDTO;
 import com.tenco.model.student.StudentDTO;
+import com.tenco.model.student.breakappDTO;
 import com.tenco.model.user.UserDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
@@ -193,5 +194,61 @@ public class StudentRepositoryImpl implements StudentRepository {
 		
 		return rowCount;
 	}
+
+	@Override
+	public int addBreakapp(breakappDTO breakappDTO) {
+		
+		String sql = " insert into tb_break_app(student_id, student_grade, from_year, from_semester, to_year, to_semester, type) "
+				+ " values(?, ?, ?, ?, ?, ?, ?) ";
+		
+		int rowCount = 0;
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, breakappDTO.getStudent_id());
+			pstmt.setInt(2, breakappDTO.getStudent_grade());
+			pstmt.setInt(3, breakappDTO.getFrom_year());
+			pstmt.setInt(4, breakappDTO.getFrom_semester());
+			pstmt.setInt(5, breakappDTO.getTo_year());
+			pstmt.setInt(6, breakappDTO.getTo_semester());
+			pstmt.setString(7, breakappDTO.getType());
+			rowCount = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rowCount;
+	}
+
+	@Override
+	public breakappDTO searchBreakapp(int id) {
+		String sql = " select * from tb_break_app where student_id = ? ";
+		breakappDTO breakappDTO = null;
+		
+		try(Connection conn = DBUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				breakappDTO = breakappDTO.builder()
+				.student_id(rs.getInt("student_id"))
+				.student_grade(rs.getInt("student_grade"))
+				.from_year(rs.getInt("from_year"))
+				.from_semester(rs.getInt("from_semester"))
+				.to_year(rs.getInt("to_year"))
+				.to_semester(rs.getInt("to_semester"))
+				.type(rs.getString("type"))
+				.app_date(rs.getString("app_date"))
+				.status(rs.getString("status"))
+				.build();
+			}				
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return breakappDTO;
+	}
+	
+	
 
 }

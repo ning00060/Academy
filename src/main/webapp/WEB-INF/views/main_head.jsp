@@ -24,7 +24,7 @@
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 -->
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/subjectList">수강신청</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/evaluation">강의평가</a> </h2>
 			</c:if>
