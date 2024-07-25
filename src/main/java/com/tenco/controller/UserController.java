@@ -106,9 +106,7 @@ public class UserController extends HttpServlet {
 	}
 
 
-	private void handleMySubject(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("학생 -> 내 강의 조회 메서드 진입");
-
+	
 	/**
 	 * 학생 정보 수정 페이지로 이동
 	 * 

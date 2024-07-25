@@ -110,6 +110,7 @@ input[type="submit"]{
 		<h1>교수 등록</h1>
 		<div class="split--div"></div>
 		<form action="${pageContext.request.contextPath}/staff/registPro" method="post">
+		
 			<table class="table--container">
 				<tr>
 					<td><label for="name">이름</label></td>

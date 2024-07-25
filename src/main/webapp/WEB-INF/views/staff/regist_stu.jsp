@@ -109,7 +109,7 @@ input[type="submit"]{
 	<main>
 		<h1>학생 등록</h1>
 		<div class="split--div"></div>
-		<form action="${pageContext.request.contextPath}/staff/registPro" method="post">
+		<form action="${pageContext.request.contextPath}/staff/registStu" method="post">
 			<table class="table--container">
 				<tr>
 					<td><label for="name">이름</label></td>
@@ -144,7 +144,7 @@ input[type="submit"]{
 				</tr>
 				<tr>
 					<td><label for="entranceDate">입학일</label></td>
-					<td><input type="text" name="entranceDate" id="entranceDate" class="input--box"></td>
+					<td><input type="text" name="entranceDate" id="entranceDate" class="input--box" value="2024-03-02"></td>
 				</tr>
 				<tr>
 					<td><label for="password">비밀번호</label></td>

@@ -18,7 +18,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 	
 	
 	private final static String SELECT_ALL_SUBJECT_BY_SID_YEAR_SEMESTER = 
-			" SELECT er.student_id, sj.name, pf.name as professor_name, sj.room_id, "
+			" SELECT sj.id, sj.name, pf.name as professor_name, sj.room_id, "
 			+ " dp.name as department_name, sj.major_type, sj.year, sj.semester, sj.grades "
 			+ " FROM tb_subject as sj "
 			+ " left join tb_professor as pf on sj.professor_id = pf.id "
@@ -30,11 +30,26 @@ public class StudentRepositoryImpl implements StudentRepository {
 	
 	public EvaluationQuestionDTO getEvaluationQuestion() {
 		EvaluationQuestionDTO questions = new EvaluationQuestionDTO();
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_QUESTION_FOR_EVALUATION)) {
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				questions = EvaluationQuestionDTO.builder().id(rs.getInt("id"))
+						.question1(rs.getString("question1")).question2(rs.getString("question2"))
+						.question3(rs.getString("question3")).question4(rs.getString("question4"))
+						.question5(rs.getString("question5")).question6(rs.getString("question6"))
+						.question7(rs.getString("question7")).question8(rs.getString("question8"))
+						.question9(rs.getString("question9")).question10(rs.getString("question10"))
+						.sugContent(rs.getString("sug_content"))
+						.build();
 		
-		
-		
-		
-		return questions;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	System.out.println("@@" + questions.toString());
+		return questions; 
 	}
 	
 	@Override
@@ -86,10 +101,10 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return studentDTO; 
 	}
 
-<<<<<<< HEAD
-=======
+
+// 학생 상세 정보 수정
 	@Override
-	public StudentDTO studentInfoModify(String password, String email, String tel, String address, int id) {
+	public void studentInfoModify(String password, String email, String tel, String address, int id) {
 			String sql = " Update tb_student as s "
 					+ " join tb_user as u "
 					+ " on s.id = u.id "
@@ -100,7 +115,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 					+ " where s.id = ? ";
 			
 			StudentDTO dto = null;
-			int rowCount = 1;
+			int rowCount = 0;
 			
 			try(Connection conn = DBUtil.getConnection();
 					PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -110,17 +125,13 @@ public class StudentRepositoryImpl implements StudentRepository {
 					pstmt.setString(3, tel);
 					pstmt.setString(4, address);
 					pstmt.setInt(5, id);
-					rowCount = pstmt.executeUpdate();
-					conn.commit();
+					pstmt.executeUpdate();
+				 conn.commit();
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
-		return ;
 	}
-	
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b
 
 
 	@Override
@@ -136,8 +147,8 @@ public class StudentRepositoryImpl implements StudentRepository {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				subjectList.add(UsersSubjectDTO.builder()
-						.studentId(rs.getInt("id")).subjectName(rs.getString("name"))
-						.professorName(rs.getString("professor_name")).roomId(rs.getInt("room_id"))
+						.subjectId(rs.getInt("id")).subjectName(rs.getString("name"))
+						.professorName(rs.getString("professor_name")).roomId(rs.getString("room_id"))
 						.departmentName(rs.getString("department_name")).majorType(rs.getString("major_type"))
 						.year(rs.getString("year")).semester(rs.getString("semester"))
 						.grades(rs.getString("grades")).build());
@@ -148,8 +159,6 @@ public class StudentRepositoryImpl implements StudentRepository {
 		return subjectList;
 	}
 
-
-
 	@Override
 	public StudentDTO search(int id) {
 		// TODO Auto-generated method stub
@@ -157,7 +166,3 @@ public class StudentRepositoryImpl implements StudentRepository {
 	}
 
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> d86186af8a7c574a94443a28fe149534a3638c6b

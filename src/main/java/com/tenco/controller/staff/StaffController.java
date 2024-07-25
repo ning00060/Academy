@@ -20,6 +20,7 @@ import com.tenco.Repo.interfaces.temp.EnrollRepository;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.EnrollRepositoryImpl;
+import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.temp.EnrollDTO;
@@ -75,10 +76,6 @@ public class StaffController extends HttpServlet {
 
 
 	private void subjectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
-=======
-		HttpSession session = request.getSession();
->>>>>>> 61459a7e0d62eb3bd851ee1941e7fa8319ceada5
 //		StudentDTO studentDTO=studentRepository.selectStudentById(2023000001);
 //		List<EnrollDTO> enrollList=enrollRepository.selectByStudentId( studentDTO.getId());
 //		request.setAttribute("enrollList", enrollList);
@@ -121,15 +118,70 @@ public class StaffController extends HttpServlet {
 
 
 	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		// TODO Auto-generated method stub
+		String name= request.getParameter("name");
+		String birth=request.getParameter("birthDate");
+		String gender= request.getParameter("gender");
+		String address= request.getParameter("address");
+		String tel= request.getParameter("tel");
+		String email= request.getParameter("email");
+		String passwrod=request.getParameter("password");
+		int deptId=Integer.parseInt( request.getParameter("deptId"));
+		
+		
+//		ProfessorDTO professorDTO=ProfessorDTO.builder()
+//				.name(name)
+//				.birthDate(birth)
+//				.gender(gender)
+//				.address(address)
+//				.tel(tel)
+//				.email(email)
+//				.build();
+//		System.out.println( professorDTO.toString());
+//		if(professorDTO==null) {
+//			response.sendRedirect(request.getContextPath()+"/user/login");
+//			}
+//		else {
+//			staffRepository.addUserStaff(professorDTO, passwrod);
+//			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+//			}
+//		}
 		
 	}
 
 
-	private void registStuPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		// TODO Auto-generated method stub
+	private void registStuPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+		String name= request.getParameter("name");
+		String birth=request.getParameter("birthDate");
+		String gender= request.getParameter("gender");
+		String address= request.getParameter("address");
+		String tel= request.getParameter("tel");
+		String email= request.getParameter("email");
+		int dept_id=Integer.parseInt( request.getParameter("deptId"));
+		String entranceDate=request.getParameter("entranceDate");
+		String password=request.getParameter("password");
 		
-	}
+		
+		StudentDTO studentDTO=StudentDTO.builder()
+				.name(name)
+				.birth_date(birth)
+				.gender(gender)
+				.address(address)
+				.tel(tel)
+				.email(email)
+				.dept_id(dept_id)
+				.entrance_date(entranceDate)
+				.build();
+		System.out.println( studentDTO.toString());
+		if(studentDTO==null) {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+			}
+		else {
+			staffRepository.addUserStudent(studentDTO, password);
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+			}
+		}
+		
+	
 
 
 	private void registStaffPage(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException, ServletException {
@@ -139,7 +191,7 @@ public class StaffController extends HttpServlet {
 	String address= request.getParameter("address");
 	String tel= request.getParameter("tel");
 	String email= request.getParameter("email");
-	String passwrod=request.getParameter("password");
+	String password=request.getParameter("password");
 
 	
 	
@@ -156,7 +208,7 @@ public class StaffController extends HttpServlet {
 		response.sendRedirect(request.getContextPath()+"/user/login");
 		}
 	else {
-		staffRepository.addUserStaff(staffDTO, passwrod);
+		staffRepository.addUserStaff(staffDTO, password);
 		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		}
 	}
