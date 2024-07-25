@@ -2,6 +2,7 @@ package com.tenco.Repo.interfaces.student;
 
 import java.util.List;
 
+import com.tenco.model.student.AnswerDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
@@ -21,4 +22,9 @@ public interface StudentRepository {
     StudentDTO studentInfo(int id);
     // 학생 정보 수정
     void studentInfoModify(String password, String email, String tel, String address, int id);
+    
+    // 강의 평가에 대한 설문 답변 등록
+    
+    int addEvaluationAnswer(AnswerDTO answerDto);
+    
 }

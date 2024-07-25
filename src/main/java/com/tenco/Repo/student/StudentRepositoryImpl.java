@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.tenco.Repo.interfaces.student.StudentRepository;
+import com.tenco.model.student.AnswerDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.user.UserDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
@@ -163,6 +165,33 @@ public class StudentRepositoryImpl implements StudentRepository {
 	public StudentDTO search(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int addEvaluationAnswer(AnswerDTO answerDto) {
+		
+		String sql = " insert into tb_evaluation (student_id, subject_id, answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10, improvements, avg) "
+				+ " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+		
+		int rowCount = 0;
+		
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setInt(1, answerDto.getStuId());
+			pstmt.setInt(2, answerDto.getSubId());
+			int[] tempanswer = answerDto.getAnswer();
+			for (int i = 0; i < tempanswer.length; i++) {
+				pstmt.setInt(i+3, tempanswer[i]);
+			}
+			pstmt.setString(13, answerDto.getContent());
+			pstmt.setFloat(14,(float)answerDto.getAvg());
+			rowCount = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return rowCount;
 	}
 
 }

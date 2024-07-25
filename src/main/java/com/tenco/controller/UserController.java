@@ -115,12 +115,16 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
-
-	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) {
-		
-
-		
-	}
+	
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
+        request.setAttribute("questions", questions);
+        String subjectName = request.getParameter("subjectName");
+        String subjectId = request.getParameter("subjectId");
+        request.setAttribute("subjectId", subjectId);
+        request.setAttribute("subjectName", subjectName);
+        request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+    }
 
 	/**
 	 * 학생 정보 수정 페이지로 이동
@@ -248,7 +252,7 @@ public class UserController extends HttpServlet {
 		studentDTO = studentRepository.studentInfo(userDTO.getId());
 			System.out.println("변경 성공");
 			System.out.println(studentDTO.toString());
-			response.sendRedirect(request.getContextPath()+"/user/a");
+			
 	}
 
 	// TODO 여기 들어오기전 필터 체크
