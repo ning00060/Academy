@@ -19,11 +19,9 @@
  		<div class="sub--menu--mid">
             <table class="sub--menu--table" border="1">
                 <tr>
-                    <td><a href="/info/student" class="selected--menu">내 정보 조회</a></td>
+                    <td><a href="/Academy/user/myInfo" class="selected--menu">내 정보 조회</a></td>
                 </tr>
-                <tr>
-                    <td><a href="/password">비밀번호 변경</a></td>
-                </tr>
+                
                 <tr>
                     <td><a href="/break/application">휴학 신청</a></td>
                 </tr>
@@ -106,7 +104,7 @@
                     <td><%= student.getEmail() %></td>
                 </tr>
             </table>
-            <input type="button"></button>
+            <input type="button">
             <button type="button" 
             onclick="location.href='/Academy/user/update?id=<%= student.getId()%>'" class="btn btn-dark update--button">수정하기</button>
  	

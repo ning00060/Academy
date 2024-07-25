@@ -18,7 +18,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			+ " from tb_subject as sj left join tb_department as dp on sj.dept_id = dp.id "
 			+ " where sj.professor_id = ? and sj.year = ? and sj.semester = ? ";
 
-	private final static String INSERT_TB_STUDENT_SUBJECT_DETAIL = " insert into tb_stu_sub_detail(student_id, mid_exam, final_exam, converted_mark) values(?, ?, ?, ?) ";
+	private final static String INSERT_TB_STUDENT_SUBJECT_DETAIL = " insert into tb_stu_sub_detail(student_id, subject_id, mid_exam, final_exam, converted_mark) values(?, ?, ?, ?, ?) ";
 
 	private final static String SELECT_STUDENTS_BY_SUBJECT_ID = " select er.student_id, st.name from tb_enroll as er left join tb_student as st on er.student_id = st.id where er.subject_id = ? ";
 
@@ -40,14 +40,15 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 		return studentList;
 	}
 
-	public void insertStudentsGradesByStudentId(int studentId, int midExam, int finalExam, int convertedMark) {
+	public void insertStudentsGradesByStudentId(int studentId, int subjectId, int midExam, int finalExam, int convertedMark) {
 		try (Connection conn = DBUtil.getConnection()) {
 			conn.setAutoCommit(false);
 			try (PreparedStatement pstmt = conn.prepareStatement(INSERT_TB_STUDENT_SUBJECT_DETAIL)) {
 				pstmt.setInt(1, studentId);
-				pstmt.setInt(2, midExam);
-				pstmt.setInt(3, finalExam);
-				pstmt.setInt(4, convertedMark);
+				pstmt.setInt(2, subjectId);
+				pstmt.setInt(3, midExam);
+				pstmt.setInt(4, finalExam);
+				pstmt.setInt(5, convertedMark);
 				pstmt.executeUpdate();
 				conn.commit();
 			} catch (Exception e) {

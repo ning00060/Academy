@@ -1,30 +1,22 @@
 package com.tenco.controller.staff;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
-import java.sql.Date;
-import java.util.List;
 
-import org.eclipse.tags.shaded.org.apache.regexp.RE;
-
-import com.mysql.cj.Session;
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.Repo.interfaces.temp.EnrollRepository;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.EnrollRepositoryImpl;
-import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
-import com.tenco.model.temp.EnrollDTO;
-import com.tenco.model.user.UserDTO;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/staff/*")
 public class StaffController extends HttpServlet {
@@ -47,12 +39,15 @@ public class StaffController extends HttpServlet {
 		switch (action) {
 
 		case "/schedule":
-			System.out.println("스케쥴이동");
 			schedulePage(request, response);
 
 			break;
+		case "/tuition":
+			request.getRequestDispatcher("/WEB-INF/views/staff/tuition.jsp").forward(request, response);
+			tuition(request,response);
+			
+			break;
 		case "/subjectList":
-			System.out.println("서브젝트리스트");
 			subjectList(request,response);
 			
 			break;
@@ -71,6 +66,9 @@ public class StaffController extends HttpServlet {
 		}
 		
 	}
+
+
+
 
 
 
@@ -99,6 +97,10 @@ public class StaffController extends HttpServlet {
 			noticePage(request, response);
 			break;
 			
+		case "/tuition":
+			tuition(request,response);
+			break;
+			
 		case "/registStu":
 			registStuPage(request,response,session);
 			break;
@@ -115,7 +117,11 @@ public class StaffController extends HttpServlet {
 		}
 
 	}
-
+	
+	private void tuition(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String name= request.getParameter("name");

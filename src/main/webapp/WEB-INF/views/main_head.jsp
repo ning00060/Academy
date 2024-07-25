@@ -38,7 +38,14 @@
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   -->
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
+			    <div class="dropdown">
+			        <button class="dropbtn">학사관리</button>
+			        <div class="dropdown-content">
+			            <a href="${pageContext.request.contextPath}/staff/tuition">등록금</a>
+			            <a href="${pageContext.request.contextPath}/staff/registStaff">직원</a>
 				<h2> <a href="${pageContext.request.contextPath}/staff/subjectList">학사관리</a> </h2>
+			        </div>
+			    </div>
 			    <div class="dropdown">
 			        <button class="dropbtn">등록</button>
 			        <div class="dropdown-content">
@@ -62,7 +69,7 @@
 			
 			<nav>
 				<ul>
-					<li>홈</li>
+					<li> <a>홈</a> </li>
 					<li>로그인</li>
 				</ul>
 			</nav>
