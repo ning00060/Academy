@@ -10,10 +10,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 강의</title>
+<title>내 강의 리스트</title>
 </head>
 <body>
-	<h2>내 강의</h2>
+	<h2>내 강의 리스트</h2>
 	<%
 	List<SubjectDTO> subjectList = (List<SubjectDTO>)request.getAttribute("subjectList");
 	if (subjectList != null) {
@@ -45,10 +45,11 @@
 			<td><%=subjectList.get(i).getGrades()%></td>
 			<td>
 				<form
-					action="${pageContext.request.contextPath}/professor/selectsubject"
+					action="${pageContext.request.contextPath}/professor/resultcheck"
 					method="GET">
 					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
-					<button type="submit">성적 입력/수정 하기</button>
+					<input type="hidden" name="subjectName" value="<%=subjectList.get(i).getName()%>">
+					<button type="submit">강의평가 결과 확인하기</button>
 				</form>
 			</td>
 		</tr>

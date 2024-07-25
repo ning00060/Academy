@@ -112,16 +112,16 @@ public class UserController extends HttpServlet {
 		}
 	}
 
-	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
-		request.setAttribute("questions", questions);
-		String subjectName = request.getParameter("subjectName");
-		String subjectId = request.getParameter("subjectId");
-		request.setAttribute("subjectId", subjectId);
-		request.setAttribute("subjectName", subjectName);
-		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
-	}
+	
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
+        request.setAttribute("questions", questions);
+        String subjectName = request.getParameter("subjectName");
+        String subjectId = request.getParameter("subjectId");
+        request.setAttribute("subjectId", subjectId);
+        request.setAttribute("subjectName", subjectName);
+        request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+    }
 
 	/**
 	 * 학생 정보 수정 페이지로 이동

@@ -5,11 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의목록 조회하기</title>
+<title>강의평가 목록 조회하기</title>
 </head>
 <body>
-	<h2>강의목록 조회하기</h2>
-	<form action="${pageContext.request.contextPath}/professor/mysubject" method="GET">
+	<h2>강의평가 목록 조회하기</h2>
+	<form action="${pageContext.request.contextPath}/professor/readEvaluationResult" method="GET">
 		<select id="year" name="year">
 			<option value="2014">2014</option>
 			<option value="2015">2015</option>

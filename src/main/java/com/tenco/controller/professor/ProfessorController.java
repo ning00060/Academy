@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.Repo.professor.ProfessorRepositoryImpl;
+import com.tenco.model.professor.EvaluationResultDTO;
+import com.tenco.model.professor.RestClassDTO;
 import com.tenco.model.student.StudentIdNameDTO;
 import com.tenco.model.subject.SubjectDTO;
 
@@ -48,7 +50,40 @@ public class ProfessorController extends HttpServlet {
 		case "/input-grade":
 			enterStudentGrade(request, response);
 			break;
-
+		
+		// 교수 로그인 후 상단의 휴/보강 관리 메뉴 선택시 -> selectRC JSP 로 이동 처리
+		case "/restclassmanagement":
+			request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+			break;	
+		
+		// selectRC.jsp 에서 개강 년도 , 학기,  정보를 받아  mysubjectRC.jsp로 이동
+		case "/mysubjectRC":
+			readMySubjectRC(request, response);
+			break;	
+			
+		// 휴강 리스트 폼에서 휴강일정 추가하기 버튼 클릭시 휴강일정 입력 폼으로 이동 처리 
+		case "/addRestClass":
+			moveInputForm(request, response);
+			break;
+			
+		// 휴강 일정 입력 폼에서 정보를 입력 받아 DB에 인풋 후 초기화면으로 이동	
+		case "/inputRestClass":
+			inputRestClass(request, response);
+			break;	
+		
+		// 교수 로그인후 상단의 강의평가 결과 조회하기 메뉴 클릭 -> 내강의 목록 조회 폼으로 이동
+		case "/clickERMenu":
+			request.getRequestDispatcher("/WEB-INF/views/professor/selectER.jsp").forward(request, response);
+			break;	
+		// 내 강의 목록 조회 폼에서 개설년도 개설학기 교수id 정보를 얻은 후 해당 정보로 내 강의 리스트 폼으로 이동
+		case "/readEvaluationResult":
+			readMyEvaluationResult(request, response);
+			break;	
+		case "/resultcheck":
+			resultCheck(request, response);
+			break;	
+		
+			
 		default:
 			break;
 		}
@@ -56,6 +91,82 @@ public class ProfessorController extends HttpServlet {
 	}
 
 	
+
+	private void resultCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String subjectId = request.getParameter("subjectId");
+		String subjectName = request.getParameter("subjectName");
+		List<EvaluationResultDTO> erList = professorRepository.selectEvaluationResultBySubjectId(Integer.parseInt(subjectId));
+		request.setAttribute("erList", erList);
+		request.setAttribute("subjectName", subjectName);
+		request.getRequestDispatcher("/WEB-INF/views/professor/checkER.jsp").forward(request, response);
+	}
+
+	private void readMyEvaluationResult(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("내 강의 리스트 메서드 진입 (강의평가 결과조회)");
+
+		String year = request.getParameter("year");
+		String semester = request.getParameter("semester");
+		String professorId = request.getParameter("professorId");
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		request.setAttribute("subjectList", subjectList);
+		
+		request.getRequestDispatcher("/WEB-INF/views/professor/mysubjectlistER.jsp").forward(request, response);
+	
+		
+	}
+
+	private void inputRestClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("휴강 일정 input 메서드 진입");
+		int selectSub = Integer.parseInt(request.getParameter("selectSub"));
+		
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		int year = Integer.parseInt(request.getParameter("year"));
+		int semester = Integer.parseInt(request.getParameter("semester"));
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(professorId, year, semester);
+		int subjectId = subjectList.get(selectSub).getId();
+		String subjectName = subjectList.get(selectSub).getName();
+		String roomId = subjectList.get(selectSub).getRoomId();
+		String restDay = request.getParameter("restDay");
+		String supplement = request.getParameter("supplement");
+		professorRepository.insertRestClass(subjectId, subjectName, professorId, restDay, roomId, year, semester, supplement);
+		System.out.println("휴강일정 입력 완료");
+		request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+		
+	}
+	
+	private void moveInputForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String year = request.getParameter("year");
+		String semester = request.getParameter("semester");
+		String professorId = request.getParameter("professorId");
+		
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		
+		request.setAttribute("subjectList", subjectList);
+		request.setAttribute("year", year);
+		request.setAttribute("semester", semester);
+		request.setAttribute("professorId", professorId);
+		request.getRequestDispatcher("/WEB-INF/views/professor/inputRestClass.jsp").forward(request, response);
+		
+	}
+
+	private void readMySubjectRC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("내 강의의 휴/보강 조회 메서드 진입");
+		
+		String year = request.getParameter("year");
+		String semester = request.getParameter("semester");
+		String professorId = request.getParameter("professorId");
+		
+		List<RestClassDTO> restClassList = professorRepository.selectRestClassByProfessorId(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		request.setAttribute("restClassList", restClassList);
+		request.setAttribute("year", year);
+		request.setAttribute("semester", semester);
+		request.setAttribute("professorId", professorId);
+		
+		request.getRequestDispatcher("/WEB-INF/views/professor/mysubjectRC.jsp").forward(request, response);
+	
+	
+	}
+
 	private void moveentergrade(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String subjectId = request.getParameter("subjectId");
@@ -76,13 +187,13 @@ public class ProfessorController extends HttpServlet {
 		int studentId = 0;
 		int midExam;
 		int finalExam;
-		int convertedMark;
+		float convertedMark;
 		System.out.println("studentSize : " + studentSize);
 		for(int i = 1; i <= studentSize; i++) {
 			studentId = Integer.parseInt(request.getParameter("studentId"+i));
 			midExam = Integer.parseInt(request.getParameter("midExamScore"+i));
 			finalExam = Integer.parseInt(request.getParameter("finalExamScore"+i));
-			convertedMark = Integer.parseInt(request.getParameter("grade"+i));
+			convertedMark = Float.parseFloat(request.getParameter("grade"+i));
 			professorRepository.insertStudentsGradesByStudentId(studentId, subjectId, midExam, finalExam, convertedMark);
 		}
 		// TODO = 현재 학생 성적 DB에 전송 후 내 강의 선택 페이지로 가는데 기존 조회한 강의로 가도록 수정!. 
