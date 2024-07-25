@@ -70,7 +70,6 @@ public class UserController extends HttpServlet {
 			System.out.println("학생ID, 강의 개설년도, 개설학기 정보를 받아 내 강의 리스트 폼 진입");
 			handleMySubject(request, response);
 			break;
-
 		case "/goevaluation":
 			System.out.println("강의평가 설문 폼 진입");
 			handleEvaluation(request,response);
@@ -84,7 +83,6 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
-
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 
@@ -115,6 +113,7 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
+<<<<<<< HEAD
 	
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
@@ -125,6 +124,13 @@ public class UserController extends HttpServlet {
         request.setAttribute("subjectName", subjectName);
         request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
     }
+=======
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) {
+		
+
+		
+	}
+>>>>>>> 0d9931b8e86df7f7a508c9a297c3a822dc2bf597
 
 	/**
 	 * 학생 정보 수정 페이지로 이동
