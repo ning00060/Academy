@@ -40,13 +40,15 @@
 		<div style="flex-grow: 1">
 		
 			<div><p>${verifiedUser.name}님, 환영합니다.</p></div>
-			<div><p>이메일: ${verifiedUser.email}</p> </div>
-			<div><p>소속:</p> </div>
-			<div><p>학기:</p> </div>
-			<div><p>학번: ${verifiedUser.id}</p></div>
+			<div><p>이메일: ${studentDTO.email}</p> </div>
+			<div><p>소속: ${studentDTO.d_name} </p> </div>
+			<div><p>학기: ${studentDTO.grade}</p> </div>
+			<div><p>학번: ${studentDTO.u_number}</p></div>
 		
 		
+		<div>마이페이지</div>
 		</div>
+		
 	
 	</div>
 

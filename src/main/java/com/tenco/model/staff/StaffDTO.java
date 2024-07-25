@@ -16,7 +16,7 @@ public class StaffDTO {
 
 	private int id;
 	private String name;
-	private Timestamp birthDate;
+	private String birthDate;
 	private String gender;
 	private String address;
 	private String tel;

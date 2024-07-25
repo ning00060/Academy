@@ -51,6 +51,9 @@
 					method="GET">
 					<input type="hidden" name="subjectName"
 						value="<%=subjectList.get(i).getSubjectName()%>">
+	
+						<input type="hidden" name="subjectId"
+						value="<%=subjectList.get(i).getSubjectId()%>">
 					<button type="submit">강의평가 진행하기</button>
 				</form>
 			</td>
