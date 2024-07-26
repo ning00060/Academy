@@ -33,6 +33,7 @@ public class StaffRepositoryImpl implements StaffRepository{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public StaffDTO addStaff(StaffDTO DTO) {
 		StaffDTO staffDTO=null;
 		try (Connection conn=DBUtil.getConnection()){
@@ -251,4 +252,11 @@ public class StaffRepositoryImpl implements StaffRepository{
 
 
 
+=======
+	public StaffDTO getAllInfoById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+>>>>>>> jh
 }
