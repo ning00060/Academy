@@ -16,50 +16,39 @@
 				
 			
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
-			<P><%=userDTO.getName() %> </P>
+			
+			<p></p>
+			 <!-- <P><%=userDTO.getName() %> </P> -->
+			<a href="${pageContext.request.contextPath}/user/home"> <img alt="로고" src="../resource/favicon.ico"> </a>
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 6-->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/a">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
-<<<<<<< HEAD
+
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/subjectList">수강신청</a> </h2>
-=======
+
 				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
->>>>>>> 728c22ee06ab19d4f82412c61ea0ad0e35b41d0f
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
-<<<<<<< HEAD
+
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
-			</c:if>
-			
-			<c:if test="${verifiedUser.permissionLevel == 2}">
-				<!-- 교수 카테고리  4 -->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
-=======
-				<h2> <a href="${pageContext.request.contextPath}/user/evaluation">강의평가</a> </h2>
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 2}">
 				<!-- 교수 카테고리   -->
 				<h2> <a href="${pageContext.request.contextPath}/professor/123123"></a> </h2>
-<<<<<<< HEAD
+
 				<h2> <a href="${pageContext.request.contextPath}/professor/goinputpage">수업</a> </h2>
->>>>>>> 61459a7e0d62eb3bd851ee1941e7fa8319ceada5
-=======
+
 				<h2> <a href="${pageContext.request.contextPath}/professor/clickERMenu">강의 평가 조회</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/goinputpage">학생 성적 관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/restclassmanagement">휴/보강 관리</a> </h2>
->>>>>>> 728c22ee06ab19d4f82412c61ea0ad0e35b41d0f
+
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   5-->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 			    <div class="dropdown">
 			        <button class="dropbtn">관리</button>
@@ -92,8 +81,9 @@
 			
 			<nav>
 				<ul>
-					<li> <a>홈</a> </li>
-					<li>로그인</li>
+					<li> <%=userDTO.getId()%> <%=userDTO.getName()%> </li>
+					<!--  TODO- 로그아웃 userController에 get 영역에 만들어야 한다. -->
+					<li> <a href="${pageContext.request.contextPath}/index.jsp">로그아웃</a> </li>
 				</ul>
 			</nav>
 		
