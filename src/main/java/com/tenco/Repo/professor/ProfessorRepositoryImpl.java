@@ -3,12 +3,16 @@ package com.tenco.Repo.professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.model.professor.EvaluationResultDTO;
+import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.professor.RestClassDTO;
+import com.tenco.model.professor.StudentGradeDTO;
+import com.tenco.model.student.StudentDTO;
 import com.tenco.model.student.StudentIdNameDTO;
 import com.tenco.model.subject.SubjectDTO;
 import com.tenco.util.DBUtil;
@@ -30,6 +34,41 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			+ " rest_day, room_id, year, semester, supplement) " + " values(?, ?, ?, ?, ?, ?, ?, ?) ";
 	
 	private final static String SELECT_EVALUATION_RESULT_BY_SUBJECTID = " select avg, improvements from tb_evaluation where subject_id = ? ";
+	
+	private final static String SELECT_STUDENT_GRADE_BY_SUBJECT_ID = " select ssd.student_id, st.name as student_name, ssd.subject_id, sj.name as subject_name, ssd.mid_Exam, ssd.final_exam, ssd.converted_mark from tb_stu_sub_detail as ssd left join tb_student as st on ssd.student_id = st.id left join tb_subject as sj on ssd.subject_id = sj.id where ssd.subject_id = ? ";
+	
+	private final static String UPDATE_GRADE_BY_STUDENT_ID = " update tb_stu_sub_detail set mid_exam = ?, final_exam = ?, converted_mark = ? where student_id = ? ";
+	
+	private final static String UPDATE_REST_CLASS_BY_RCID = " update tb_restclass set rest_day = ?, supplement = ? where id = ? ";
+	
+	private final static String DELETE_REST_CLASS_BY_RCID = " delete from tb_restclass where id = ? ";
+	
+	private final static String SELECT_REST_CLASS_BY_ID = " select * from tb_restclass where id = ? ";
+	
+	
+	@Override
+	public List<StudentGradeDTO> selectAllStudentsGradeBySubjectId(int subjectId) {
+		List<StudentGradeDTO> gradeList = new ArrayList<>();
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_STUDENT_GRADE_BY_SUBJECT_ID)) {
+			pstmt.setInt(1, subjectId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				gradeList.add(StudentGradeDTO.builder().studentId(rs.getInt("student_id")).studentName(rs.getString("student_name"))
+														.subjectId(rs.getInt("subject_id")).subjectName(rs.getString("subject_name"))
+														.midExam(rs.getInt("mid_Exam")).finalExam(rs.getInt("final_exam"))
+														.convertedMark(rs.getFloat("converted_mark")).build());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return gradeList;
+	}
+
+	
 	
 	public void insertRestClass(int subjectId, String subjectName, int professorId, String restDay, String roomId, int year, int semester, String supplement) {
 		try (Connection conn = DBUtil.getConnection()) {
@@ -65,7 +104,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			pstmt.setInt(3, semester);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				restClassList.add(RestClassDTO.builder().id(rs.getInt("id")).subjectID(rs.getInt("subject_id"))
+				restClassList.add(RestClassDTO.builder().id(rs.getInt("id")).subjectId(rs.getInt("subject_id"))
 						.subjectName(rs.getString("subject_name")).professorId(rs.getInt("professor_id"))
 						.restDay(rs.getString("rest_day")).roomId(rs.getString("room_id")).year(rs.getInt("year"))
 						.semester(rs.getInt("semester")).supplement(rs.getString("supplement")).build());
@@ -163,4 +202,118 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 		return evaluationResultList;
 	}
 
+
+
+	@Override
+	public ProfessorDTO getAllInfoById(int id) {
+		String query = " select * from tb_professor where id = ? ";
+		ProfessorDTO professorDTO = null;
+		
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(query)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+
+				professorDTO = ProfessorDTO.builder()
+				.id(rs.getInt("id")).name(rs.getString("name"))
+				.birthDate(rs.getString("birth_date")).gender(rs.getString("gender"))
+				.address(rs.getString("address")).tel(rs.getString("tel"))
+				.email(rs.getString("email")).deptId(rs.getInt("dept_id"))
+				.hireDate(rs.getDate("hire_date")).build();
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return professorDTO;
+	}
+
+
+
+	@Override
+	public void updateStudentsGradeByStudentId(int midExam, int finalExam, float convertedMark, int studentId) {
+		try (Connection conn = DBUtil.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_GRADE_BY_STUDENT_ID)) {
+				pstmt.setInt(1, midExam);
+				pstmt.setInt(2, finalExam);
+				pstmt.setFloat(3, convertedMark);
+				pstmt.setInt(4, studentId);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public void updateRestClassByRestClassId(String restDay, String supplement, int id) {
+		try (Connection conn = DBUtil.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(UPDATE_REST_CLASS_BY_RCID)) {
+				pstmt.setString(1, restDay);
+				pstmt.setString(2, supplement);
+				pstmt.setInt(3, id);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public void deleteRestClassByRestClassId(int id) {
+		try (Connection conn = DBUtil.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(DELETE_REST_CLASS_BY_RCID)) {
+				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public RestClassDTO getRestClassById(int id) {
+		RestClassDTO rc = null;
+		try(Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_REST_CLASS_BY_ID)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				rc = RestClassDTO.builder()
+				.id(rs.getInt("id")).subjectId(rs.getInt("subject_id"))
+				.subjectName(rs.getString("subject_name")).professorId(rs.getInt("professor_id"))
+				.restDay(rs.getString("rest_day")).roomId(rs.getString("room_id"))
+				.year(rs.getInt("year")).semester(rs.getInt("semester"))
+				.supplement(rs.getString("supplement")).build();
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rc;
+	}
 }

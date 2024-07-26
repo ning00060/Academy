@@ -20,6 +20,7 @@
 	if (restClassList != null) {
 	%>
 	<table border="1">
+		
 		<tr>
 			<th>번호</th>
 			<th>강의코드</th>
@@ -27,18 +28,29 @@
 			<th>휴강일 및 사유</th>
 			<th>강의실</th>
 			<th>보강 계획</th>
+			<th></th>
 		</tr>
 		<%
 		for (int i = 0; i < restClassList.size(); i++) {
 		%>
 		<tr>
 			<td><%=i + 1%></td>
-			<td><%=restClassList.get(i).getSubjectID()%></td>
+			<td><%=restClassList.get(i).getSubjectId()%></td>
 			<td><%=restClassList.get(i).getSubjectName()%></td>
 			<td><%=restClassList.get(i).getRestDay()%></td>
 			<td><%=restClassList.get(i).getRoomId()%></td>
 			<td><%=restClassList.get(i).getSupplement()%></td>
+			<td>
+				<form action="${pageContext.request.contextPath}/professor/updateRC" method="get">
+				<input type="hidden" name="id" value="<%=restClassList.get(i).getId()%>">
+				<button type="submit">수정하기</button></form>  
+				
+				<form action="${pageContext.request.contextPath}/professor/deleteRC" method="get">
+				<input type="hidden" name="id" value="<%=restClassList.get(i).getId()%>">
+				<button type="submit">삭제하기</button></form>
+			</td>
 		</tr>
+		
 		<%
 		}
 		%>

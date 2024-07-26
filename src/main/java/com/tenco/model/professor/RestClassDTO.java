@@ -14,7 +14,7 @@ import lombok.ToString;
 
 public class RestClassDTO {
 	private int id;
-	private int subjectID;
+	private int subjectId;
 	private String subjectName;
 	private int professorId;
 	private String restDay;

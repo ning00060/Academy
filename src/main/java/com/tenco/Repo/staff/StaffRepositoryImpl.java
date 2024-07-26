@@ -23,6 +23,12 @@ public class StaffRepositoryImpl implements StaffRepository {
 	private static final String ADD_USER = " INSERT INTO tb_user VALUES(?,?,?) ";
 
 	@Override
+	public StaffDTO selectUserIdByNameIdEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public StaffDTO addStaff(StaffDTO DTO) {
 		StaffDTO staffDTO = null;
 		try (Connection conn = DBUtil.getConnection()) {
@@ -225,23 +231,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return rowCount;
 	}
 
-	@Override
-	public StaffDTO selectUserIdById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public StaffDTO getAllInfoById(int id) {
@@ -269,34 +259,12 @@ public class StaffRepositoryImpl implements StaffRepository {
 	}
 
 	@Override
-	public void addDepartment(DepartmentDTO departmentDTO) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteDepartment(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<DepartmentDTO> getAllDepartments() {
+	public StaffDTO selectUserIdByNameEmail() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public DepartmentDTO getDepartment(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void upDateDepartmentById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
@@ -306,4 +274,10 @@ public class StaffRepositoryImpl implements StaffRepository {
 //		int rowCount=addUser(DTO,password);
 //		return rowCount;
 //	}
+
+
+
+
+
+
 }

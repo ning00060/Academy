@@ -10,27 +10,13 @@ import com.tenco.model.staff.DepartmentDTO;
 
 public interface StaffRepository {
 
-
-	StaffDTO selectUserIdById(int id);
-	StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO);
-	StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO);
+	StaffDTO selectUserIdByNameEmail();
+	StaffDTO selectUserIdByNameIdEmail();
 	int addUser(StaffDTO staffDTO,String password );
 	StaffDTO addStaff(StaffDTO staffDTO);
 	
 	int addUserStaff(StaffDTO staffDTO,String password );
 	int addUserProfessor(ProfessorDTO professorDTO,String password );
 	int addUserStudent(StudentDTO studentDTO,String password );
-
-
 	StaffDTO getAllInfoById(int id);
-
-	//학과 관련
-	void addDepartment(DepartmentDTO departmentDTO);
-	void deleteDepartment(int id);
-	List<DepartmentDTO> getAllDepartments();
-	DepartmentDTO getDepartment(int id);
-	void upDateDepartmentById(int id);
-	
-	
-
 }
