@@ -16,82 +16,39 @@ public class StaffRepositoryImpl implements StaffRepository {
 	private static final String ADD_STAFF = " INSERT INTO tb_staff(name,birth_date,gender,address,tel,email) VALUES (?,?,?,?,?,?) ";
 	private static final String ADD_PROFESSOR = " INSERT INTO tb_staff(name,birth_date,gender,address,tel,email,dept_id) VALUES (?,?,?,?,?,?,?) ";
 	private static final String ADD_STUDENT = " INSERT INTO tb_student(name,birth_date,gender,address,tel,email,dept_id,entrance_date) VALUES (?,?,?,?,?,?,?,?) ";
-	private static final String ADD_USER = " INSERT INTO tb_user VALUES(?,?,?) ";
 	private static final String SELECT_STAFF_BY_EMAIL = " SELECT * FROM tb_staff WHERE email=? ";
 	private static final String SELECT_STAFF_BY_ID = " SELECT * FROM tb_staff WHERE id=? ";
-	private static final String SELECT_STAFF_BY_EMAIL_ID = " SELECT * FROM tb_staff WHERE email=? and id=? ";
+	private static final String ADD_USER = " INSERT INTO tb_user VALUES(?,?,?) ";
 
 	@Override
-	public StaffDTO selectUserIdById(int id) {
-		StaffDTO staffDTO = new StaffDTO();
-
-		try (Connection conn = DBUtil.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(SELECT_STAFF_BY_ID)) {
-			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				staffDTO = StaffDTO.builder().id(rs.getInt("id")).name(rs.getString("name"))
-						.birthDate(rs.getString("birth_date")).gender(rs.getString("gender"))
-						.address(rs.getString("address")).tel(rs.getString("tel")).email(rs.getString("email"))
-						.hireDate(rs.getTimestamp("hire_date")).build();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return staffDTO;
-
-	}
-
-	@Override
-	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-
 	public StaffDTO addStaff(StaffDTO DTO) {
-		StaffDTO staffDTO=null;
-		try (Connection conn=DBUtil.getConnection()){
+		StaffDTO staffDTO = null;
+		try (Connection conn = DBUtil.getConnection()) {
 			conn.setAutoCommit(false);
-			try(PreparedStatement pstmt=conn.prepareStatement(ADD_STAFF);
-					PreparedStatement pstmt2=conn.prepareStatement(SELECT_STAFF_BY_EMAIL)	) {
+			try (PreparedStatement pstmt = conn.prepareStatement(ADD_STAFF);
+					PreparedStatement pstmt2 = conn.prepareStatement(SELECT_STAFF_BY_EMAIL)) {
 				pstmt.setString(1, DTO.getName());
-				 java.sql.Date birthDate = java.sql.Date.valueOf(DTO.getBirthDate());
-				pstmt.setDate(2, birthDate);
+				pstmt.setString(2, DTO.getBirthDate());
 				pstmt.setString(3, DTO.getGender());
 				pstmt.setString(4, DTO.getAddress());
 				pstmt.setString(5, DTO.getTel());
 				pstmt.setString(6, DTO.getEmail());
 				pstmt.executeUpdate();
-				
+
 				pstmt2.setString(1, DTO.getEmail());
-				ResultSet rs=pstmt2.executeQuery();
-				if(rs.next()) {
-					staffDTO=StaffDTO.builder()
-							.id(rs.getInt("id"))
-							.name(rs.getString("name"))
-							.build();
+				ResultSet rs = pstmt2.executeQuery();
+				if (rs.next()) {
+					staffDTO = StaffDTO.builder().id(rs.getInt("id")).name(rs.getString("name")).build();
 				}
 				conn.commit();
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 
-			
-			
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return staffDTO;
 	}
 
@@ -266,8 +223,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return rowCount;
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public StaffDTO selectUserIdById(int id) {
 		// TODO Auto-generated method stub
@@ -288,22 +243,35 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 	@Override
 	public StaffDTO getAllInfoById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		StaffDTO staffDTO = null;
+		try (Connection conn=DBUtil.getConnection()){
+			PreparedStatement pstmt=conn.prepareStatement(SELECT_STAFF_BY_ID);
+				pstmt.setInt(1, id);
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next()) {
+				staffDTO=staffDTO.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.birthDate(rs.getString("birth_date"))
+						.gender(rs.getString("gender"))
+						.address(rs.getString("address"))
+						.tel(rs.getString("tel"))
+						.email(rs.getString("email"))
+						.hireDate(rs.getTimestamp("hire_date"))
+						.build();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return staffDTO;
 	}
 
 
->>>>>>> kdy
+
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
 //		StaffDTO DTO=addStaff(staffDTO);
 //		int rowCount=addUser(DTO,password);
 //		return rowCount;
 //	}
-
-	public StaffDTO getAllInfoById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

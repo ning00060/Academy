@@ -11,10 +11,12 @@ public interface NoticeRepository {
 	List<NoticeDTO> SelectNoticeByContent(String content);
 	List<NoticeDTO> SelectNoticeByKeyword(String keyword);
 	List<NoticeDTO> SelectNoitceAll();
+	List<NoticeDTO> SelectNoitceAllLimit10(int limit,int offset);
 	List<NoticeDTO> SelectNoitceAll5();
 	void InsertNotice(NoticeDTO noticeDTO);
 	void updateNoticeById(NoticeDTO noticeDTO,int id);
 	void deleteNoticeById(int id);
+	int selectNoticeCountAll();
 	int selectNoticeCountByKeyword(String keyword);
 	int selectNoticeCountByContent(String content);
 	int selectNoticeCountByTitle(String title);

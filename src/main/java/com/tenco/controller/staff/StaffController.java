@@ -7,17 +7,21 @@ import java.util.List;
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.Repo.interfaces.temp.EnrollRepository;
+import com.tenco.Repo.interfaces.temp.NoticeRepository;
 import com.tenco.Repo.interfaces.temp.StudentScholarRepository;
 import com.tenco.Repo.interfaces.temp.TuitionRepository;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.EnrollRepositoryImpl;
+import com.tenco.Repo.temp.NoticeRepositoryImpl;
 import com.tenco.Repo.temp.StudentScholarRepositoryImpl;
 import com.tenco.Repo.temp.TuitionRepositoryImpl;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
+import com.tenco.model.temp.NoticeDTO;
 import com.tenco.model.temp.StudentScholarDTO;
 import com.tenco.model.temp.TuitionDTO;
+import com.tenco.model.user.UserDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -34,7 +38,7 @@ public class StaffController extends HttpServlet {
        private static EnrollRepository enrollRepository;
        private static StudentScholarRepository scholarRepository;
        private static TuitionRepository	tuitionRepository;
-       
+       private static NoticeRepository	noticeRepository;
 
     public StaffController() {
     	staffRepository=new StaffRepositoryImpl();
@@ -42,6 +46,7 @@ public class StaffController extends HttpServlet {
     	enrollRepository=new EnrollRepositoryImpl();
     	scholarRepository = new StudentScholarRepositoryImpl();
     	tuitionRepository=new TuitionRepositoryImpl();
+    	noticeRepository = new NoticeRepositoryImpl();
     }
 
 
@@ -57,6 +62,11 @@ public class StaffController extends HttpServlet {
 		case "/tuition":
 			
 			tuition(request,response);
+			
+			break;
+		case "/tuitionModify":
+			
+			request.getRequestDispatcher("/WEB-INF/views/staff/tuition_regist.jsp").forward(request, response);
 			
 			break;
 			
@@ -83,6 +93,9 @@ public class StaffController extends HttpServlet {
 		}
 		
 	}
+
+
+
 
 
 
@@ -135,11 +148,19 @@ public class StaffController extends HttpServlet {
 
 		case "/notice":
 			System.out.println("notice이동");
-			noticePage(request, response);
+			noticePage(request, response, session);
 			break;
 			
 		case "/tuition":
-
+			tuitionRegist(request,response);
+			break;
+			
+		case "/tuitionModify":
+			tuitionModify(request,response);
+			break;
+			
+		case "/tuitionDelete":
+			tuitionDelete(request,response);
 			break;
 			
 		case "/registStu":
@@ -159,6 +180,58 @@ public class StaffController extends HttpServlet {
 
 	}
 	
+
+
+	private void tuitionDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id=Integer.parseInt( request.getParameter("id"));
+		tuitionRepository.deleteTution(id);
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+	}
+
+
+	private void tuitionModify(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id=Integer.parseInt( request.getParameter("id"));
+		int tuiYear=Integer.parseInt( request.getParameter("tuiYear"));
+		int semester=Integer.parseInt( request.getParameter("semester"));
+		int tuiId=Integer.parseInt( request.getParameter("tuiId"));
+		int schType=Integer.parseInt( request.getParameter("schType"));
+		int status=Integer.parseInt( request.getParameter("status"));
+		
+		TuitionDTO tuitionDTO=TuitionDTO.builder()
+				.id(id)
+				.tuiYear(tuiYear)
+				.semester(semester)
+				.tuiId(tuiId)
+				.schType(schType)
+				.status(status)
+				.build();
+		tuitionRepository.updateTution(tuitionDTO, id);
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		
+	}
+
+
+	private void tuitionRegist(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id=Integer.parseInt( request.getParameter("id"));
+		int tuiYear=Integer.parseInt( request.getParameter("tuiYear"));
+		int semester=Integer.parseInt( request.getParameter("semester"));
+		int tuiId=Integer.parseInt( request.getParameter("tuiId"));
+		int schType=Integer.parseInt( request.getParameter("schType"));
+		int status=Integer.parseInt( request.getParameter("status"));
+		
+		TuitionDTO tuitionDTO=TuitionDTO.builder()
+				.id(id)
+				.tuiYear(tuiYear)
+				.semester(semester)
+				.tuiId(tuiId)
+				.schType(schType)
+				.status(status)
+				.build();
+		tuitionRepository.addTuition(tuitionDTO);
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		
+		
+	}
 
 
 	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -258,11 +331,44 @@ public class StaffController extends HttpServlet {
 	}
 
 
-	private void noticePage(HttpServletRequest request, HttpServletResponse response) {
-		request.getParameter("noticeTitle");
-		request.getParameter("noticeContent");
-		request.getParameter("noticeCreated");
+	private void noticePage(HttpServletRequest request, HttpServletResponse response ,HttpSession session) throws ServletException, IOException {
+		// 공지사항 getAll
+		UserDTO userDTO=(UserDTO) session.getAttribute("verifiedUser");
 		
+		
+		int page = 1; // 기본 페이지 번호 
+		int pageSize = 10; // 한 페이지당 보여질 게시글에 수  
+		
+		try {
+			 String pageStr = request.getParameter("page");
+			 if(pageStr != null ) {
+				 page = Integer.parseInt(pageStr);
+			 }
+		} catch (Exception e) {
+			page = 1; 
+		}
+		
+		int offset = (page - 1) * pageSize; // 시작 위치 계산( offset 값 계산)
+ 		List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAllLimit10(pageSize, offset);
+		
+		// 전체 게시글 수 조회 
+		int totalBoards = noticeRepository. selectNoticeCountAll();
+		// 총 페이지 수 계산 -->  [1][2][3][...]
+		int totalPages = (int) Math.ceil((double)totalBoards / pageSize);
+		
+		request.setAttribute("noticeList", noticeList);
+		request.setAttribute("totalPages", totalPages);
+		request.setAttribute("currentPage", page);
+		
+		// 현재 로그인한 사용자 ID 설정 
+		if(session != null) {
+ 			 UserDTO user = (UserDTO)session.getAttribute("principal");
+ 			 if(user != null) {
+ 				 request.setAttribute("userId", user.getId());
+ 			 }
+		}
+		request.getRequestDispatcher("/WEB-INF/views/temp/notice.jsp").forward(request, response);
+	
 	}
 	
 

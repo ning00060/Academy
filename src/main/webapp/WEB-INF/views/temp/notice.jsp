@@ -8,19 +8,19 @@
  <h2>게시글 목록</h2>
 	<div class="action">
 		<a class="btn btn-create" href="${pageContext.request.contextPath}/board/create">새글 작성하기</a>
-		<a class="btn btn-back" href="${pageContext.request.contextPath}/index.jsp">홈 화면 </a>
+		<a class="btn btn-back" href="${pageContext.request.contextPath}/user/Home.jsp">홈 화면 </a>
 	</div>
 	
 	
 	<!-- board list 생성 예정 -->
 	<!-- 반복문 사용예정  -->
-	<c:forEach var="board" items="${boardList}">
+	<c:forEach var="notice" items="${noticeList}">
 		<div class="board-item">
-			<h3><a href="${pageContext.request.contextPath}/board/view?id=${board.id}">${board.title}</a></h3>
-			<p>${board.content}</p>
-			<p> <fmt:formatDate value="${board.createdAt}" pattern="yyyy-MM-dd HH:mm"/> </p>
+			<h3><a href="${pageContext.request.contextPath}/board/view?id=${notice.id}">${notice.title}</a></h3>
+			<p>${notice.content}</p>
+			<p> <fmt:formatDate value="${notice.createdTime}" pattern="yyyy-MM-dd HH:mm"/> </p>
 			<!--  게시글에 작성자가 세션 유저와 동일하다면 수정, 삭제 버튼을 보여주자 -->
-			<c:if test="${board.userId == userId}">
+			<c:if test="${notice.id == verifiedUser.id}">
 				<a class="btn btn-edit" href="#">수정</a>
 				<a class="btn btn-delete" href="#">삭제</a>
 			</c:if>
