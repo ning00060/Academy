@@ -9,7 +9,7 @@ import java.util.List;
 import com.tenco.model.staff.DepartmentDTO;
 
 public interface StaffRepository {
-
+	StaffDTO selectUserIdById(int id);
 	StaffDTO selectUserIdByNameEmail();
 	StaffDTO selectUserIdByNameIdEmail();
 	int addUser(StaffDTO staffDTO,String password );

@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.model.professor.ProfessorDTO;
-import com.tenco.model.staff.DepartmentDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.util.DBUtil;
@@ -23,12 +21,33 @@ public class StaffRepositoryImpl implements StaffRepository {
 	private static final String ADD_USER = " INSERT INTO tb_user VALUES(?,?,?) ";
 
 	@Override
-	public StaffDTO selectUserIdByNameIdEmail() {
-		// TODO Auto-generated method stub
-		return null;
+	public StaffDTO selectUserIdById(int id) {
+		StaffDTO staffDTO = new StaffDTO();
+
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_STAFF_BY_ID)) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				staffDTO = StaffDTO.builder().id(rs.getInt("id")).name(rs.getString("name"))
+						.birthDate(rs.getString("birth_date")).gender(rs.getString("gender"))
+						.address(rs.getString("address")).tel(rs.getString("tel")).email(rs.getString("email"))
+						.hireDate(rs.getTimestamp("hire_date")).build();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return staffDTO;
+
 	}
 
+
+	
+
 	@Override
+
 	public StaffDTO addStaff(StaffDTO DTO) {
 		StaffDTO staffDTO = null;
 		try (Connection conn = DBUtil.getConnection()) {
@@ -267,6 +286,11 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 
 
+	@Override
+	public StaffDTO selectUserIdByNameIdEmail() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
@@ -275,8 +299,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 //		return rowCount;
 //	}
 
-
-
+ 
 
 
 
