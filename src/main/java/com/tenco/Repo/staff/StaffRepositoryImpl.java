@@ -252,21 +252,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 
 
-<<<<<<< HEAD
-	@Override
-	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-=======
->>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 	@Override
 	public StaffDTO getAllInfoById(int id) {
 		StaffDTO staffDTO = null;
@@ -292,30 +278,11 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return staffDTO;
 	}
 
-	@Override
-<<<<<<< HEAD
-	public void addDepartment(DepartmentDTO departmentDTO) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
 
 	@Override
-	public void deleteDepartment(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<DepartmentDTO> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DepartmentDTO getDepartment(int id) {
-=======
 	public StaffDTO selectUserIdByNameEmail() {
->>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -329,11 +296,9 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return null;
 	}
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
+
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
 //		StaffDTO DTO=addStaff(staffDTO);
@@ -341,11 +306,4 @@ public class StaffRepositoryImpl implements StaffRepository {
 //		return rowCount;
 //	}
 
-<<<<<<< HEAD
-=======
- 
-
-
-
->>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 }

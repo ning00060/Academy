@@ -59,7 +59,6 @@ public class StaffController extends HttpServlet {
 			UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
 			request.setAttribute("verifiedUser", userDTO);
 			request.getRequestDispatcher("/WEB-INF/views/staff/notice.jsp").forward(request, response);
-			
 
 			break;
 		case "/schedule":
