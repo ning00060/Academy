@@ -8,6 +8,7 @@ import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.Repo.professor.ProfessorRepositoryImpl;
 import com.tenco.model.professor.EvaluationResultDTO;
 import com.tenco.model.professor.RestClassDTO;
+import com.tenco.model.professor.StudentGradeDTO;
 import com.tenco.model.student.StudentIdNameDTO;
 import com.tenco.model.subject.SubjectDTO;
 
@@ -46,9 +47,19 @@ public class ProfessorController extends HttpServlet {
 			moveentergrade(request, response);
 			break;
 
+			// 내 강의 목록 리스트에서 학생 성적을 수정할 강의를 선택 후 학생 성적 수정 폼으로 이동
+		case "/modifysubject":
+			movemodifygrade(request, response);
+			break;
+			
 		// 학생 성적 입력 폼에서 성적 입력 후 입력받은 값을 DB에 저장하기
 		case "/input-grade":
 			enterStudentGrade(request, response);
+			break;
+			
+		// 학생 성적 수정 폼에서 수정할 성적 입력 후 입력받은 값을 DB에 저장하기
+		case "/update-grade":
+			updateStudentGrade(request, response);
 			break;
 		
 		// 교수 로그인 후 상단의 휴/보강 관리 메뉴 선택시 -> selectRC JSP 로 이동 처리
@@ -75,12 +86,29 @@ public class ProfessorController extends HttpServlet {
 		case "/clickERMenu":
 			request.getRequestDispatcher("/WEB-INF/views/professor/selectER.jsp").forward(request, response);
 			break;	
+			
 		// 내 강의 목록 조회 폼에서 개설년도 개설학기 교수id 정보를 얻은 후 해당 정보로 내 강의 리스트 폼으로 이동
 		case "/readEvaluationResult":
 			readMyEvaluationResult(request, response);
 			break;	
+		
+		// 학생들의 강의 평가 결과를 익명으로 평균점수 / 건의사항 출력 | 맨 밑에 토탈 점수 출력 
 		case "/resultcheck":
 			resultCheck(request, response);
+			break;	
+			
+		// 휴/보강 리스트에서 수정 버튼 클릭시 수정 폼으로 이동
+		case "/updateRC":
+			updateRC(request, response);
+			break;	
+		
+		// 휴/보강 리스트에서 삭제 버튼 클릭시 삭제 처리 후 기존 페이지로 이동
+		case "/deleteRC":
+			deleteRC(request, response);
+			break;
+			
+		case "/inputUpdateRC":
+			inputUpdateRC(request, response);
 			break;	
 		
 			
@@ -91,6 +119,59 @@ public class ProfessorController extends HttpServlet {
 	}
 
 	
+
+	private void inputUpdateRC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id")); 
+		String restDay = request.getParameter("restDay");
+		String supplement = request.getParameter("supplement");
+		professorRepository.updateRestClassByRestClassId(restDay, supplement, id);
+		request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+	}
+
+	private void deleteRC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		professorRepository.deleteRestClassByRestClassId(id);
+		// TODO 돌아가는 위치 수정
+		request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+	}
+
+	private void updateRC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		RestClassDTO rc = professorRepository.getRestClassById(id);
+		request.setAttribute("rc", rc);
+		request.getRequestDispatcher("/WEB-INF/views/professor/updateRC.jsp").forward(request, response);
+		
+	}
+
+	private void updateStudentGrade(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int studentSize = Integer.parseInt(request.getParameter("studentSize"));
+		int studentId;
+		int midExam;
+		int finalExam;
+		float convertedMark;
+		System.out.println("studentSize : " + studentSize);
+		for(int i = 1; i <= studentSize; i++) {
+			studentId = Integer.parseInt(request.getParameter("studentId"+i));
+			midExam = Integer.parseInt(request.getParameter("midExamScore"+i));
+			finalExam = Integer.parseInt(request.getParameter("finalExamScore"+i));
+			convertedMark = Float.parseFloat(request.getParameter("grade"+i));
+			professorRepository.updateStudentsGradeByStudentId(midExam, finalExam, convertedMark, studentId);
+		}
+		// TODO = 현재 학생 성적 DB에 전송 후 내 강의 선택 페이지로 가는데 기존 조회한 강의로 가도록 수정!. 
+		request.getRequestDispatcher("/WEB-INF/views/professor/select.jsp").forward(request, response);
+		
+	}
+
+	private void movemodifygrade(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String subjectId = request.getParameter("subjectId");
+		request.setAttribute("subjectId", subjectId);
+		List<StudentGradeDTO> gradeList = new ArrayList<>();
+		gradeList = professorRepository.selectAllStudentsGradeBySubjectId(Integer.parseInt(subjectId));
+		request.setAttribute("gradeList", gradeList);
+		System.out.println(gradeList.toString());
+		request.getRequestDispatcher("/WEB-INF/views/professor/grademodify.jsp").forward(request, response);
+		
+	}
 
 	private void resultCheck(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String subjectId = request.getParameter("subjectId");
@@ -177,7 +258,7 @@ public class ProfessorController extends HttpServlet {
 		request.setAttribute("studentList", studentList);
 		System.out.println(studentList.toString());
 		request.getRequestDispatcher("/WEB-INF/views/professor/subjectstudents.jsp").forward(request, response);
-		System.out.println("외않댆?");
+		
 
 	}
 
