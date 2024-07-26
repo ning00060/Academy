@@ -16,19 +16,14 @@ public interface StaffRepository {
 	StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO);
 	int addUser(StaffDTO staffDTO,String password );
 	StaffDTO addStaff(StaffDTO staffDTO);
+	
 	int addUserStaff(StaffDTO staffDTO,String password );
 	int addUserProfessor(ProfessorDTO professorDTO,String password );
 	int addUserStudent(StudentDTO studentDTO,String password );
-<<<<<<< HEAD
 
-=======
->>>>>>> kdy
-	StaffDTO getAllInfoById(int id);
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> jh
-=======
 	
+	StaffDTO getAllInfoById(int id);
+
 	//학과 관련
 	void addDepartment(DepartmentDTO departmentDTO);
 	void deleteDepartment(int id);
@@ -37,9 +32,5 @@ public interface StaffRepository {
 	void upDateDepartmentById(int id);
 	
 	
-	
->>>>>>> jh
-=======
 
->>>>>>> 83371087b5932d1f3a933599689db295cd11a143
 }
