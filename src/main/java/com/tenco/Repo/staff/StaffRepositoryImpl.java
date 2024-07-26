@@ -5,9 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.model.professor.ProfessorDTO;
+import com.tenco.model.staff.DepartmentDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.util.DBUtil;
@@ -44,17 +46,8 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 	}
 
-	@Override
-	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 
@@ -266,13 +259,8 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return rowCount;
 	}
 
-<<<<<<< HEAD
-=======
-	@Override
-	public StaffDTO selectUserIdById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+
 
 	@Override
 	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
@@ -286,21 +274,50 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return null;
 	}
 
-	@Override
-	public StaffDTO getAllInfoById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
->>>>>>> kdy
+
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
 //		StaffDTO DTO=addStaff(staffDTO);
 //		int rowCount=addUser(DTO,password);
 //		return rowCount;
 //	}
+ 
+	@Override
+	public void addDepartment(DepartmentDTO departmentDTO) {
+		// TODO Auto-generated method stub
+		
+	}
 
+	@Override
+	public void deleteDepartment(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<DepartmentDTO> getAllDepartments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public DepartmentDTO getDepartment(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void upDateDepartmentById(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
 	public StaffDTO getAllInfoById(int id) {
 		// TODO Auto-generated method stub
 		return null;
