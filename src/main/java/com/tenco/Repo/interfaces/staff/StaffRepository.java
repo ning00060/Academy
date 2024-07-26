@@ -4,6 +4,10 @@ import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 
+import java.util.List;
+
+import com.tenco.model.staff.DepartmentDTO;
+
 public interface StaffRepository {
 
 	StaffDTO selectUserIdByNameEmail();
@@ -16,5 +20,18 @@ public interface StaffRepository {
 	int addUserStudent(StudentDTO studentDTO,String password );
 =======
 	StaffDTO getAllInfoById(int id);
+<<<<<<< HEAD
+>>>>>>> jh
+=======
+	
+	//학과 관련
+	void addDepartment(DepartmentDTO departmentDTO);
+	void deleteDepartment(int id);
+	List<DepartmentDTO> getAllDepartments();
+	DepartmentDTO getDepartment(int id);
+	void upDateDepartmentById(int id);
+	
+	
+	
 >>>>>>> jh
 }
