@@ -72,6 +72,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
+
 				studentDTO = StudentDTO.builder()
 				.id(rs.getInt("id"))
 				.name(rs.getString("name"))

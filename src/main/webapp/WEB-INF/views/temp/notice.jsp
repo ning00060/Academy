@@ -1,78 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-body{
-background-color: #f0f0f0;
-display: flex;
-flex-direction: column;
-}
-header{
-background-color: black;
-color: white;
-display: flex;
-justify-content: space-between;
-align-items: center;
-
-}
-
-h2{
-margin-left: 20px;
-}
-
-ul{
-list-style-type: none;
-display: flex;
-}
-
-li{
-margin-right: 20px;
-}
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+ 
+ <%@ include file="../main_head.jsp" %>
+ 
+ <h2>게시글 목록</h2>
+	<div class="action">
+		<a class="btn btn-create" href="${pageContext.request.contextPath}/board/create">새글 작성하기</a>
+		<a class="btn btn-back" href="${pageContext.request.contextPath}/index.jsp">홈 화면 </a>
+	</div>
 	
-footer{
-	background-color: #f0f0f0;
-	display:flex;
-	padding: 20px;
-	border-radius: 8px;
-	height:70vh;
-	justify-content:center;
-	width: 100%;
 	
-	}
-.cm{
-
-	align-content:flex-end;
-	width: 300px;	
-	
-}
-
-</style>
-</head>
-<body>
-	<header>
-			<h2>  </h2>
-			<h2> <a href="${pageContext.request.contextPath}/test/home">홈</a> </h2>
-			
-			<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
-			
-			<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수강신청</a> </h2>
-			
-			<h2> <a href="${pageContext.request.contextPath}/test/Semester">성적</a> </h2>
-			
-			<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
-			
-			<nav>
-				<ul>
-					<li>홈</li>
-					<li>로그인</li>
-				</ul>
-			</nav>
+	<!-- board list 생성 예정 -->
+	<!-- 반복문 사용예정  -->
+	<c:forEach var="board" items="${boardList}">
+		<div class="board-item">
+			<h3><a href="${pageContext.request.contextPath}/board/view?id=${board.id}">${board.title}</a></h3>
+			<p>${board.content}</p>
+			<p> <fmt:formatDate value="${board.createdAt}" pattern="yyyy-MM-dd HH:mm"/> </p>
+			<!--  게시글에 작성자가 세션 유저와 동일하다면 수정, 삭제 버튼을 보여주자 -->
+			<c:if test="${board.userId == userId}">
+				<a class="btn btn-edit" href="#">수정</a>
+				<a class="btn btn-delete" href="#">삭제</a>
+			</c:if>
+		</div>
+	</c:forEach>
+	 
+	<div class="board-item">
 		
-	</header>
-		
-</body>
-</html>
+	</div>
+	<br>
+	<div class="pagination">
+		<!-- index for  -->
+		<c:forEach begin="1" end="${totalPages}"  var="i" >
+		<c:choose>
+			<c:when test="${i == currentPage}">
+				<span class="current-page">${i}</span>
+			</c:when>
+			<c:otherwise>
+				<span><a href="${pageContext.request.contextPath}/board/list?page=${i}">${i}</a></span>
+			</c:otherwise>
+		</c:choose>
+			
+		</c:forEach>
+	</div>
+ 
+  <%@ include file="../main_footer.jsp"%>

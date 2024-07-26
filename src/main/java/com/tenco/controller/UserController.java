@@ -36,6 +36,7 @@ public class UserController extends HttpServlet {
 		super();
 	}
 
+  
 	@Override
 	public void init() throws ServletException {
 		userRepositoryImpl = new UserRepositoryImpl();
@@ -228,7 +229,6 @@ public class UserController extends HttpServlet {
 		System.out.println(action);
 		switch (action) {
 		case "/login":
-			System.out.println("/login 됨");
 			handleLogin(request, response);
 			break;
 
@@ -318,6 +318,14 @@ public class UserController extends HttpServlet {
 			List<ScheduleDTO> scheduleList = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList);
 			System.out.println("login성공");
+<<<<<<< HEAD
+=======
+			// 학생유저 정보
+//			StudentDTO student = studentRepository.studentInfo(userDTO.getId());
+//			session.setAttribute("studentDTO", student);
+			// permission-level 확인 1=학생, 2=교수, 3= 관리직
+			// TODO - main page로 이동
+>>>>>>> a7a06f6ffe6a8226aa15627c2fbc48482e292e89
 
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		} else {
