@@ -54,7 +54,15 @@ public class StaffController extends HttpServlet {
 		String action = request.getPathInfo();
 		HttpSession session = request.getSession();
 		switch (action) {
+		case "/notice":
+			List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAll();
+			request.setAttribute("noticeList", noticeList);
+			UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+			request.setAttribute("verifiedUser", userDTO);
+			request.getRequestDispatcher("/WEB-INF/views/staff/notice.jsp").forward(request, response);
+			
 
+			break;
 		case "/schedule":
 			schedulePage(request, response);
 

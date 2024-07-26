@@ -17,7 +17,7 @@
 							<table>
 									<c:forEach var="notice" items="${noticeList}">
 									<tr>
-										<td><a href="#">${notice.category}&nbsp;${notice.title}</a></td>
+										<td><a href="#${notice.id}">${notice.category}&nbsp;${notice.title}</a></td>
 										<td><fmt:formatDate value="${notice.createdTime}" type="date"/></td>
 									</tr>						
 	
