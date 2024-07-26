@@ -20,14 +20,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
 	@Override
 	public List<DepartmentDTO> selectDepartmentAll() {
-		List<RoomDTO> roomList = new ArrayList<>();
+		List<DepartmentDTO> roomList = new ArrayList<>();
 		try (Connection conn = DBUtil.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(SELECT_ROOM_ALL)) {
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_DEPARTMENT_ALL)) {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				roomList.add(RoomDTO.builder()
-						.id(rs.getString("id"))
-						.collegeId(rs.getInt("college_id"))
+				roomList.add(DepartmentDTO.builder()
+
 
 						.build());
 			}
