@@ -6,13 +6,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.tenco.Repo.interfaces.staff.SubjectRepository;
+import com.tenco.Repo.interfaces.staff.StaffSubjectRepository;
 import com.tenco.model.subject.StaffSubjectDTO;
-import com.tenco.model.subject.SubjectDTO;
-import com.tenco.model.temp.RoomDTO;
 import com.tenco.util.DBUtil;
 
-public class SubjectRepositoryImpl implements SubjectRepository{
+public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 	private static final String SELECT_SUBJECT_ALL="select * from tb_subject ";
 	private static final String SELECT_SUBJECT_BY_ID="select * from tb_subject where id=? ";
 	private static final String ADD_SUBJECT="insert into tb_subject values(?, ?,?,?,?,?,?,?,?) ";
@@ -149,7 +147,5 @@ public class SubjectRepositoryImpl implements SubjectRepository{
 		}
 		
 	}
-
-
 
 }

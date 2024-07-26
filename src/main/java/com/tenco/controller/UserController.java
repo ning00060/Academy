@@ -82,16 +82,13 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
-<<<<<<< HEAD
 
-=======
 			HttpSession session1 = request.getSession();
 			List<NoticeDTO> noticeList1 = noticeRepository.SelectNoitceAll5();
 			request.setAttribute("noticeList", noticeList1);
 			// 학사일정 getAll
 			List<ScheduleDTO> scheduleList1 = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList1);
->>>>>>> 5797a2d68db7825951a22f6645e59df8b521171f
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 
