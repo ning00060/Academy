@@ -16,12 +16,13 @@
 				
 			
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
-			<P><%=userDTO.getName() %> </P>
+			<!-- <P><%=userDTO.getName() %> </P>  -->
+			<a href="${pageContext.request.contextPath}/user/home"> <img alt="로고" src="../resource/favicon.ico"> </a>
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 6-->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
@@ -42,7 +43,7 @@
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   5-->
-				<h2> <a href="${pageContext.request.contextPath}/test/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 			    <div class="dropdown">
 			        <button class="dropbtn">관리</button>
@@ -75,8 +76,8 @@
 			
 			<nav>
 				<ul>
-					<li> <a>홈</a> </li>
-					<li>로그인</li>
+					<li> <%=userDTO.getId()%> <%=userDTO.getName()%> </li>
+					<li> <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a> </li>
 				</ul>
 			</nav>
 		

@@ -93,6 +93,12 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
+			HttpSession session1 = request.getSession();
+			List<NoticeDTO> noticeList1 = noticeRepository.SelectNoitceAll5();
+			request.setAttribute("noticeList", noticeList1);
+			// 학사일정 getAll
+			List<ScheduleDTO> scheduleList1 = scheduleRepository.SelectScheduleAll5();
+			request.setAttribute("scheduleList", scheduleList1);
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 
@@ -119,10 +125,34 @@ public class UserController extends HttpServlet {
 			session.setAttribute("studentDTO", student);
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
+			
+		case "/logout":
+			System.out.println("get : logout");
+			handleLogout(request, response);
+			break;
 		default:
 			break;
 		}
 	}
+	
+	/**
+	 * 회원이 로그아웃 클릭 시 세션을 제거한다.
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		if(session != null) {
+			session.removeAttribute("verifiedUser");
+			session.invalidate();
+			System.out.println("세션 삭제");
+		} else {
+			System.out.println("삭제안됨");
+		}
+		response.sendRedirect(request.getContextPath()+"/index.jsp");		
+	}
+
 
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
