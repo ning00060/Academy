@@ -72,20 +72,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
-<<<<<<< HEAD
-//				studentDTO = StudentDTO.builder()
-//				.id(rs.getInt("id"))
-//				.name(rs.getString("name"))
-//				.birth_date(rs.getString("birth_date"))
-//				.gender(rs.getString("gender"))
-//				.tel(rs.getString("tel"))
-//				.email(rs.getString("email"))
-//				.dept_id(rs.getInt("dept_id"))
-//				.grade(rs.getInt("grade"))
-//				.semester(rs.getInt("semester"))
-//				.entrance_date(rs.getString("entrance_date"))
 
-=======
 				studentDTO = StudentDTO.builder()
 				.id(rs.getInt("id"))
 				.name(rs.getString("name"))
@@ -108,7 +95,6 @@ public class StudentRepositoryImpl implements StudentRepository {
 				.u_password(rs.getString("u_password"))
 				.u_permission_level(rs.getInt("u_permission_level"))
 				.build();
->>>>>>> 61459a7e0d62eb3bd851ee1941e7fa8319ceada5
 		}
 		
 		} catch (SQLException e) {

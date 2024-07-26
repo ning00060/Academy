@@ -36,21 +36,7 @@ public class UserController extends HttpServlet {
 		super();
 	}
 
-<<<<<<< HEAD
-	
-    @Override
-    public void init() throws ServletException {
-    	userRepositoryImpl = new UserRepositoryImpl();
-    	noticeRepository= new NoticeRepositoryImpl();
-    	scheduleRepository=new ScheduleRepositoryImpl();
-    	studentRepository=new StudentRepositoryImpl();
-    	System.out.println("12");
-    }
-    
-    // 아이디 찾기, 비밀번호 찾기 sendredirect
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-=======
+  
 	@Override
 	public void init() throws ServletException {
 		userRepositoryImpl = new UserRepositoryImpl();
@@ -68,7 +54,6 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
->>>>>>> 61459a7e0d62eb3bd851ee1941e7fa8319ceada5
 		String action = request.getPathInfo();
 		System.out.println(action + "/doget");
 		switch (action) {
