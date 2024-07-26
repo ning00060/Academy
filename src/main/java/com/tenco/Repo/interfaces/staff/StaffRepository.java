@@ -10,16 +10,21 @@ import com.tenco.model.staff.DepartmentDTO;
 
 public interface StaffRepository {
 
-	StaffDTO selectUserIdByNameEmail();
-	StaffDTO selectUserIdByNameIdEmail();
-<<<<<<< HEAD
+
+	StaffDTO selectUserIdById(int id);
+	StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO);
+	StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO);
 	int addUser(StaffDTO staffDTO,String password );
 	StaffDTO addStaff(StaffDTO staffDTO);
 	int addUserStaff(StaffDTO staffDTO,String password );
 	int addUserProfessor(ProfessorDTO professorDTO,String password );
 	int addUserStudent(StudentDTO studentDTO,String password );
+<<<<<<< HEAD
+
 =======
+>>>>>>> kdy
 	StaffDTO getAllInfoById(int id);
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> jh
 =======
@@ -34,4 +39,7 @@ public interface StaffRepository {
 	
 	
 >>>>>>> jh
+=======
+
+>>>>>>> 83371087b5932d1f3a933599689db295cd11a143
 }
