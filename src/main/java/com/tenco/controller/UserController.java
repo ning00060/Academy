@@ -112,6 +112,7 @@ public class UserController extends HttpServlet {
 		}
 	}
 
+<<<<<<< HEAD
 	
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
@@ -122,6 +123,18 @@ public class UserController extends HttpServlet {
         request.setAttribute("subjectName", subjectName);
         request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
     }
+=======
+	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		EvaluationQuestionDTO questions = studentRepository.getEvaluationQuestion();
+		request.setAttribute("questions", questions);
+		String subjectName = request.getParameter("subjectName");
+		String subjectId = request.getParameter("subjectId");
+		request.setAttribute("subjectId", subjectId);
+		request.setAttribute("subjectName", subjectName);
+		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+	}
+>>>>>>> jh
 
 	/**
 	 * 학생 정보 수정 페이지로 이동
@@ -131,9 +144,12 @@ public class UserController extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
+<<<<<<< HEAD
 
 	
 	
+=======
+>>>>>>> jh
 	private void handleInfoModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -267,9 +283,34 @@ public class UserController extends HttpServlet {
 		int id = Integer.parseInt(request.getParameter("id"));
 		String password = (String) request.getParameter("password");
 		if ((userDTO = userRepositoryImpl.userLogin(id, password)) != null) {
+<<<<<<< HEAD
 			// 로그인 성공
+=======
+			
+>>>>>>> jh
 			HttpSession session = request.getSession();
 			session.setAttribute("verifiedUser", userDTO);
+			
+			int permissionLevel = userDTO.getPermissionLevel();
+			// permission-level 확인 1=학생, 2=교수, 3= 관리직
+			switch (permissionLevel) {
+			case 1:
+				// 학생유저 정보
+				StudentDTO student = studentRepository.studentInfo(userDTO.getId());
+				session.setAttribute("studentDTO", student);
+				// TODO - main page로 이동
+				break;
+			case 2:
+
+				break;
+			case 3:
+
+				break;
+
+			default:
+				break;
+			}
+
 			// 공지사항 getAll
 			List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAll5();
 			request.setAttribute("noticeList", noticeList);
@@ -277,11 +318,6 @@ public class UserController extends HttpServlet {
 			List<ScheduleDTO> scheduleList = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList);
 			System.out.println("login성공");
-			// 학생유저 정보
-			StudentDTO student = studentRepository.studentInfo(userDTO.getId());
-			session.setAttribute("studentDTO", student);
-			// permission-level 확인 1=학생, 2=교수, 3= 관리직
-			// TODO - main page로 이동
 
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		} else {
