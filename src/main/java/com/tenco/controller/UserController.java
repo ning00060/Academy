@@ -278,8 +278,8 @@ public class UserController extends HttpServlet {
 			request.setAttribute("scheduleList", scheduleList);
 			System.out.println("login성공");
 			// 학생유저 정보
-			StudentDTO student = studentRepository.studentInfo(userDTO.getId());
-			session.setAttribute("studentDTO", student);
+//			StudentDTO student = studentRepository.studentInfo(userDTO.getId());
+//			session.setAttribute("studentDTO", student);
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			// TODO - main page로 이동
 

@@ -125,6 +125,7 @@ input[type="submit"]{
 	margin-left: 200px;
 }
 
+
 .studentEvaluation-inner {
 	display: flex;
 	flex-direction: row;
@@ -132,8 +133,3 @@ input[type="submit"]{
 	align-items: center;
 	width: 100%;
 }
-
-
-
-
-

@@ -1,15 +1,23 @@
 package com.tenco.controller.staff;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.Repo.interfaces.temp.EnrollRepository;
+import com.tenco.Repo.interfaces.temp.StudentScholarRepository;
+import com.tenco.Repo.interfaces.temp.TuitionRepository;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.EnrollRepositoryImpl;
+import com.tenco.Repo.temp.StudentScholarRepositoryImpl;
+import com.tenco.Repo.temp.TuitionRepositoryImpl;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
+import com.tenco.model.temp.StudentScholarDTO;
+import com.tenco.model.temp.TuitionDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,12 +32,16 @@ public class StaffController extends HttpServlet {
        private static StaffRepository staffRepository;
        private static StudentRepository studentRepository;
        private static EnrollRepository enrollRepository;
+       private static StudentScholarRepository scholarRepository;
+       private static TuitionRepository	tuitionRepository;
        
 
     public StaffController() {
     	staffRepository=new StaffRepositoryImpl();
     	studentRepository= new StudentRepositoryImpl();
     	enrollRepository=new EnrollRepositoryImpl();
+    	scholarRepository = new StudentScholarRepositoryImpl();
+    	tuitionRepository=new TuitionRepositoryImpl();
     }
 
 
@@ -43,8 +55,13 @@ public class StaffController extends HttpServlet {
 
 			break;
 		case "/tuition":
-			request.getRequestDispatcher("/WEB-INF/views/staff/tuition.jsp").forward(request, response);
+			
 			tuition(request,response);
+			
+			break;
+			
+		case "/scholarship":
+			scholarshipPage(request,response);
 			
 			break;
 		case "/subjectList":
@@ -70,7 +87,31 @@ public class StaffController extends HttpServlet {
 
 
 
+	private void scholarshipPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List< StudentScholarDTO> studentScholarDTO= scholarRepository.selectStudentScholarAll();
+		if(studentScholarDTO!=null) {
+			
+		request.setAttribute("studentScholarDTO", studentScholarDTO);
+		request.getRequestDispatcher("/WEB-INF/views/staff/scholarship.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+		}
+		
+	}
 
+
+	private void tuition(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List< TuitionDTO> tuiList= tuitionRepository.selectTuitionAll();
+		if(tuiList!=null) {
+		request.setAttribute("tuiList", tuiList);
+		request.getRequestDispatcher("/WEB-INF/views/staff/tuition.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+		}
+		
+		
+		
+	}
 
 
 	private void subjectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -98,7 +139,7 @@ public class StaffController extends HttpServlet {
 			break;
 			
 		case "/tuition":
-			tuition(request,response);
+
 			break;
 			
 		case "/registStu":
@@ -118,10 +159,7 @@ public class StaffController extends HttpServlet {
 
 	}
 	
-	private void tuition(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		String name= request.getParameter("name");
