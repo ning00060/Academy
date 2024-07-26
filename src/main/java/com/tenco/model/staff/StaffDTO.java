@@ -19,7 +19,7 @@ public class StaffDTO {
 	private String birthDate;
 	private String gender;
 	private String address;
-	private int tel;
+	private String tel;
 	private String email;
 	private Timestamp hireDate;
 	

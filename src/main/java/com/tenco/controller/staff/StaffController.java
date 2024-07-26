@@ -244,7 +244,7 @@ public class StaffController extends HttpServlet {
 			.birthDate(birth)
 			.gender(gender)
 			.address(address)
-			.tel(tel)
+			.tel( tel)
 			.email(email)
 			.build();
 	System.out.println( staffDTO.toString());

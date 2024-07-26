@@ -6,6 +6,7 @@ import com.tenco.model.student.StudentDTO;
 
 public interface StaffRepository {
 
+
 	StaffDTO selectUserIdById(int id);
 	StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO);
 	StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO);
@@ -14,4 +15,7 @@ public interface StaffRepository {
 	int addUserStaff(StaffDTO staffDTO,String password );
 	int addUserProfessor(ProfessorDTO professorDTO,String password );
 	int addUserStudent(StudentDTO studentDTO,String password );
+
+	StaffDTO getAllInfoById(int id);
+
 }
