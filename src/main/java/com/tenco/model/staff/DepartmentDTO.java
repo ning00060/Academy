@@ -5,4 +5,4 @@ public class DepartmentDTO {
 	private int id;
 	private String name;
 	private int collegeId;
-}
+} 

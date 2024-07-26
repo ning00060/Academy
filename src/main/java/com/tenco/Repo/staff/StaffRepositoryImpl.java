@@ -23,8 +23,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 	private static final String ADD_USER = " INSERT INTO tb_user VALUES(?,?,?) ";
 
 	@Override
-<<<<<<< HEAD
-=======
 	public StaffDTO selectUserIdById(int id) {
 		StaffDTO staffDTO = new StaffDTO();
 
@@ -52,7 +50,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 	@Override
 
->>>>>>> kdy2
 	public StaffDTO addStaff(StaffDTO DTO) {
 		StaffDTO staffDTO = null;
 		try (Connection conn = DBUtil.getConnection()) {
@@ -255,16 +252,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return rowCount;
 	}
 
-<<<<<<< HEAD
-	@Override
-	public StaffDTO selectUserIdById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-=======
 
-
->>>>>>> kdy2
 
 	@Override
 	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
@@ -278,7 +266,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return null;
 	}
 
-<<<<<<< HEAD
 	@Override
 	public StaffDTO getAllInfoById(int id) {
 		StaffDTO staffDTO = null;
@@ -321,8 +308,6 @@ public class StaffRepositoryImpl implements StaffRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
-=======
->>>>>>> kdy2
 
 	@Override
 	public DepartmentDTO getDepartment(int id) {
@@ -338,57 +323,11 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> kdy2
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
 //		StaffDTO DTO=addStaff(staffDTO);
 //		int rowCount=addUser(DTO,password);
 //		return rowCount;
 //	}
-<<<<<<< HEAD
-=======
- 
-	@Override
-	public void addDepartment(DepartmentDTO departmentDTO) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void deleteDepartment(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<DepartmentDTO> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public DepartmentDTO getDepartment(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void upDateDepartmentById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-
-	@Override
-	public StaffDTO getAllInfoById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
->>>>>>> kdy2
 }
