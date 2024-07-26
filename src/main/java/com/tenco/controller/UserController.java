@@ -3,13 +3,16 @@ package com.tenco.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.Repo.interfaces.temp.NoticeRepository;
 import com.tenco.Repo.interfaces.temp.ScheduleRepository;
+import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.NoticeRepositoryImpl;
 import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
+import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
@@ -31,6 +34,7 @@ public class UserController extends HttpServlet {
 	private NoticeRepository noticeRepository;// 공지사항
 	private ScheduleRepository scheduleRepository;// 학사일정
 	private StudentRepository studentRepository;
+	private StaffRepository staffRepository;
 
 	public UserController() {
 		super();
@@ -45,6 +49,7 @@ public class UserController extends HttpServlet {
 		studentRepository = new StudentRepositoryImpl();
 
 		scheduleRepository = new ScheduleRepositoryImpl();
+		staffRepository = new StaffRepositoryImpl();
 
 		System.out.println("12");
 	}
@@ -283,7 +288,8 @@ public class UserController extends HttpServlet {
 
 				break;
 			case 3:
-
+				StaffDTO staffDTO = staffRepository.getAllInfoById(userDTO.getId());
+				session.setAttribute("staffDTO", staffDTO);
 				break;
 
 			default:

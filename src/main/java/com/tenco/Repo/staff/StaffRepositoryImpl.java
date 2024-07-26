@@ -17,4 +17,10 @@ public class StaffRepositoryImpl implements StaffRepository{
 		return null;
 	}
 
+	@Override
+	public StaffDTO getAllInfoById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

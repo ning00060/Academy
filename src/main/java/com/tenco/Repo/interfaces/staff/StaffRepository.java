@@ -6,4 +6,5 @@ public interface StaffRepository {
 
 	StaffDTO selectUserIdByNameEmail();
 	StaffDTO selectUserIdByNameIdEmail();
+	StaffDTO getAllInfoById(int id);
 }
