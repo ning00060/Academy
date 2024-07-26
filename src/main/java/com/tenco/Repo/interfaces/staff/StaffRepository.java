@@ -15,7 +15,10 @@ public interface StaffRepository {
 	int addUserStaff(StaffDTO staffDTO,String password );
 	int addUserProfessor(ProfessorDTO professorDTO,String password );
 	int addUserStudent(StudentDTO studentDTO,String password );
+<<<<<<< HEAD
 
+=======
+>>>>>>> kdy
 	StaffDTO getAllInfoById(int id);
 
 }
