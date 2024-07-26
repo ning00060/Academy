@@ -5,11 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.model.professor.ProfessorDTO;
-import com.tenco.model.staff.DepartmentDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.util.DBUtil;
@@ -254,6 +252,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 
 
+<<<<<<< HEAD
 	@Override
 	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
 		// TODO Auto-generated method stub
@@ -266,6 +265,8 @@ public class StaffRepositoryImpl implements StaffRepository {
 		return null;
 	}
 
+=======
+>>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 	@Override
 	public StaffDTO getAllInfoById(int id) {
 		StaffDTO staffDTO = null;
@@ -292,6 +293,7 @@ public class StaffRepositoryImpl implements StaffRepository {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void addDepartment(DepartmentDTO departmentDTO) {
 		// TODO Auto-generated method stub
 		
@@ -311,18 +313,27 @@ public class StaffRepositoryImpl implements StaffRepository {
 
 	@Override
 	public DepartmentDTO getDepartment(int id) {
+=======
+	public StaffDTO selectUserIdByNameEmail() {
+>>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+
+
+
 	@Override
-	public void upDateDepartmentById(int id) {
+	public StaffDTO selectUserIdByNameIdEmail() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
 //		StaffDTO DTO=addStaff(staffDTO);
@@ -330,4 +341,11 @@ public class StaffRepositoryImpl implements StaffRepository {
 //		return rowCount;
 //	}
 
+<<<<<<< HEAD
+=======
+ 
+
+
+
+>>>>>>> c1ac7fb375bc6e22bcd252982868d96b37e04880
 }

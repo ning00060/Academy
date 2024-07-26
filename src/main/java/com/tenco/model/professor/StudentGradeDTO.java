@@ -11,15 +11,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Builder
-
-public class RestClassDTO {
-	private int id;
+public class StudentGradeDTO {
+	private int studentId;
+	private String studentName;
 	private int subjectId;
 	private String subjectName;
-	private int professorId;
-	private String restDay;
-	private String roomId;
-	private int year;
-	private int semester;
-	private String supplement;
+	private int midExam;
+	private int finalExam;
+	private float convertedMark; 
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tenco.Repo.interfaces.temp.DepartmentRepository;
+import com.tenco.model.subject.StaffSubjectDTO;
 import com.tenco.model.temp.DepartmentDTO;
 import com.tenco.model.temp.RoomDTO;
 import com.tenco.util.DBUtil;
@@ -20,45 +21,106 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 
 	@Override
 	public List<DepartmentDTO> selectDepartmentAll() {
-		List<DepartmentDTO> roomList = new ArrayList<>();
+		List<DepartmentDTO> departList = new ArrayList<>();
 		try (Connection conn = DBUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(SELECT_DEPARTMENT_ALL)) {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				roomList.add(DepartmentDTO.builder()
-
-
+				departList.add(DepartmentDTO.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.collegeId(rs.getInt("college_id"))
 						.build());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		return roomList;
+		return departList;
 	}
 
 	@Override
 	public DepartmentDTO selectDepartmentById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		DepartmentDTO departmentDTO = null;
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_DEPARTMENT_BY_ID)) {
+				pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				departmentDTO=DepartmentDTO.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.collegeId(rs.getInt("college_id"))
+						.build();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return departmentDTO;
 	}
 
 	@Override
 	public void addDepartment(DepartmentDTO departmentDTO) {
-		// TODO Auto-generated method stub
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(ADD_DEPARTMENT)){
+				pstmt.setInt(1, departmentDTO.getId());
+				pstmt.setString(2, departmentDTO.getName());
+				pstmt.setInt(3, departmentDTO.getCollegeId());
+
+				pstmt.executeUpdate();
+				conn.commit();
+				System.out.println("add커밋됨:" +departmentDTO.toString() );
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public void updateDepartment(DepartmentDTO departmentDTO, int id) {
-		// TODO Auto-generated method stub
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(UPDATE_DEPARTMENT)){
+				pstmt.setInt(1, departmentDTO.getId());
+				pstmt.setString(2, departmentDTO.getName());
+				pstmt.setInt(3, departmentDTO.getCollegeId());
+				pstmt.setInt(4, id);
+				pstmt.executeUpdate();
+				
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
 	public void deleteDepartment(int id) {
-		// TODO Auto-generated method stub
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(DELETE_DEPARTMENT)){
+				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
+
 
 }

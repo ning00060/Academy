@@ -3,15 +3,19 @@ package com.tenco.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.Repo.interfaces.staff.StaffRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
 import com.tenco.Repo.interfaces.temp.NoticeRepository;
 import com.tenco.Repo.interfaces.temp.ScheduleRepository;
+import com.tenco.Repo.interfaces.user.UserRepository;
+import com.tenco.Repo.professor.ProfessorRepositoryImpl;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.NoticeRepositoryImpl;
 import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
+import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
@@ -30,11 +34,12 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/user/*")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserRepositoryImpl userRepositoryImpl;
+	private UserRepository userRepository;
 	private NoticeRepository noticeRepository;// 공지사항
 	private ScheduleRepository scheduleRepository;// 학사일정
 	private StudentRepository studentRepository;
 	private StaffRepository staffRepository;
+	private ProfessorRepository professorRepository;
 
 	public UserController() {
 		super();
@@ -42,7 +47,7 @@ public class UserController extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		userRepositoryImpl = new UserRepositoryImpl();
+		userRepository = new UserRepositoryImpl();
 		noticeRepository = new NoticeRepositoryImpl();
 
 		scheduleRepository = new ScheduleRepositoryImpl();
@@ -50,7 +55,9 @@ public class UserController extends HttpServlet {
 
 		scheduleRepository = new ScheduleRepositoryImpl();
 		staffRepository = new StaffRepositoryImpl();
-
+		
+		professorRepository = new ProfessorRepositoryImpl();
+		System.out.println("12");
 	}
 
 	// 아이디 찾기, 비밀번호 찾기 sendredirect
@@ -138,6 +145,9 @@ public class UserController extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
+
+	
+	
 	private void handleInfoModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -255,7 +265,8 @@ public class UserController extends HttpServlet {
 		// TODO - getparameter data 필수 작성!!!!!!!!!!!!!!!!!!!!
 		int id = Integer.parseInt(request.getParameter("id"));
 		String password = (String) request.getParameter("password");
-		if ((userDTO = userRepositoryImpl.userLogin(id, password)) != null) {
+		if ((userDTO = userRepository.userLogin(id, password)) != null) {
+			// 로그인 성공
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("verifiedUser", userDTO);
@@ -270,7 +281,8 @@ public class UserController extends HttpServlet {
 				// TODO - main page로 이동
 				break;
 			case 2:
-
+				ProfessorDTO professorDTO = professorRepository.getAllInfoById(userDTO.getId());
+				session.setAttribute("professorDTO", professorDTO);
 				break;
 			case 3:
 				StaffDTO staffDTO = staffRepository.getAllInfoById(userDTO.getId());
@@ -287,6 +299,12 @@ public class UserController extends HttpServlet {
 			// 학사일정 getAll
 			List<ScheduleDTO> scheduleList = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList);
+			System.out.println("login성공");
+			// 학생유저 정보
+//			StudentDTO student = studentRepository.studentInfo(userDTO.getId());
+//			session.setAttribute("studentDTO", student);
+			// permission-level 확인 1=학생, 2=교수, 3= 관리직
+			// TODO - main page로 이동
 
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		} else {

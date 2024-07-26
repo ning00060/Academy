@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.tenco.model.subject.StaffSubjectDTO;
 
-public interface SubjectRepository {
+public interface StaffSubjectRepository {
 
 	List<StaffSubjectDTO> selectSubjectAll();
 	StaffSubjectDTO selectSubjectById(int id);

@@ -28,6 +28,13 @@
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
+
+				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
+			</c:if>
+			
+			<c:if test="${verifiedUser.permissionLevel == 2}">
+				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/student/restClassList">휴/보강 조회</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
 
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
@@ -42,7 +49,6 @@
 				<h2> <a href="${pageContext.request.contextPath}/professor/clickERMenu">강의 평가 조회</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/goinputpage">학생 성적 관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/restclassmanagement">휴/보강 관리</a> </h2>
-
 			</c:if>
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">

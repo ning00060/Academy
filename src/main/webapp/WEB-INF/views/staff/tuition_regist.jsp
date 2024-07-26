@@ -49,6 +49,10 @@
 					<td><input type="text" name="id" id="id" class="input--box"></td>
 				</tr>
 				<tr>
+					<td><label for="id2">변경할 학번</label></td>
+					<td><input type="text" name="id2" id="id2" class="input--box"></td>
+				</tr>
+				<tr>
 					<td><label for="tuiYear">년도</label></td>
 					<td><input type="text" name="tuiYear" id="tuiYear" class="input--box"></td>
 				</tr>
