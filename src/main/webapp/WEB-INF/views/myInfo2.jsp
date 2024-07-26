@@ -20,10 +20,7 @@
  		<div class="sub--menu--mid">
             <table class="sub--menu--table" border="1">
                 <tr>
-                    <td><a href="/info/student" class="selected--menu">내 정보 조회</a></td>
-                </tr>
-                <tr>
-                    <td><a href="/password">비밀번호 변경</a></td>
+                    <td><a href="/Academy/user/myInfo" class="selected--menu">내 정보 조회 및 수정</a></td>
                 </tr>
                 <tr>
                     <td><a href="/break/application">휴학 신청</a></td>
@@ -44,7 +41,8 @@
         
         
  		
- <%-- --%>	<% StudentDTO student = (StudentDTO)request.getAttribute("studentDTO"); %>
+ <%--  --%>	 <% StudentDTO student = (StudentDTO)request.getAttribute("studentDTO");  %>
+ <%-- --%>	
  			<%UserDTO userDTO2 = (UserDTO)request.getSession().getAttribute("verifiedUser"); %>	
  		
  	</div>
@@ -55,7 +53,7 @@
  	
  	<h1>내 정보 조회</h1>
         <div class="split--div"></div>
-       <form action="${pageContext.request.contextPath}/update" method="post">
+       <form action="${pageContext.request.contextPath}/user/update" method="post">
             <table border="1" class="input--table" >
             <colgroup>
                 <col class="col1">
@@ -65,24 +63,25 @@
             </colgroup>
                 <tr>
                     <th>주소</th>
-                    <td> <input type="text" value="<%= student.getAddress()%>"> </td>
+                    <td> <input type="text" name="address" value="<%= student.getAddress()%>"> </td>
                 </tr>
                 <tr>
                     <th>전화번호</th>
-                    <td> <input type="text" value="<%= student.getTel()%>"> </td>
+                    <td> <input type="text" name="tel" value="<%= student.getTel()%>"> </td>
                 </tr>
                 <tr>
                     <th>이메일</th>
-                    <td> <input type="text" value="<%= student.getEmail()%>"> </td>
+                    <td> <input type="text" name="email" value="<%= student.getEmail()%>"> </td>
                 </tr>
                 
                 <tr>
                     <th>비밀번호 </th>
-                    <td> <input type="text" id =password name ="password"> </td>
+                    <td> <input type="text" name ="password" value="<%= student.getU_password()%>"> </td>
                 </tr>
                 
             </table>
- 		<button type="submit">제출</button>
+ 		
+ 		<button type="submit">변경하기</button>
  	</form>
  	</div>
  	

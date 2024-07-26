@@ -21,22 +21,22 @@
 	%>
 	<table border="1">
 		<tr>
-			<th>과목코드:</th>
-			<th>강의명:</th>
-			<th>강의실:</th>
-			<th>계열/학과:</th>
-			<th>강의유형:</th>
-			<th>개설 년도:</th>
-			<th>학기:</th>
-			<th>학점:</th>
-			<th>
-			<th>
+			<th>과목코드</th>
+			<th>강의명</th>
+			<th>담당교수</th>
+			<th>강의실</th>
+			<th>계열/학과</th>
+			<th>강의유형</th>
+			<th>개설 년도</th>
+			<th>학기</th>
+			<th>학점</th>
+			<th></th>
 		</tr>
 		<%
 		for (int i = 0; i < subjectList.size(); i++) {
 		%>
 		<tr>
-			<td><%=subjectList.get(i).getStudentId()%></td>
+			<td><%=subjectList.get(i).getSubjectId()%></td>
 			<td><%=subjectList.get(i).getSubjectName()%></td>
 			<td><%=subjectList.get(i).getProfessorName()%></td>
 			<td><%=subjectList.get(i).getRoomId()%></td>
@@ -49,9 +49,12 @@
 				<form
 					action="${pageContext.request.contextPath}/user/goevaluation"
 					method="GET">
-					<input type="hidden" name="subjectId"
+					<input type="hidden" name="subjectName"
 						value="<%=subjectList.get(i).getSubjectName()%>">
-					<button type="submit">성적 입력</button>
+	
+						<input type="hidden" name="subjectId"
+						value="<%=subjectList.get(i).getSubjectId()%>">
+					<button type="submit">강의평가 진행하기</button>
 				</form>
 			</td>
 		</tr>
