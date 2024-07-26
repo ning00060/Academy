@@ -241,6 +241,30 @@ public class StaffRepositoryImpl implements StaffRepository{
 	    return rowCount;
 	}
 
+	@Override
+	public StaffDTO selectUserIdById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StaffDTO selectUserIdByNameEmail(StaffDTO staffDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StaffDTO selectUserIdByNameIdEmail(StaffDTO staffDTO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public StaffDTO getAllInfoById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 //	@Override
 //	public int addUserStaff(StaffDTO staffDTO,String password) {
