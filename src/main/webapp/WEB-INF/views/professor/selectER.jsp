@@ -27,11 +27,11 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오.">
+		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오." required="required">
 		<button type="submit">조회</button>
 	</form>
 	<br>
 	<br>
-	<a href="${pageContext.request.contextPath}/temp/home.jsp">홈으로 돌아가기</a>
+	<a href="${pageContext.request.contextPath}/user/home">홈으로 돌아가기</a>
 </body>
 </html>
