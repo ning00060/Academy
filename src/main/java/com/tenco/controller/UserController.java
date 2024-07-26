@@ -126,6 +126,7 @@ public class UserController extends HttpServlet {
 		request.setAttribute("subjectId", subjectId);
 		request.setAttribute("subjectName", subjectName);
 		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+	
 	}
 
 	/**
