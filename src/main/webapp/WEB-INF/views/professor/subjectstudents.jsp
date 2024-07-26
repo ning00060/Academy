@@ -37,12 +37,12 @@
 				<td><%=studentList.get(i).getId()%></td>
 				<td><%=studentList.get(i).getName()%></td>
 				<td><input type="text" name="midExamScore<%=i+1%>" size="10"
-					style="width: 20vh" value="24"></td>
+					style="width: 20vh" value="90"></td>
 				<td><input type="text" name="finalExamScore<%=i+1%>" size="10"
-					style="width: 20vh" value="24"></td>
+					style="width: 20vh" value="80"></td>
 				<td><input type="text" name="grade<%=i+1%>" size="10"
-					style="width: 20vh" value="24"></td>
-				<td><input type="text" name="studentId<%=i+1%>"
+					style="width: 20vh" value="4.0"></td>
+				<td><input type="hidden" name="studentId<%=i+1%>"
 					value="<%=studentList.get(i).getId()%>"></td>
 			</tr>
 			<%

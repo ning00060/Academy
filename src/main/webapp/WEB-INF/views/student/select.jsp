@@ -1,13 +1,27 @@
-<%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>수강과목 조회하기</title>
-</head>
-<body>
+    pageEncoding="UTF-8"%>
+
+ <%@ include file="../main_head.jsp" %>
+ 
+
+ <div class="studentEvaluation-inner">
+ 	
+ 	<div style="flex-grow: 1; ">
+ 	<table border="1">
+ 		<tr>
+ 			<td>전체 강의 조회</td>
+		</tr>
+ 		<tr>
+ 			<td>내 강의 조회</td>
+		</tr>
+		<tr>
+ 			<td>내 강의 평가</td>
+		</tr>
+ 	</table>
+ 	</div>
+<div style="flex-grow: 1"></div>
+
+<div style="flex-grow: 1">
 	<h2>강의평가 수강과목 조회</h2>
 	<form action="${pageContext.request.contextPath}/user/readmysubject" method="GET">
 		<select id="year" name="year">
@@ -33,5 +47,8 @@
 	<br>
 	<br>
 	<a href="${pageContext.request.contextPath}/views/home.jsp">홈으로 돌아가기</a>
-</body>
-</html>
+</div>
+
+</div><!-- flex row 끝지점 -->
+
+<%@ include file="../main_footer.jsp"%>

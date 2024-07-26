@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" >
 <title>Insert title here</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
     <label>본 평가는 본 학교의 강의 환경 개선에 활용됩니다. <br> 진지한 답변 작성 부탁드립니다. <br> (1). 매우 그렇지 않다. (2). 약간 그렇지 않다. (3). 보통이다. (4). 약간 그렇다. (5). 매우 그렇다 </label>
 	
 	<h4>강의명 : <%=request.getAttribute("subjectName")%></h4>
-	<form>
+	<form action="${pageContext.request.contextPath}/student/uploadAnswer" method="post">
     <table border="1">
         <tr>
         	<th rowspan="2">평가 요소</th>
@@ -141,10 +141,11 @@
     </table>
     <%}%>
   
-    
+    <input type="hidden" name="subjectId"
+	value="<%=request.getAttribute("subjectId")%>">
     
     <p>건의사항 - 강의에 대한 건의사항이 있다면 자유롭게 써 주세요</p>
-    <textarea name="sugContent" rows="10" cols="100">
+    <textarea name="Content" rows="10" cols="100">
     </textarea>
     <br> <br>
     <button type="submit">제출하기</button>

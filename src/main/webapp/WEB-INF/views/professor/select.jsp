@@ -27,7 +27,7 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-		<input type="text"id="professorId" name="professorId" placeholder="담당교수 ID를 입력하시오.">
+		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오.">
 		<button type="submit">조회</button>
 	</form>
 	<br>

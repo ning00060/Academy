@@ -48,7 +48,7 @@
 					action="${pageContext.request.contextPath}/professor/selectsubject"
 					method="GET">
 					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
-					<button type="submit">성적 입력</button>
+					<button type="submit">성적 입력/수정 하기</button>
 				</form>
 			</td>
 		</tr>
