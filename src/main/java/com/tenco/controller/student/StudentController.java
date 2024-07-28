@@ -1,26 +1,31 @@
 package com.tenco.controller.student;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tenco.Repo.interfaces.student.EnrollSearchRepository;
+import com.tenco.Repo.interfaces.student.StudentRepository;
+import com.tenco.Repo.student.EnrollSearchRepositoryImpl;
+import com.tenco.Repo.student.StudentRepositoryImpl;
+import com.tenco.model.student.AnswerDTO;
+import com.tenco.model.student.EnrollSearchDTO;
+import com.tenco.model.student.EnrollSearchListDTO;
+import com.tenco.model.student.StudentDTO;
+import com.tenco.model.student.breakappDTO;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import lombok.Builder.Default;
-
-import java.io.IOException;
-
-import com.tenco.Repo.interfaces.student.StudentRepository;
-import com.tenco.Repo.student.StudentRepositoryImpl;
-import com.tenco.model.student.AnswerDTO;
-import com.tenco.model.student.StudentDTO;
-import com.tenco.model.student.breakappDTO;
-import com.tenco.model.user.UserDTO;
 
 @WebServlet("/student/*")
 public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private StudentRepository studentRepository;  
+    private EnrollSearchRepository enrollSearchRepository;
 	
     public StudentController() {
         super();
@@ -29,6 +34,7 @@ public class StudentController extends HttpServlet {
     @Override
     public void init() throws ServletException {
     	studentRepository = new StudentRepositoryImpl();
+    	enrollSearchRepository = new EnrollSearchRepositoryImpl();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +50,11 @@ public class StudentController extends HttpServlet {
 		
 		case "/subjectList":
 			request.getRequestDispatcher("/WEB-INF/views/student/breakapp.jsp\"").forward(request, response);
+			break;
+			
+		case "/enrollSearch":
+			// 대학교 강의 목록 조회 페이지로 이동한다.
+			request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository.jsp").forward(request, response);
 			break;
 
 		default:
@@ -82,12 +93,95 @@ public class StudentController extends HttpServlet {
 		System.out.println("@@");
 		breakPost(request, response);
 		break;
+		
+	case "/enrollSearch":
+		// 검색 할 시 정보를 출력한다.
+		System.out.println("~~");
+		enrollSearch(request,response);
+		break;
+	
+	case "/enrolment":
+		// 수강 신청 버튼 클릭 시 
+		System.out.println("수강 신청 버튼 클릭 시 작동");
+		enrolment(request, response);
+	
+	case "/enrollSearchList":
+		// 수강신청 목록 보러가기 페이지로 이동한다.
+		System.out.println("수강신청 목록 보러가기 페이지로 이동한다.");
+		enrollSearchList(request, response);
 
 	default:
 		break;
 	}
-	}
 	
+	}
+	/**
+	 * 수강신청 완료 리스트
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void enrollSearchList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		StudentDTO studentDTO = (StudentDTO)session.getAttribute("studentDTO");
+		request.setAttribute("studentDTO", studentDTO);
+		List<EnrollSearchListDTO> enrollSearchListDTO = enrollSearchRepository.searchEnrollList(studentDTO.getId());
+		request.setAttribute("EnrollSearchListDTO", enrollSearchListDTO);
+		System.out.println("enrollSearchListDTO.toString() : " + enrollSearchListDTO.toString());
+		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository3.jsp").forward(request, response);
+	}
+
+	/**
+	 * 수강신청 버튼 클릭 시 수강신청 목록으로 들어간다.
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void enrolment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		StudentDTO studentDTO = (StudentDTO) session.getAttribute("studentDTO");
+		request.setAttribute("studentDTO", studentDTO);
+		System.out.println(studentDTO.toString());
+		
+		String b = request.getParameter("subjectnumber");
+		System.out.println(b); // 데이터통신 <-- 과목 번호
+		int c = Integer.parseInt(b);
+		
+		enrollSearchRepository.InsertEnroll(studentDTO.getId(), c);
+	
+		//수강신청 버튼 클릭 시 학생 번호, 과목 번호를 수강신청 테이블로 전송시킨다.
+		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository.jsp").forward(request, response);
+		// request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+	}
+
+	/**
+	 * 수강신청 과목 리스트
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void enrollSearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String subject = request.getParameter("subject");
+		System.out.println("subject :" + subject);
+		
+		String department = request.getParameter("department");
+		System.out.println("department :" + department);
+		
+		String subjectname = request.getParameter("subjectname");
+		System.out.println("subjectList :" + subjectname);
+		
+		List<EnrollSearchDTO> searchDTO = new ArrayList<EnrollSearchDTO>();
+		searchDTO = enrollSearchRepository.searchSubject(subject, department, subjectname);
+		request.setAttribute("subjectList", searchDTO);
+		
+		System.out.println(searchDTO.toString());
+		
+		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository2.jsp").forward(request, response);
+	}
+
 	/**
 	 * 휴학 신청 버튼 클릭 시 
 	 * @param request
