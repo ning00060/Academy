@@ -14,6 +14,7 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter("/student/*")
@@ -30,27 +31,28 @@ public class StudentFilter extends HttpFilter implements Filter {
 			throws IOException, ServletException {
 		// downcasting ServletRequest -> HttpServletRequest
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse)response;
 		// GET HttpSession object
 		HttpSession session = httpRequest.getSession();
 		UserDTO userDTO = null;
+		String msg = "";
 		if((userDTO=(UserDTO)session.getAttribute("verifiedUser")) == null) {
-			request.setAttribute("errorMSG",Define.NONE_VERIFIED_USER_ERROR);
+			msg = Define.NONE_VERIFIED_USER;
 			session.invalidate();
 		}else {
 			// Logined user
 			if (userDTO.getPermissionLevel()==1) {
 				//professor login | clear to pass
 				chain.doFilter(request, response);
-			
+				return;
 			}else {
 				// other logined user |  denied 
-				request.setAttribute("errorMSG",Define.USER_PERMISSION_ERROR);
+				msg = Define.USER_PERMISSION_DENIED;
 				session.removeAttribute("verifiedUser");
 				session.invalidate();
 			}
 		}
-		
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		httpResponse.sendRedirect(httpRequest.getContextPath()+"?error="+msg);
 	}
 	
 	

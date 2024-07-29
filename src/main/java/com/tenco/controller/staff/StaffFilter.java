@@ -1,4 +1,4 @@
-package com.tenco.controller.professor;
+package com.tenco.controller.staff;
 
 import java.io.IOException;
 
@@ -18,9 +18,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter("/professor/*")
-public class ProfessorFilter extends HttpFilter implements Filter {
+public class StaffFilter extends HttpFilter implements Filter {
 
-	public ProfessorFilter() {
+	public StaffFilter() {
 		super();
 	}
 
@@ -41,7 +41,7 @@ public class ProfessorFilter extends HttpFilter implements Filter {
 			session.invalidate();
 		} else {
 			// Logined user
-			if (userDTO.getPermissionLevel() == 2) {
+			if (userDTO.getPermissionLevel() == 3) {
 				// professor login | clear to pass
 				chain.doFilter(request, response);
 				return;

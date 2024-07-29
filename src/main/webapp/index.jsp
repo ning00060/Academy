@@ -19,9 +19,9 @@ input[type=number] {
 </head>
 <body>
 
-	<c:if test="${errorMSG != null}">
+	<c:if test="${param.error != null}">
 		<script>
-			alert("${errorMSG}");
+			alert("${param.error}");
 		</script>
 
 	</c:if>
