@@ -38,8 +38,8 @@ input[type=number] {
 			</div>
 		</form>
 		
-		<a href="/find/id" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;"> ID 찾기 </a>
-		<a href="/find/password" onclick="window.open(this.href, '_blank', 'width=500, height=350'); return false;"> 비밀번호 찾기 </a>
+		<a href="/user/findId" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;"> ID 찾기 </a>
+		<a href="/user/findPw" onclick="window.open(this.href, '_blank', 'width=500, height=350'); return false;"> 비밀번호 찾기 </a>
 		
 		
 </body>

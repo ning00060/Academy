@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+ <%@ include file="../main_head.jsp" %>
 		<h1>등록금 등록</h1>
 		<form action="${pageContext.request.contextPath}/staff/tuition" method="post">
 			<table class="table--container">
@@ -91,5 +88,4 @@
 				<input type="submit" value="입력">
 			</div>
 		</form>
-</body>
-</html>
+ <%@ include file="../main_footer.jsp"%>

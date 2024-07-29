@@ -87,10 +87,10 @@ public class DepartmentRepositoryImpl implements DepartmentRepository{
 		try (Connection conn=DBUtil.getConnection()){
 			conn.setAutoCommit(false);
 			try (PreparedStatement pstmt=conn.prepareStatement(UPDATE_DEPARTMENT)){
-				pstmt.setInt(1, departmentDTO.getId());
+				pstmt.setInt(4, departmentDTO.getId());
 				pstmt.setString(2, departmentDTO.getName());
 				pstmt.setInt(3, departmentDTO.getCollegeId());
-				pstmt.setInt(4, id);
+				pstmt.setInt(1, id);
 				pstmt.executeUpdate();
 				
 				conn.commit();

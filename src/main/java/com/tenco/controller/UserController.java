@@ -17,6 +17,7 @@ import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
+import com.tenco.model.staff.StaffUserDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
@@ -40,7 +41,6 @@ public class UserController extends HttpServlet {
 	private StudentRepository studentRepository;
 	private StaffRepository staffRepository;
 	private ProfessorRepository professorRepository;
-
 	public UserController() {
 		super();
 	}
@@ -68,10 +68,11 @@ public class UserController extends HttpServlet {
 		switch (action) {
 
 		case "/findId":
+			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);
 			break;
 		case "/findPw":
+			request.getRequestDispatcher("/WEB-INF/views/user/find_pw.jsp").forward(request, response);
 			break;
-
 		case "/evaluation":
 			request.getRequestDispatcher("/WEB-INF/views/student/select.jsp").forward(request, response);
 			break;
@@ -89,7 +90,6 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/home":
-
 			HttpSession session1 = request.getSession();
 			List<NoticeDTO> noticeList1 = noticeRepository.SelectNoitceAll5();
 			request.setAttribute("noticeList", noticeList1);
@@ -120,10 +120,34 @@ public class UserController extends HttpServlet {
 			session.setAttribute("studentDTO", student);
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
+			
+		case "/logout":
+			System.out.println("get : logout");
+			handleLogout(request, response);
+			break;
 		default:
 			break;
 		}
 	}
+	
+	/**
+	 * 회원이 로그아웃 클릭 시 세션을 제거한다.
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
+		if(session != null) {
+			session.removeAttribute("verifiedUser");
+			session.invalidate();
+			System.out.println("세션 삭제");
+		} else {
+			System.out.println("삭제안됨");
+		}
+		response.sendRedirect(request.getContextPath()+"/index.jsp");		
+	}
+
 
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -218,6 +242,14 @@ public class UserController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
+		
+		
+		case "/findId":
+			findIdPage(request, response);
+			break;
+		case "/findPw":
+			findPwPage(request, response);
+			break;
 		case "/login":
 			handleLogin(request, response);
 			break;
@@ -230,6 +262,35 @@ public class UserController extends HttpServlet {
 			break;
 		}
 
+	}
+
+	private void findPwPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id=Integer.parseInt( request.getParameter("id"));
+		String name = request.getParameter("name");
+		if(name == null || name.trim().isEmpty() || request.getParameter("id") == null || request.getParameter("id").trim().isEmpty()) {
+            request.setAttribute("errorMessage", "다시 입력해주세요");
+            request.getRequestDispatcher("/findPw.jsp").forward(request, response);
+		}else {
+			StaffUserDTO userDTO=userRepository.userPw(id,name);
+			request.setAttribute("userDTO", userDTO);
+			request.getRequestDispatcher("/findPw.jsp").forward(request, response);
+		}
+		
+	}
+
+	private void findIdPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		String name = request.getParameter("name");
+		int num= Integer.parseInt(request.getParameter("num"));
+		if(name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty() ||String.valueOf( num) == null) {
+            request.setAttribute("errorMessage", "다시 입력해주세요");
+            request.getRequestDispatcher("/findId.jsp").forward(request, response);
+		}else {
+			StaffUserDTO userDTO=userRepository.userId(name, email, num);
+			request.setAttribute("userDTO", userDTO);
+			request.setAttribute("name", name);
+			request.getRequestDispatcher("/findId.jsp").forward(request, response);
+		}
 	}
 
 	/**

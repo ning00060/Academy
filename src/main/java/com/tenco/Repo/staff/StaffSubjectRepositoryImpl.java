@@ -106,7 +106,7 @@ public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 		try (Connection conn=DBUtil.getConnection()){
 			conn.setAutoCommit(false);
 			try (PreparedStatement pstmt=conn.prepareStatement(UPDATE_SUBJECT)){
-				pstmt.setInt(1, subjectDTO.getId());
+				pstmt.setInt(10, subjectDTO.getId());
 				pstmt.setString(2, subjectDTO.getName());
 				pstmt.setInt(3, subjectDTO.getProfessorId());
 				pstmt.setString(4, subjectDTO.getRoomId());
@@ -115,7 +115,7 @@ public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 				pstmt.setInt(7, subjectDTO.getYear());
 				pstmt.setInt(8, subjectDTO.getSemester());
 				pstmt.setInt(9, subjectDTO.getGrades());
-				pstmt.setInt(10, id);
+				pstmt.setInt(1, id);
 				pstmt.executeUpdate();
 				
 				conn.commit();

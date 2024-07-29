@@ -16,36 +16,26 @@
 				
 			
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
-			
-			<p></p>
-			 <!-- <P><%=userDTO.getName() %> </P> -->
+			<!-- <P><%=userDTO.getName() %> </P>  -->
 			<a href="${pageContext.request.contextPath}/user/home"> <img alt="로고" src="../resource/favicon.ico"> </a>
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 6-->
-				<h2> <a href="${pageContext.request.contextPath}/user/a">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
-				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
-
-				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
-			</c:if>
-			
-			<c:if test="${verifiedUser.permissionLevel == 2}">
-				<h2> <a href="${pageContext.request.contextPath}/student/subjectList">수강신청</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/student/enrollSearch">수강신청</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/student/restClassList">휴/보강 조회</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">성적</a> </h2>
-
 				<h2> <a href="${pageContext.request.contextPath}/@@@@/Semester">학사정보</a> </h2>
 			</c:if>
 			
-
 			
 			<c:if test="${verifiedUser.permissionLevel == 2}">
 				<!-- 교수 카테고리   -->
+				<h2> <a href="${pageContext.request.contextPath}/professor/123123"></a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/goinputpage">수업</a> </h2>
-				<!-- 교수 카테고리   -->
 				<h2> <a href="${pageContext.request.contextPath}/professor/clickERMenu">강의 평가 조회</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/goinputpage">학생 성적 관리</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/professor/restclassmanagement">휴/보강 관리</a> </h2>
@@ -59,7 +49,6 @@
 			        <button class="dropbtn">관리</button>
 			        <div class="dropdown-content">
 			            <a href="${pageContext.request.contextPath}/staff/tuition">등록금</a>
-			            <a href="${pageContext.request.contextPath}/staff/tuitionModify">등록금 등록</a>
 			            <a href="${pageContext.request.contextPath}/staff/scholarship">장학금</a>
 						<a href="${pageContext.request.contextPath}/staff/subjectList">학사관리</a> 
 			        </div>
@@ -72,7 +61,18 @@
 			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
 			        </div>
 			    </div>
-				<h2> <a href="${pageContext.request.contextPath}/staff/notice">학사정보</a> </h2>
+				    <div class="dropdown">
+				        <h2>관리</h2>
+				        <div class="dropdown-content">
+				            <a href="${pageContext.request.contextPath}/staff/depart">대학관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectDepart">대학수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/room">강의실관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectRoom">강의실수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/subject">강의관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectSubject">강의수정</a>
+
+				        </div>
+    			</div>
 			</c:if>
 			
 			
@@ -82,14 +82,13 @@
 			<h2> <a href="${pageContext.request.contextPath}/test/My">My@</a> </h2>
 			<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수강신청@</a> </h2>
 			<h2> <a href="${pageContext.request.contextPath}/test/Semester">성적@</a> </h2>
-			<h2> <a href="${pageContext.request.contextPath}/staff/notice">학사정보@</a> </h2>
+			<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보@</a> </h2>
 			</c:if>
 			
 			<nav>
 				<ul>
 					<li> <%=userDTO.getId()%> <%=userDTO.getName()%> </li>
-					<!--  TODO- 로그아웃 userController에 get 영역에 만들어야 한다. -->
-					<li> <a href="${pageContext.request.contextPath}/index.jsp">로그아웃</a> </li>
+					<li> <a href="${pageContext.request.contextPath}/user/logout">로그아웃</a> </li>
 				</ul>
 			</nav>
 		

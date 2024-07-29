@@ -17,7 +17,7 @@
 							<table>
 									<c:forEach var="notice" items="${noticeList}">
 									<tr>
-										<td><a href="#${notice.id}">${notice.category}&nbsp;${notice.title}</a></td>
+										<td><a href="#">${notice.category}&nbsp;${notice.title}</a></td>
 										<td><fmt:formatDate value="${notice.createdTime}" type="date"/></td>
 									</tr>						
 	
@@ -67,9 +67,11 @@
 		
 			<div>
 				<c:if test="${verifiedUser.permissionLevel == 1}">
-					<div><button>마이페이지</button></div>
+					<div><a href="${pageContext.request.contextPath}/user/myInfo"><button>마이페이지</button></a></div>
 				</c:if>
-				<div><button>로그아웃</button></div>
+				<div>
+				<a href="${pageContext.request.contextPath}/user/logout"><button>로그아웃</button></a>
+				</div>
 			</div>
 		</div>
 		
