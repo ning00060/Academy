@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>휴/보강 관리</title>
+<title>개설 요청 강좌 목록</title>
 </head>
-<body>	
-	<h2>휴/보강 관리</h2>
+<body>
+	<h2>개설 요청 강좌 목록</h2>
 	
-		
 </body>
 </html>

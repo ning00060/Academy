@@ -39,4 +39,23 @@
     <servlet-name>StudentController</servlet-name>
     <url-pattern>/StudentController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfessorFilter</display-name>
+    <servlet-name>ProfessorFilter</servlet-name>
+    <servlet-class>com.tenco.controller.professor.ProfessorFilter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfessorFilter</servlet-name>
+    <url-pattern>/ProfessorFilter</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>ProfessorFilter</display-name>
+    <filter-name>ProfessorFilter</filter-name>
+    <filter-class>com.tenco.controller.professor.ProfessorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ProfessorFilter</filter-name>
+    <url-pattern>/ProfessorFilter</url-pattern>
+  </filter-mapping>
 </web-app>

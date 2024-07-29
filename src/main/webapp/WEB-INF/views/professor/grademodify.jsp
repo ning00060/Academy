@@ -15,7 +15,7 @@
 	<h2>학점 수정하기</h2>
 	<%
 	List<StudentGradeDTO> gradeList = (List<StudentGradeDTO>) request.getAttribute("gradeList");
-	if (gradeList != null) {
+	if (gradeList.size() != 0) {
 	%>
 	<form action="${pageContext.request.contextPath}/professor/update-grade"
 		method="GET">

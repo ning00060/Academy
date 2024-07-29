@@ -7,6 +7,7 @@ import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.professor.RestClassDTO;
 import com.tenco.model.professor.StudentGradeDTO;
 import com.tenco.model.student.StudentIdNameDTO;
+import com.tenco.model.subject.HopeClassDTO;
 import com.tenco.model.subject.SubjectDTO;
 
 public interface ProfessorRepository {
@@ -22,4 +23,7 @@ public interface ProfessorRepository {
 	RestClassDTO getRestClassById(int id);
 	void updateRestClassByRestClassId(String restDay, String supplement ,int id);
 	void deleteRestClassByRestClassId(int id);
+	List<HopeClassDTO> selectAllHopeClassByProfessorId(int professorId);
+	void deleteHopeClassById(int id);
+	public void inputHopeClass(int professorId, String name, String roomId, int deptId, String majorType, int year, int semester, int grades);
 }

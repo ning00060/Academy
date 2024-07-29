@@ -7,16 +7,20 @@ import java.util.List;
 import com.tenco.Repo.interfaces.professor.ProfessorRepository;
 import com.tenco.Repo.professor.ProfessorRepositoryImpl;
 import com.tenco.model.professor.EvaluationResultDTO;
+import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.professor.RestClassDTO;
 import com.tenco.model.professor.StudentGradeDTO;
 import com.tenco.model.student.StudentIdNameDTO;
+import com.tenco.model.subject.HopeClassDTO;
 import com.tenco.model.subject.SubjectDTO;
+import com.tenco.model.user.UserDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/professor/*")
 public class ProfessorController extends HttpServlet {
@@ -26,6 +30,7 @@ public class ProfessorController extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		professorRepository = new ProfessorRepositoryImpl();
+		
 	}
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +39,7 @@ public class ProfessorController extends HttpServlet {
 		switch (action) {
 		// 교수 계정 로그인 후 홈 화면에서 학생 점수 입력 탭 클릭시 -> 강의목록 조회하기 폼으로 이동 처리
 		case "/goinputpage":
-			request.getRequestDispatcher("/WEB-INF/views/professor/select.jsp").forward(request, response);
+			goinputpage(request, response);
 			break;
 			
 		// 강의목록 조회하기 폼에서 개설년도, 개설학기 교수 id를 받아 내 강의 목록 조회 후 내 강의 목록 폼으로 이동
@@ -64,7 +69,8 @@ public class ProfessorController extends HttpServlet {
 		
 		// 교수 로그인 후 상단의 휴/보강 관리 메뉴 선택시 -> selectRC JSP 로 이동 처리
 		case "/restclassmanagement":
-			request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+			restclassmanagement(request, response);
+			
 			break;	
 		
 		// selectRC.jsp 에서 개강 년도 , 학기,  정보를 받아  mysubjectRC.jsp로 이동
@@ -84,7 +90,8 @@ public class ProfessorController extends HttpServlet {
 		
 		// 교수 로그인후 상단의 강의평가 결과 조회하기 메뉴 클릭 -> 내강의 목록 조회 폼으로 이동
 		case "/clickERMenu":
-			request.getRequestDispatcher("/WEB-INF/views/professor/selectER.jsp").forward(request, response);
+			clickERMenu(request, response);
+			
 			break;	
 			
 		// 내 강의 목록 조회 폼에서 개설년도 개설학기 교수id 정보를 얻은 후 해당 정보로 내 강의 리스트 폼으로 이동
@@ -106,11 +113,33 @@ public class ProfessorController extends HttpServlet {
 		case "/deleteRC":
 			deleteRC(request, response);
 			break;
-			
+		
+		// 휴 보강 수정 폼에서 정보를 입력받아 db에 입력 후 기존 페이지로 이동
 		case "/inputUpdateRC":
 			inputUpdateRC(request, response);
 			break;	
-		
+			
+		// 개설 강좌 관리 버튼 클릭시 개설희망강좌 목록 페이지로 이동
+		case "/readHopeClassList":
+			readHopeClassList(request, response);
+			break;		
+
+		// 개설희망강좌 목록 폼에서 개설희망강의 추가 버튼 클릭시 개설희망강좌 입력 폼으로 이동
+		case "/addHopeClass":
+			addHopeClass(request, response);
+			break;		
+
+		// 개설희망강좌 목록 폼에서 삭제하기 버튼 클릭시 해당 강좌 테이블에서 삭제 
+		case "/deleteHopeClass":
+			deleteHopeClass(request, response);
+			break;		
+			
+		// 개설희망강좌 입력 폼에서 정보 입력받아 db에 저장 후 기존 페이지로 이동 
+		case "/inputHopeClass":
+			inputHopeClass(request, response);
+			break;	
+			
+			
 			
 		default:
 			break;
@@ -119,6 +148,78 @@ public class ProfessorController extends HttpServlet {
 	}
 
 	
+
+	private void deleteHopeClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		professorRepository.deleteHopeClassById(id);
+		List<HopeClassDTO> hopeClassList = professorRepository.selectAllHopeClassByProfessorId(professorId);
+		request.setAttribute("hopeClassList", hopeClassList);
+		request.getRequestDispatcher("/WEB-INF/views/professor/hopeclasslist.jsp").forward(request, response);
+	}
+
+	private void restclassmanagement(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professorDTO");
+		request.setAttribute("professorDTO", professor);
+		request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+		
+	}
+
+	private void clickERMenu(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professorDTO");
+		request.setAttribute("professorDTO", professor);
+		request.getRequestDispatcher("/WEB-INF/views/professor/selectER.jsp").forward(request, response);
+	}
+
+	private void goinputpage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professorDTO");
+		request.setAttribute("professorDTO", professor);
+		request.getRequestDispatcher("/WEB-INF/views/professor/select.jsp").forward(request, response);
+	}
+
+	private void addHopeClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String deptId = (String) request.getParameter("deptId");
+		String professorId = request.getParameter("professorId");
+		request.setAttribute("deptId", deptId);
+		request.setAttribute("professorId", professorId);
+		request.getRequestDispatcher("/WEB-INF/views/professor/inputhopeclass.jsp").forward(request, response);
+	}
+
+	private void readHopeClassList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		ProfessorDTO professor = (ProfessorDTO) session.getAttribute("professorDTO");
+		int professorId = professor.getId();
+		List<HopeClassDTO> hopeClassList = professorRepository.selectAllHopeClassByProfessorId(professorId);
+		System.out.println(hopeClassList.toString());
+		System.out.println(professor.toString());
+		request.setAttribute("hopeClassList", hopeClassList);
+		request.setAttribute("professorId", professor.getId());
+		request.setAttribute("deptId", professor.getDeptId());
+		request.getRequestDispatcher("/WEB-INF/views/professor/hopeclasslist.jsp").forward(request, response);
+	}
+
+	private void inputHopeClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		int deptId = Integer.parseInt(request.getParameter("deptId"));
+		String name = request.getParameter("subjectName");
+		String roomId = request.getParameter("roomId");
+		String majorType = request.getParameter("majorType");
+		int grades = Integer.parseInt(request.getParameter("grades"));
+		int year = Integer.parseInt(request.getParameter("year"));
+		int semester = Integer.parseInt(request.getParameter("semester"));
+		
+		professorRepository.inputHopeClass(professorId, name, roomId, deptId, majorType, year, semester, grades);
+		
+		List<HopeClassDTO> hopeClassList = professorRepository.selectAllHopeClassByProfessorId(professorId);
+		request.setAttribute("hopeClassList", hopeClassList);
+		request.getRequestDispatcher("/WEB-INF/views/professor/hopeclasslist.jsp").forward(request, response);
+		
+		
+		
+	}
 
 	private void inputUpdateRC(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id")); 
@@ -187,8 +288,8 @@ public class ProfessorController extends HttpServlet {
 
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
-		String professorId = request.getParameter("professorId");
-		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(professorId, Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("subjectList", subjectList);
 		
 		request.getRequestDispatcher("/WEB-INF/views/professor/mysubjectlistER.jsp").forward(request, response);
@@ -235,9 +336,8 @@ public class ProfessorController extends HttpServlet {
 		
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
-		String professorId = request.getParameter("professorId");
-		
-		List<RestClassDTO> restClassList = professorRepository.selectRestClassByProfessorId(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		List<RestClassDTO> restClassList = professorRepository.selectRestClassByProfessorId(professorId, Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("restClassList", restClassList);
 		request.setAttribute("year", year);
 		request.setAttribute("semester", semester);
@@ -287,8 +387,9 @@ public class ProfessorController extends HttpServlet {
 
 		String year = request.getParameter("year");
 		String semester = request.getParameter("semester");
-		String professorId = request.getParameter("professorId");
-		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(Integer.parseInt(professorId), Integer.parseInt(year), Integer.parseInt(semester));
+		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		
+		List<SubjectDTO> subjectList = professorRepository.selectAllSubjectByProfessorIdYearSemester(professorId, Integer.parseInt(year), Integer.parseInt(semester));
 		request.setAttribute("subjectList", subjectList);
 		
 		request.getRequestDispatcher("/WEB-INF/views/professor/mysubject.jsp").forward(request, response);
