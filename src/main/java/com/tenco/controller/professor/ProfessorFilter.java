@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter("/professor/*")
-public class ProfessorFilter extends HttpFilter implements Filter {
+public class ProfessorFilter extends HttpFilter implements Filter{
 
 	public ProfessorFilter() {
 		super();
