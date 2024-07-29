@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" id="WebApp_ID" version="6.0">
   <display-name>Academy</display-name>
+  <session-config>
+  	<session-timeout>15</session-timeout>
+  </session-config>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -39,4 +42,26 @@
     <servlet-name>StudentController</servlet-name>
     <url-pattern>/StudentController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ProfessorFilter</display-name>
+    <servlet-name>ProfessorFilter</servlet-name>
+    <servlet-class>com.tenco.controller.professor.ProfessorFilter</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProfessorFilter</servlet-name>
+    <url-pattern>/ProfessorFilter</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>ProfessorFilter</display-name>
+    <filter-name>ProfessorFilter</filter-name>
+    <filter-class>com.tenco.controller.professor.ProfessorFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ProfessorFilter</filter-name>
+    <url-pattern>/ProfessorFilter</url-pattern>
+  </filter-mapping>
+  <listener>
+    <listener-class>com.tenco.SessionLinstener</listener-class>
+  </listener>
 </web-app>

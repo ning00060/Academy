@@ -17,7 +17,7 @@ public class ProfessorDTO {
 
 	private int id;
 	private String name;
-	private String birthDate;
+	private Date birthDate;
 	private String gender;
 	private String address;
 	private String tel;

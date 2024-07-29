@@ -138,6 +138,7 @@ public class UserController extends HttpServlet {
 	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
+
 		if(session != null) {
 			session.removeAttribute("verifiedUser");
 			session.invalidate();
