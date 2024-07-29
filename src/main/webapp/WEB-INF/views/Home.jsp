@@ -39,14 +39,40 @@
 
 		<div style="flex-grow: 1">
 		
+			<!-- 학생  -->
+			<c:if test="${verifiedUser.permissionLevel == 1}" >
 			<div><p>${verifiedUser.name}님, 환영합니다.</p></div>
 			<div><p>이메일: ${studentDTO.email}</p> </div>
 			<div><p>소속: ${studentDTO.d_name} </p> </div>
 			<div><p>학기: ${studentDTO.grade}</p> </div>
 			<div><p>학번: ${studentDTO.u_number}</p></div>
+			
+			</c:if>
+			
+			<!--  관리자 -->
+			<c:if test="${verifiedUser.permissionLevel == 3}">
+			<div><p>${verifiedUser.name}님, 환영합니다.</p></div>
+			<div><p>이메일: ${verifiedUser.email}</p> </div>
+			<div><p>학번: ${verifiedUser.id}</p></div>
+			
+			</c:if>
+			
+			<!-- 교수 -->
+			<c:if test="${verifiedUser.permissionLevel == 2}">
+			<div><p>${verifiedUser.name}님, 환영합니다.</p></div>
+			<div><p>이메일: ${verifiedUser.email}</p> </div>
+			<div><p>학번: ${verifiedUser.id}</p></div>
+			</c:if>
 		
 		
-		<div>마이페이지</div>
+			<div>
+				<c:if test="${verifiedUser.permissionLevel == 1}">
+					<div><a href="${pageContext.request.contextPath}/user/myInfo"><button>마이페이지</button></a></div>
+				</c:if>
+				<div>
+				<a href="${pageContext.request.contextPath}/user/logout"><button>로그아웃</button></a>
+				</div>
+			</div>
 		</div>
 		
 	
