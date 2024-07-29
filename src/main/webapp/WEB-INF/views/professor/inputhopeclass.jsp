@@ -22,9 +22,11 @@
     	<label>희망 강의실</label>
     	<input type="text" name="roomId" size="10" style="width: 20vh" required="required" value="E101">     
 
-    	<label>강좌 타입</label>
-    	<input type="text" name="majorType" size="10" style="width: 20vh" placeholder="전공 또는 교양">     
-
+		<select id="majorType" name="majorType">
+			<option value="전공">전공</option>
+			<option value="교양">교양</option>
+		</select>
+		
     	<label>배정 학점</label>
     	<input type="text" name="grades" size="10" style="width: 20vh" value ="3">     
     	
@@ -55,7 +57,7 @@
     </form>
 	
 	
-	<a href="${pageContext.request.contextPath}/temp/home.jsp">홈으로 돌아가기</a>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 	
 </body>
 </html>

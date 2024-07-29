@@ -15,7 +15,9 @@
     <h2>강의 평가 결과창</h2>
     <%
 	List<EvaluationResultDTO> erList = (List<EvaluationResultDTO>) request.getAttribute("erList");
+
 	if (erList.size() != 0) {
+
 	%>
         <% int i;
         float sumAvgScore = 0;
@@ -35,6 +37,7 @@
 	<p>조회된 강의평가 결과가 없습니다.</p>
 	<%} %>
 	
-	<a href="home.jsp">홈으로 돌아가기.</a>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+	
 </body>
 </html>

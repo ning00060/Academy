@@ -106,11 +106,11 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 			pstmt.setInt(1, professorId);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				hopeClassList.add(HopeClassDTO.builder().professorId(rs.getInt("professor_id")).name(rs.getString("name"))
-														.roomId(rs.getString("room_id")).deptId(rs.getInt("dept_id"))
-														.majorType(rs.getString("major_type")).year(rs.getInt("year"))
-														.semester(rs.getInt("semester")).grades(rs.getInt("grades"))
-														.build());
+				hopeClassList.add(HopeClassDTO.builder().id(rs.getInt("id")).professorId(rs.getInt("professor_id"))
+														.name(rs.getString("name")).roomId(rs.getString("room_id"))
+														.deptId(rs.getInt("dept_id")).majorType(rs.getString("major_type"))
+														.year(rs.getInt("year")).semester(rs.getInt("semester"))
+														.grades(rs.getInt("grades")).build());
 			}
 
 		} catch (Exception e) {

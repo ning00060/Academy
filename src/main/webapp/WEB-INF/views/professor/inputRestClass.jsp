@@ -42,5 +42,6 @@
 	<%}else{ %>
 	<p>이번 학기에 개설하신 강좌가 없습니다.</p>
 	<%} %>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>

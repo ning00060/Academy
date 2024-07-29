@@ -15,19 +15,11 @@
 	<header>
 				
 			
-<<<<<<< HEAD
-			<% 
-			UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");
-			%>
-			<P><%=userDTO.getName() %> </P>
-			 
 			
-=======
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
 			<!-- <P><%=userDTO.getName() %> </P>  -->
 			<a href="${pageContext.request.contextPath}/user/home"> 
 			<img alt="로고" src="../resource/favicon.ico"> </a>
->>>>>>> d9cb526231088da9d1642b8d13312311967e008d
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
@@ -71,7 +63,18 @@
 			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
 			        </div>
 			    </div>
-				<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
+				    <div class="dropdown">
+				        <h2>관리</h2>
+				        <div class="dropdown-content">
+				            <a href="${pageContext.request.contextPath}/staff/depart">대학관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectDepart">대학수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/room">강의실관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectRoom">강의실수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/subject">강의관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectSubject">강의수정</a>
+
+				        </div>
+    			</div>
 			</c:if>
 			
 			

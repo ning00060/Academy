@@ -64,5 +64,6 @@
 	<%
 	}
 	%>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>
