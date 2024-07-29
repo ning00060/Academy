@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter("/professor/*")
+@WebFilter("/staff/*")
 public class StaffFilter extends HttpFilter implements Filter {
 
 	public StaffFilter() {
