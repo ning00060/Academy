@@ -152,6 +152,8 @@ public class ProfessorController extends HttpServlet {
 	private void deleteHopeClass(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		int professorId = Integer.parseInt(request.getParameter("professorId"));
+		System.out.println(id);
+		System.out.println(professorId);
 		professorRepository.deleteHopeClassById(id);
 		List<HopeClassDTO> hopeClassList = professorRepository.selectAllHopeClassByProfessorId(professorId);
 		request.setAttribute("hopeClassList", hopeClassList);
