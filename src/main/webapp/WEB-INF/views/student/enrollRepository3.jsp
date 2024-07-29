@@ -13,24 +13,24 @@
 
 	<% List<EnrollSearchListDTO> dto =(List<EnrollSearchListDTO>)request.getAttribute("EnrollSearchListDTO"); %>
 
-	<h2>수강신청 목록</h2>
+	<h2 style="margin-top: 100px">수강신청 목록 enrollRepository3.jsp </h2>
 
 	<form action="${pageContext.request.contextPath}/student/enrollSearch" method="POST">
 		
-	<div style="flex-direction: row;">	
+	<div style="display: flex;">	
 		<div style="flex-direction: row">
 		<p>강의 구분</p>
 		<select id="subject" name="subject">
-			<option value=>전체검색</option>
+			<option value=>=======</option>
 			<option value="전공">전공</option>
 			<option value="교양">교양</option>
 		</select>
 		</div>
 		
-		<div>	
-		<p>개설학과</p>
+		<div style="flex-direction: row;">	
+		<p>&nbsp; 개설학과</p>
 		<select id="department" name="department">
-			<option value=>전체검색</option>
+			<option value=>=======</option>
 			<option value="컴퓨터공학과">컴퓨터공학과</option>
 			<option value="전자공학과">전자공학과</option>
 			<option value="화학공학과">화학공학과</option>
@@ -54,10 +54,10 @@
 		</select>
 		</div>
 		
-		<div>
+		<div style="flex-direction: row;">
 		<p>강의명</p>
 		<select id="subjectname" name="subjectname">
-			<option value=>전체검색</option>
+			<option value=>=======</option>
 			<option value="데이터통신">데이터통신</option>
 			<option value="무역학과">무역학과</option>
 			<option value="딥러닝의 기초">딥러닝의 기초</option>
@@ -75,11 +75,11 @@
 			<option value="신소재기초실습">신소재기초실습</option>	
 		</select>
 		</div>
-		
-		<button type="submit">조회</button>
+		<br>
+		<button type="submit" style= "margin-top: 50px">조회</button>
 	</div>	
 	</form>
-	
+	<br>
 	<table border="1">
 					<thead>
 						<tr>
@@ -98,7 +98,7 @@
 					for(i =0; i<dto.size(); i++){
 					%>
 					<tr>
-					<form action="${pageContext.request.contextPath}/" method="post">
+					<form action="${pageContext.request.contextPath}/student/deleteEnroll" method="post">
 					   <td><%= dto.get(i).getS_number()%></td>
 					   <td><%= dto.get(i).getName()%></td>
 					   <td><%= dto.get(i).getProfessor()%></td>

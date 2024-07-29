@@ -13,6 +13,7 @@ import com.tenco.model.student.EnrollSearchDTO;
 import com.tenco.model.student.EnrollSearchListDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.student.breakappDTO;
+import com.tenco.model.temp.EnrollDTO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -104,17 +105,50 @@ public class StudentController extends HttpServlet {
 		// 수강 신청 버튼 클릭 시 
 		System.out.println("수강 신청 버튼 클릭 시 작동");
 		enrolment(request, response);
+		break;
 	
 	case "/enrollSearchList":
 		// 수강신청 목록 보러가기 페이지로 이동한다.
 		System.out.println("수강신청 목록 보러가기 페이지로 이동한다.");
 		enrollSearchList(request, response);
-
+		break;
+		
+	case "/deleteEnroll":
+		// 수강신청 강의를 취소할수 있는 기능이다.
+		System.out.println("수강신청 취소 기능 작동");
+		deleteEnroll(request, response);
+		break;
 	default:
 		break;
 	}
 	
 	}
+	
+	/**
+	 * 수강신청 취소하는 기능 
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 * @throws ServletException 
+	 */
+	private void deleteEnroll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		StudentDTO studentDTO= (StudentDTO) session.getAttribute("studentDTO");
+		request.setAttribute("studentDTO", studentDTO);
+		
+		String subjectNumber = request.getParameter("subjectnumber"); // 수업 과목 번호
+		System.out.println("studentDTO : " + studentDTO.getId()); // 학생 학번 
+		System.out.println("subjectnumber :" + subjectNumber);
+		enrollSearchRepository.DeleteEnroll(studentDTO.getId(), Integer.parseInt(subjectNumber));
+		
+		List<EnrollSearchListDTO> enrollSearchListDTO = enrollSearchRepository.searchEnrollList(studentDTO.getId());
+		request.setAttribute("EnrollSearchListDTO", enrollSearchListDTO); // 학생 수강신청 완료 리스트 보여주기 기능
+		System.out.println("enrollSearchListDTO.toString() : " + enrollSearchListDTO.toString());
+		
+		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository3.jsp").forward(request, response);
+		
+	}
+
 	/**
 	 * 수강신청 완료 리스트
 	 * @param request
@@ -177,9 +211,16 @@ public class StudentController extends HttpServlet {
 		searchDTO = enrollSearchRepository.searchSubject(subject, department, subjectname);
 		request.setAttribute("subjectList", searchDTO);
 		
+		// 수강신청 과목 리스트에서 같은 중복 과목 클릭방지하기 위해 버튼을 손 봐야한다. 
+		HttpSession session = request.getSession();
+		StudentDTO studentDTO =  (StudentDTO) session.getAttribute("studentDTO");
+		request.setAttribute("studentDTO", studentDTO);
+		List<EnrollDTO> enrollSearchDTO = enrollSearchRepository.SearchEnrollList(studentDTO.getId());
+		request.setAttribute("enrollSearchDTO", enrollSearchDTO);
+		
 		System.out.println(searchDTO.toString());
 		
-		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository2.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository.jsp").forward(request, response);
 	}
 
 	/**

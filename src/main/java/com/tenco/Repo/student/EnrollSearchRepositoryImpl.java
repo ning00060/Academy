@@ -10,6 +10,7 @@ import java.util.List;
 import com.tenco.Repo.interfaces.student.EnrollSearchRepository;
 import com.tenco.model.student.EnrollSearchDTO;
 import com.tenco.model.student.EnrollSearchListDTO;
+import com.tenco.model.temp.EnrollDTO;
 import com.tenco.util.DBUtil;
 
 public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
@@ -20,11 +21,11 @@ public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
 		String sql = " SELECT c.name AS c_name, d.name AS d_name, s.id AS s_number, s.major_type AS s_major_type, s.name AS s_name, p.name AS p_name, "
 				+ " s.grades AS s_grade, "
 				+ " s.room_id AS s_room_id "
-				+ " FROM tb_subject as s"
+				+ " FROM tb_subject as s "
 				+ " JOIN tb_department as d ON s.dept_id = d.id "
 				+ " JOIN tb_college as c ON d.college_id = c.id "
 				+ " JOIN tb_professor as p ON s.professor_id = p.id "
-				+ " where s.major_type = ? and d.name = ? and s.name = ? ";
+				+ " where s.major_type like ? and d.name like ? and s.name like ? ";
 		
 		List<EnrollSearchDTO> enrollSearchDTO = new ArrayList<>();
 		
@@ -108,4 +109,40 @@ public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
 		return enrollSearchListDTO;
 		
 	}
+
+
+	@Override
+	public void DeleteEnroll(int student_id, int subject_id) {
+		String sql = " delete from tb_enroll where student_id = ? and subject_id = ? ";
+		try(Connection conn = DBUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, student_id);
+			pstmt.setInt(2, subject_id);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+	}
+
+
+	@Override
+	public List<EnrollDTO> SearchEnrollList(int student_id) {
+		String sql= " select * from tb_enroll where student_id = ? ";
+		List<EnrollDTO> enrollDTO = new ArrayList<EnrollDTO>();
+		try(Connection conn = DBUtil.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				enrollDTO.add(EnrollDTO.builder()
+						.studentId(rs.getInt("student_id"))
+						.subjectId(rs.getInt("subject_id"))
+						.build());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enrollDTO;
+	}
+	
 }
