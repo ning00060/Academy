@@ -23,7 +23,7 @@
 
         <label for="subjectId">과목 선택</label>
 		<select id="selectSub" name="selectSub">
-		<%System.out.println(subjectList.toString()); %>
+		
         <% int i=0;
         for (i = 0; i < subjectList.size(); i++) {%>
 			<option value="<%=i%>">과목코드 : <%=subjectList.get(i).getId()%>, 강의명 : <%=subjectList.get(i).getName()%></option>

@@ -1,3 +1,4 @@
+<%@page import="com.tenco.model.professor.ProfessorDTO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -27,7 +28,8 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오.">
+		<%ProfessorDTO professorDTO = (ProfessorDTO)request.getAttribute("professorDTO");%>
+		<input type="hidden" id="professorId" name="professorId" value="<%=professorDTO.getId()%>">
 		<button type="submit">조회</button>
 	</form>
 	<br>
