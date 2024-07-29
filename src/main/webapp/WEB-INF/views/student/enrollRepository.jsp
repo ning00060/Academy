@@ -1,4 +1,6 @@
 
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="com.tenco.model.student.StudentDTO"%>
 <%@page import="com.tenco.model.temp.EnrollDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="com.tenco.model.student.EnrollSearchDTO"%>
@@ -30,7 +32,7 @@
 		<div style="flex-direction: row">
 			<p>강의 구분</p>
 			<select id="subject" name="subject">
-				<option value="%">전체</option>
+				<option value='%'>전체</option>
 				<option value="전공">전공</option>
 				<option value="교양">교양</option>
 			</select>
@@ -39,7 +41,7 @@
 		<div style="flex-direction: row">
 			<p>&nbsp; 개설학과</p>
 			<select id="department" name="department">
-				<option value="%">전체</option>
+				<option value='%'>전체</option>
 				<option value="컴퓨터공학과">컴퓨터공학과</option>
 				<option value="전자공학과">전자공학과</option>
 				<option value="화학공학과">화학공학과</option>
@@ -66,7 +68,7 @@
 		<div style="flex-direction: row">
 			<p>강의명</p>
 			<select id="subjectname" name="subjectname">
-				<option value="%">전체</option>
+				<option value='%'>전체</option>
 				<option value="데이터통신">데이터통신</option>
 				<option value="무역학과">무역학과</option>
 				<option value="딥러닝의 기초">딥러닝의 기초</option>
@@ -109,14 +111,15 @@
 
 	<%
 	List<EnrollSearchDTO> dto = null;
-	// List<EnrollDTO> dto2 = null;
-	if (request.getAttribute("subjectList") != null) {
+	List<EnrollDTO> dto2 = null;
+	if (request.getAttribute("subjectList") != null && request.getAttribute("enrollSearchDTO") != null) {
 		dto = (List<EnrollSearchDTO>) request.getAttribute("subjectList");
-		// dot2 = (List<EnrollDTO>) request.getAttribute("enrollSearchDTO");
+		dto2 = (List<EnrollDTO>)request.getAttribute("enrollSearchDTO");
 		int i;
-		for (i = 0; i < dto.size(); i++) {%>
-		
-			<tr>
+		for (i = 0; i < dto.size(); i++) {
+	%>
+
+	<tr>
 		<form action="${pageContext.request.contextPath}/student/enrolment" method="post">
 			<td><%=dto.get(i).getC_name()%></td>
 			<td><%=dto.get(i).getD_name()%></td>
@@ -126,21 +129,19 @@
 			<td><%=dto.get(i).getP_name()%></td>
 			<td><%=dto.get(i).getS_grade()%></td>
 			<td><%=dto.get(i).getS_room_id()%></td>
-			<td><button type="submit">신청하기</button></td> <input type="hidden" name="subjectname" value="<%=dto.get(i).getS_name()%>"> <input type="hidden" name="subjectnumber"
-				value="<%=dto.get(i).getS_number()%>">
+	    	<td><button type="submit">신청하기</button></td>
+			<input type="hidden" name="subjectname" value="<%=dto.get(i).getS_name()%>">
+			<input type="hidden" name="subjectnumber" value="<%=dto.get(i).getS_number()%>">
+	
 		</form>
 
 	</tr>
-		
-		<%}%>	
-		
+
+		<%}%>
+
 	<%}%>
 
-	
-	
-	
 
-	
 </table>
 
 <%@ include file="../main_footer.jsp"%>

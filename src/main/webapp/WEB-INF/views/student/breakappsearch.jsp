@@ -10,6 +10,32 @@
 <% breakappDTO breakappDTO = (breakappDTO)request.getAttribute("breakappDTO"); %>
 
 <h1>휴학 신청 목록 입니다.</h1>
+
+<div >
+ 		
+ 		<div class="sub--menu--mid">
+            <table class="sub--menu--table" border="1">
+                <tr>
+                    <td><a href="/Academy/user/myInfo" class="selected--menu">내 정보 조회 및 수정</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/Academy/student/breakApp">휴학 신청</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/Academy/student/breakSearch">휴학 내역 조회</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/tuition/list">등록금 내역 조회</a></td>
+                </tr>
+                <tr>
+                    <td><a href="/tuition/payment">등록금 납부 고지서</a></td>
+                </tr>
+            </table>
+        </div>
+		
+        </div>
+
+
 <div>
 <table border="1">
 

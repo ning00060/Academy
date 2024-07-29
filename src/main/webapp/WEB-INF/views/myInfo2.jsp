@@ -23,10 +23,10 @@
                     <td><a href="/Academy/user/myInfo" class="selected--menu">내 정보 조회 및 수정</a></td>
                 </tr>
                 <tr>
-                    <td><a href="/break/application">휴학 신청</a></td>
+                    <td><a href="/Academy/student/breakApp">휴학 신청</a></td>
                 </tr>
                 <tr>
-                    <td><a href="/break/list">휴학 내역 조회</a></td>
+                    <td><a href="/Academy/student/breakSearch">휴학 내역 조회</a></td>
                 </tr>
                 <tr>
                     <td><a href="/tuition/list">등록금 내역 조회</a></td>
