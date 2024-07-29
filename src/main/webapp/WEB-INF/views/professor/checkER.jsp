@@ -15,7 +15,9 @@
     <h2>강의 평가 결과창</h2>
     <%
 	List<EvaluationResultDTO> erList = (List<EvaluationResultDTO>) request.getAttribute("erList");
+
 	if (erList.size() != 0) {
+
 	%>
         <% int i;
         float sumAvgScore = 0;

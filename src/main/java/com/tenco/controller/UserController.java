@@ -17,6 +17,7 @@ import com.tenco.Repo.temp.ScheduleRepositoryImpl;
 import com.tenco.Repo.user.UserRepositoryImpl;
 import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
+import com.tenco.model.staff.StaffUserDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.UsersSubjectDTO;
 import com.tenco.model.temp.EvaluationQuestionDTO;
@@ -40,12 +41,10 @@ public class UserController extends HttpServlet {
 	private StudentRepository studentRepository;
 	private StaffRepository staffRepository;
 	private ProfessorRepository professorRepository;
-
 	public UserController() {
 		super();
 	}
 
-  
 	@Override
 	public void init() throws ServletException {
 		userRepository = new UserRepositoryImpl();
@@ -66,24 +65,22 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String action = request.getPathInfo();
-		System.out.println(action + "/doget");
 		switch (action) {
 
 		case "/findId":
+			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);
 			break;
 		case "/findPw":
+			request.getRequestDispatcher("/WEB-INF/views/user/find_pw.jsp").forward(request, response);
 			break;
-
 		case "/evaluation":
-			System.out.println("학생 -> 강의평가를 위한 내 강의 조회 폼 진입");
 			request.getRequestDispatcher("/WEB-INF/views/student/select.jsp").forward(request, response);
 			break;
 		case "/readmysubject":
-			System.out.println("학생ID, 강의 개설년도, 개설학기 정보를 받아 내 강의 리스트 폼 진입");
 			handleMySubject(request, response);
 			break;
+
 		case "/goevaluation":
-			System.out.println("강의평가 설문 폼 진입");
 			handleEvaluation(request, response);
 			break;
 
@@ -103,11 +100,9 @@ public class UserController extends HttpServlet {
 			break;
 
 		case "/Myinformation":
-			System.out.println("/학생 정보 조회시도");
 			handleInformation(request, response);
 
 		case "/update":
-			System.out.println("/학생 정보 수정페이지 이동시도");
 			handleInfoModify(request, response);
 
 		case "/myInfomodifyUpdate":
@@ -164,6 +159,7 @@ public class UserController extends HttpServlet {
 		request.setAttribute("subjectId", subjectId);
 		request.setAttribute("subjectName", subjectName);
 		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
+	
 	}
 
 	/**
@@ -184,7 +180,6 @@ public class UserController extends HttpServlet {
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
 		request.setAttribute("verifiedUser", userDTO);
 		request.setAttribute("studentDTO", studentDTO);
-		System.out.println("학생 정보 수정: " + studentDTO.toString());
 		request.getRequestDispatcher("/WEB-INF/views/myInfo2.jsp").forward(request, response);
 
 	}
@@ -198,7 +193,6 @@ public class UserController extends HttpServlet {
 		String studnetId = request.getParameter("studentId");
 		List<UsersSubjectDTO> subjectList = studentRepository.readMySubject(Integer.parseInt(studnetId),
 				Integer.parseInt(year), Integer.parseInt(semester));
-		System.out.println(subjectList.toString());
 		request.setAttribute("subjectList", subjectList);
 
 		request.getRequestDispatcher("/WEB-INF/views/student/studentsubject.jsp").forward(request, response);
@@ -217,13 +211,9 @@ public class UserController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
-		System.out.println("handleMypage : " + userDTO.toString());
-		System.out.println(userDTO.getId());
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
-		System.out.println(studentDTO.toString() + "학생DTO@");
 		request.setAttribute("studentDTO", studentDTO);
 
-		System.out.println(userDTO.getId());
 
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 
@@ -243,7 +233,6 @@ public class UserController extends HttpServlet {
 		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
 
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
-		System.out.println(studentDTO.toString() + "학생DTO@");
 		request.setAttribute("studentDTO", studentDTO);
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 	}
@@ -254,12 +243,19 @@ public class UserController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
+		
+		
+		case "/findId":
+			findIdPage(request, response);
+			break;
+		case "/findPw":
+			findPwPage(request, response);
+			break;
 		case "/login":
 			handleLogin(request, response);
 			break;
 
 		case "/update":
-			System.out.println("학생 정보 변경 시도");
 			handlemyInfoModify(request, response);
 			break;
 
@@ -267,6 +263,35 @@ public class UserController extends HttpServlet {
 			break;
 		}
 
+	}
+
+	private void findPwPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id=Integer.parseInt( request.getParameter("id"));
+		String name = request.getParameter("name");
+		if(name == null || name.trim().isEmpty() || request.getParameter("id") == null || request.getParameter("id").trim().isEmpty()) {
+            request.setAttribute("errorMessage", "다시 입력해주세요");
+            request.getRequestDispatcher("/findPw.jsp").forward(request, response);
+		}else {
+			StaffUserDTO userDTO=userRepository.userPw(id,name);
+			request.setAttribute("userDTO", userDTO);
+			request.getRequestDispatcher("/findPw.jsp").forward(request, response);
+		}
+		
+	}
+
+	private void findIdPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		String name = request.getParameter("name");
+		int num= Integer.parseInt(request.getParameter("num"));
+		if(name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty() ||String.valueOf( num) == null) {
+            request.setAttribute("errorMessage", "다시 입력해주세요");
+            request.getRequestDispatcher("/findId.jsp").forward(request, response);
+		}else {
+			StaffUserDTO userDTO=userRepository.userId(name, email, num);
+			request.setAttribute("userDTO", userDTO);
+			request.setAttribute("name", name);
+			request.getRequestDispatcher("/findId.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -282,20 +307,14 @@ public class UserController extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
-		System.out.println(studentDTO.toString());
 		String address = request.getParameter("address");
 		String tel = request.getParameter("tel");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		System.out.println("1 " + address);
-		System.out.println("2 " + tel);
-		System.out.println("3 " + password);
 
 		studentRepository.studentInfoModify(password, email, tel, address, userDTO.getId());
 
 		studentDTO = studentRepository.studentInfo(userDTO.getId());
-		System.out.println("변경 성공");
-		System.out.println(studentDTO.toString());
 
 	}
 
@@ -351,7 +370,6 @@ public class UserController extends HttpServlet {
 
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 		} else {
-			System.out.println("login실패");
 			response.sendRedirect(request.getContextPath() + "/user/login");
 			// TODO 로그인 실패 알람 전송
 		}

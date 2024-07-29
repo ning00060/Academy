@@ -18,7 +18,9 @@ public class TuitionRepositoryImpl implements TuitionRepository{
 																	+ "join tb_coll_tuit as co on tu.tui_id=co.college_id\r\n"
 																	+ "join tb_college as col on tui_id=col.id\r\n"
 																	+ "join tb_scholarship as scholar on tu.sch_type=scholar.type ";
-	
+	private static final String ADD_TUITION="insert into tb_tuition(student_id,tui_year,semester,tui_id,sch_type) values(?,?,?,?,?) ";
+	private static final String UPDATE_TUITION=" UPDATE tb_tuition SET  student_id= ? or tui_year=? or semester=? or tui_id=? sch_type = ? where id=?";
+	private static final String DELETE_TUITION="delete from tb_tuition where id=?";
 	
 	@Override
 	public List<TuitionDTO> selectTuitionAll() {
@@ -46,6 +48,76 @@ public class TuitionRepositoryImpl implements TuitionRepository{
 		}
 
 		return tuiList;
+	}
+
+
+	@Override
+	public void addTuition(TuitionDTO tuitionDTO) {
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(ADD_TUITION)){
+				pstmt.setInt(1, tuitionDTO.getId());
+				pstmt.setInt(2, tuitionDTO.getTuiYear());
+				pstmt.setInt(3, tuitionDTO.getSemester());
+				pstmt.setInt(4, tuitionDTO.getTuiId());
+				pstmt.setInt(5, tuitionDTO.getSchType());
+				pstmt.executeUpdate();
+				
+				conn.commit();
+				System.out.println("add커밋됨:" +tuitionDTO.toString() );
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	@Override
+	public void updateTution(TuitionDTO tuitionDTO, int id) {
+
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(UPDATE_TUITION)){
+				pstmt.setInt(1, tuitionDTO.getId());
+				pstmt.setInt(2, tuitionDTO.getTuiYear());
+				pstmt.setInt(3, tuitionDTO.getSemester());
+				pstmt.setInt(4, tuitionDTO.getTuiId());
+				pstmt.setInt(5, tuitionDTO.getSchType());
+				pstmt.setInt(6, id);
+				pstmt.executeUpdate();
+				
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	@Override
+	public void deleteTution(int id) {
+		try (Connection conn=DBUtil.getConnection()){
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt=conn.prepareStatement(DELETE_TUITION)){
+				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

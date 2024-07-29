@@ -63,7 +63,18 @@
 			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
 			        </div>
 			    </div>
-				<h2> <a href="${pageContext.request.contextPath}/test/notice">학사정보</a> </h2>
+				    <div class="dropdown">
+				        <h2>관리</h2>
+				        <div class="dropdown-content">
+				            <a href="${pageContext.request.contextPath}/staff/depart">대학관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectDepart">대학수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/room">강의실관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectRoom">강의실수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/subject">강의관리</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectSubject">강의수정</a>
+
+				        </div>
+    			</div>
 			</c:if>
 			
 			
