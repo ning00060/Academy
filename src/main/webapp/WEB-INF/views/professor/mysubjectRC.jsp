@@ -70,5 +70,7 @@
 		<input type="hidden" name="professorId" value="<%=request.getParameter("professorId")%>">
 		<button type="submit">휴강 일정 추가하기</button>
 	</form>
+	
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>

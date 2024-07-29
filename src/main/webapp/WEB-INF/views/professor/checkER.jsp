@@ -35,6 +35,7 @@
 	<p>조회된 강의평가 결과가 없습니다.</p>
 	<%} %>
 	
-	<a href="home.jsp">홈으로 돌아가기.</a>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+	
 </body>
 </html>
