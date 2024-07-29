@@ -17,7 +17,8 @@
 			
 			<% UserDTO userDTO= (UserDTO) request.getSession().getAttribute("verifiedUser");%>
 			<!-- <P><%=userDTO.getName() %> </P>  -->
-			<a href="${pageContext.request.contextPath}/user/home"> <img alt="로고" src="../resource/favicon.ico"> </a>
+			<a href="${pageContext.request.contextPath}/user/home"> 
+			<img alt="로고" src="../resource/favicon.ico"> </a>
 			<!-- permissionLevel (학생, 교수, 직원)에 따라 홈페이지의 헤더 부분의 카테고리의 내용이 달라진다. -->
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
