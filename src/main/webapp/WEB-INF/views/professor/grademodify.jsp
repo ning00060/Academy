@@ -63,7 +63,8 @@
 	<%
 	} else {
 	%>
-	<p>수정할 학점 정보가 없습니다.</p> <a href="home.jsp">홈 화면으로 돌아가기</a>
+	<p>수정할 학점 정보가 없습니다.</p> 
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 	<%
 	}
 	%>

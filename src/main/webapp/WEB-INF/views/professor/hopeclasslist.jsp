@@ -67,6 +67,6 @@
 	<input type="hidden" name="professorId" value="<%=request.getAttribute("professorId")%>">
 	<button type="submit">강좌 개설 요청하기</button>
 	</form>
-	
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>
