@@ -26,7 +26,7 @@
 		</div>
 
 		<div style="flex-grow: 2" class="main-schedule">
-							<h3><a href="#">학사일정</a></h3>
+							<h3><a href="${pageContext.request.contextPath}/user/plan">학사일정</a></h3>
 							<table>
 								<c:forEach var="schedule" items="${scheduleList}">
 								<tr>
