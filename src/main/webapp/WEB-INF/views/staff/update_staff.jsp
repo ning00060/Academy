@@ -107,13 +107,26 @@ input[type="submit"]{
 
 	<!-- 메인 div -->
 	<main>
-		<h1>학생 등록</h1>
+		<h1>직원 등록</h1>
 		<div class="split--div"></div>
-		<form action="${pageContext.request.contextPath}/staff/registStu" method="post">
+		<!-- 여기에 내용 넣기 -->
+		<form action="${pageContext.request.contextPath}/staff/updateStaff" method="post">
 			<table class="table--container">
 				<tr>
+					<td><label for="id">아이디</label></td>
+					<td><input type="text" name="id" id="id" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="id2">변경할 아이디</label></td>
+					<td><input type="text" name="id2" id="id2" class="input--box" ></td>
+				</tr>
+				<tr>
 					<td><label for="name">이름</label></td>
-					<td><input type="text" name="name" id="name" class="input--box"></td>
+					<td><input type="text" name="name" id="name" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="level">직군</label></td>
+					<td><input type="text" name="level" id="level" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="birthDate">생년월일</label></td>
@@ -121,10 +134,8 @@ input[type="submit"]{
 				</tr>
 				<tr>
 					<td style="padding-top: 7px"><label>성별</label></td>
-					<td style="padding-top: 7px"><label for="male">남성</label> 
-					<input type="radio" value="남성" name="gender" id="male" checked="checked"> &nbsp;
-					<label for="female">여성</label> 
-					<input type="radio" value="여성" name="gender" id="female"></td>
+					<td style="padding-top: 7px"><label for="male">남성</label> <input type="radio" value="남성" name="gender" id="male" checked="checked"> &nbsp;<label for="female">여성</label> <input
+						type="radio" value="여성" name="gender" id="female"></td>
 				</tr>
 				<tr>
 					<td><label for="address">주소</label></td>
@@ -137,22 +148,6 @@ input[type="submit"]{
 				<tr>
 					<td><label for="email">이메일</label></td>
 					<td><input type="text" name="email" id="email" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="deptId">과 ID</label></td>
-					<td><input type="text" name="deptId" id="deptId" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="grade">학년</label></td>
-					<td><input type="text" name="grade" id="grade" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="semester">학기</label></td>
-					<td><input type="text" name="semester" id="semester" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="entranceDate">입학일</label></td>
-					<td><input type="text" name="entranceDate" id="entranceDate" class="input--box" value="2024-03-02"></td>
 				</tr>
 				<tr>
 					<td><label for="password">비밀번호</label></td>

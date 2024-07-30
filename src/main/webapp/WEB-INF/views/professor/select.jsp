@@ -1,14 +1,10 @@
 <%@page import="com.tenco.model.professor.ProfessorDTO"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
+  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>강의목록 조회하기</title>
-</head>
-<body>
+
 	<h2>강의목록 조회하기</h2>
 	<form action="${pageContext.request.contextPath}/professor/mysubject" method="GET">
 		<select id="year" name="year">
@@ -35,5 +31,4 @@
 	<br>
 	<br>
 	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

@@ -13,7 +13,7 @@
 	<div class="homeChildDiv" style="height: 400px">
 	
 			<div style="flex-grow: 2" class="main-notice">
-					<h3><a href="#">공지사항</a></h3>
+					<h3><a href="${pageContext.request.contextPath}/user/notice">공지사항</a></h3>
 							<table>
 									<c:forEach var="notice" items="${noticeList}">
 									<tr>
@@ -26,7 +26,7 @@
 		</div>
 
 		<div style="flex-grow: 2" class="main-schedule">
-							<h3><a href="#">학사일정</a></h3>
+							<h3><a href="${pageContext.request.contextPath}/user/plan">학사일정</a></h3>
 							<table>
 								<c:forEach var="schedule" items="${scheduleList}">
 								<tr>

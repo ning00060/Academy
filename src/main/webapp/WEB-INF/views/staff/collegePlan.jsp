@@ -15,36 +15,20 @@
 <!-- board list 생성 예정 -->
 <!-- 반복문 사용예정  -->
 <table>
-	<c:forEach var="notice" items="${noticeList}">
+	<c:forEach var="schedule" items="${planList}">
 		<tr>
-			<td><a href="${pageContext.request.contextPath}/user/notice?${notice.id}">${notice.category}&nbsp;${notice.title}</a></td>
-			<td><fmt:formatDate value="${notice.createdTime}" type="date" /></td>
-			
+			<td><fmt:formatDate value="${schedule.startDay}" pattern="MM-dd"/>&nbsp;-&nbsp;<fmt:formatDate value="${schedule.endDay}" pattern="MM-dd"/></td>
+			<td><a href="#">${schedule.information}</a></td>
 			<c:if test="${verifiedUser.permissionLevel == 3 }">
 				<td><a class="btn-edit" href="#">수정</a></td>
 				<td><a class="btn-delete" href="#">삭제</a></td>
 			</c:if>
-			
 		</tr>
-
 	</c:forEach>
 </table>
-<!---
-	
-	<c:forEach var="notice" items="${noticeList}">
-		<div class="board-item">
-			<h3><a href="${pageContext.request.contextPath}/board/view?id=${notice.id}">${notice.title}</a></h3>
-			<p>${notice.content}</p>
-			<p> <fmt:formatDate value="${notice.createdTime}" pattern="yyyy-MM-dd HH:mm"/> </p>
-			<!--  게시글에 작성자가 세션 유저와 동일하다면 수정, 삭제 버튼을 보여주자 -->
-<!--  
-			<c:if test="${notice.id == verifiedUser.id}">
-				<a class="btn btn-edit" href="#">수정</a>
-				<a class="btn btn-delete" href="#">삭제</a>
-			</c:if>
-		</div>
-	</c:forEach>
-	-->
+
+
+
 <div class="board-item"></div>
 <br>
 <div class="pagination">
@@ -54,7 +38,7 @@
 			<c:when test="${i == currentPage}">
 				<span class="current-page">${i}</span>
 			</c:when>
-				<c:otherwise>
+			<c:otherwise>
 				<span><a href="${pageContext.request.contextPath}/board/list?page=${i}">${i}</a></span>
 			</c:otherwise>
 		</c:choose>

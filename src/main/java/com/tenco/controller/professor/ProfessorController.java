@@ -323,8 +323,17 @@ public class ProfessorController extends HttpServlet {
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			professorRepository.deleteRestClassByRestClassId(id);
-			// TODO 돌아가는 위치 수정
-			request.getRequestDispatcher("/WEB-INF/views/professor/selectRC.jsp").forward(request, response);
+			String year = request.getParameter("year");
+			String semester = request.getParameter("semester");
+			int professorId = Integer.parseInt(request.getParameter("professorId"));
+			List<RestClassDTO> restClassList = professorRepository.selectRestClassByProfessorId(professorId,
+					Integer.parseInt(year), Integer.parseInt(semester));
+			request.setAttribute("restClassList", restClassList);
+			request.setAttribute("year", year);
+			request.setAttribute("semester", semester);
+			request.setAttribute("professorId", professorId);
+			request.getRequestDispatcher("/WEB-INF/views/professor/mysubjectRC.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter pw = response.getWriter();

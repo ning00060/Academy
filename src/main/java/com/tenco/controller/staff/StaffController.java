@@ -1,6 +1,7 @@
 package com.tenco.controller.staff;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.tenco.Repo.interfaces.staff.StaffRepository;
@@ -13,6 +14,7 @@ import com.tenco.Repo.interfaces.temp.RoomRepository;
 import com.tenco.Repo.interfaces.temp.StudentScholarRepository;
 import com.tenco.Repo.interfaces.temp.TuitionRepository;
 import com.tenco.Repo.staff.StaffRepositoryImpl;
+import com.tenco.Repo.staff.StaffSubjectRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
 import com.tenco.Repo.temp.DepartmentRepositoryImpl;
 import com.tenco.Repo.temp.EnrollRepositoryImpl;
@@ -20,6 +22,7 @@ import com.tenco.Repo.temp.NoticeRepositoryImpl;
 import com.tenco.Repo.temp.RoomRepositoryImpl;
 import com.tenco.Repo.temp.StudentScholarRepositoryImpl;
 import com.tenco.Repo.temp.TuitionRepositoryImpl;
+import com.tenco.model.professor.ProfessorDTO;
 import com.tenco.model.staff.StaffDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.subject.StaffSubjectDTO;
@@ -51,7 +54,8 @@ public class StaffController extends HttpServlet {
 	private static StaffSubjectRepository staffSubjectRepository;
 	private static RoomRepository roomRepository;
 
-	public StaffController() {
+	@Override
+	public void init() throws ServletException {
 		staffRepository = new StaffRepositoryImpl();
 		studentRepository = new StudentRepositoryImpl();
 		enrollRepository = new EnrollRepositoryImpl();
@@ -60,23 +64,17 @@ public class StaffController extends HttpServlet {
 		noticeRepository = new NoticeRepositoryImpl();
 		departmentRepository = new DepartmentRepositoryImpl();
 		studentScholarRepository = new StudentScholarRepositoryImpl();
-		staffRepository =new StaffRepositoryImpl();
+		staffSubjectRepository = new StaffSubjectRepositoryImpl();
 		roomRepository =new RoomRepositoryImpl();
 	}
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getPathInfo();
 		HttpSession session = request.getSession();
 		switch (action) {
-		case "/notice":
-			List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAll();
-			request.setAttribute("noticeList", noticeList);
-			UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
-			request.setAttribute("verifiedUser", userDTO);
-			request.getRequestDispatcher("/WEB-INF/views/staff/notice.jsp").forward(request, response);
-
-			break;
+		
 		case "/schedule":
 			schedulePage(request, response);
 
@@ -109,6 +107,15 @@ public class StaffController extends HttpServlet {
 		case "/registPro":
 			request.getRequestDispatcher("/WEB-INF/views/staff/regist_pro.jsp").forward(request, response);
 			break;
+		case "/updateStaff":
+			request.getRequestDispatcher("/WEB-INF/views/staff/update_staff.jsp").forward(request, response);
+			break;
+		case "/updateStu":
+			request.getRequestDispatcher("/WEB-INF/views/staff/update_stu.jsp").forward(request, response);
+			break;
+		case "/updatePro":
+			request.getRequestDispatcher("/WEB-INF/views/staff/update_pro.jsp").forward(request, response);
+			break;
 		case "/depart":
 			String id1=	request.getParameter("id");
 			if(id1!=null) {
@@ -134,15 +141,13 @@ public class StaffController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/staff/select_room.jsp").forward(request, response);
 			break;
 		case "/subject":
-			String id3=	request.getParameter("id");
-			if(id3!=null) {
-			request.setAttribute("id", id3);
-			request.getRequestDispatcher("/WEB-INF/views/staff/subject.jsp").forward(request, response);
-			}else {
-				request.getRequestDispatcher("/WEB-INF/views/staff/subject.jsp").forward(request, response);
-			}
+			hopeSubject(request,response,session);
+
 			break;
 		case "/selectSubject":
+			List<StaffSubjectDTO> hopeList= new ArrayList<>();
+					hopeList = staffSubjectRepository.orderHopeclass();
+			request.setAttribute("hopeList", hopeList);
 			request.getRequestDispatcher("/WEB-INF/views/staff/select_sub.jsp").forward(request, response);
 			break;
 
@@ -151,6 +156,30 @@ public class StaffController extends HttpServlet {
 		}
 
 	}
+
+	private void hopeSubject(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+		int id =Integer.parseInt( request.getParameter("id"));
+		String name=request.getParameter("name");
+		int professorId=Integer.parseInt( request.getParameter("professorId"));
+		String roomId=request.getParameter("roomId");
+		int deptId=Integer.parseInt( request.getParameter("deptId"));
+		String majorType=request.getParameter("majorType");
+		int year=Integer.parseInt( request.getParameter("year"));
+		int semester=Integer.parseInt( request.getParameter("semester"));
+		int grades=Integer.parseInt( request.getParameter("grades"));
+		StaffSubjectDTO hopeSubject=StaffSubjectDTO.builder()
+				.id(id).name(name).professorId(professorId).roomId(roomId)
+				.deptId(deptId).majorType(majorType).year(year).semester(semester).grades(grades)
+				.build();
+		
+		if(hopeSubject!=null) {
+		request.setAttribute("hopeSubject", hopeSubject);
+		request.getRequestDispatcher("/WEB-INF/views/staff/subject.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("/WEB-INF/views/staff/subject.jsp").forward(request, response);
+		}
+	}
+
 
 	private void scholarshipPage(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -224,6 +253,18 @@ public class StaffController extends HttpServlet {
 		case "/registStaff":
 			registStaffPage(request, response, session);
 			break;
+			
+		case "/updateStu":
+			updateStuPage(request, response, session);
+			break;
+			
+		case "/updatePro":
+			updateProPage(request, response, session);
+			break;
+			
+		case "/updateStaff":
+			updateStaffPage(request, response, session);
+			break;
 		case "/depart":
 			departPage(request, response, session);
 		case "/departModify":
@@ -263,6 +304,93 @@ public class StaffController extends HttpServlet {
 		}
 
 	}
+
+	private void updateStaffPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+		int id = Integer.parseInt( request.getParameter("id"));
+		int id2 = Integer.parseInt( request.getParameter("id2"));
+		int level = Integer.parseInt( request.getParameter("level"));
+		String name = request.getParameter("name");
+		String birth = request.getParameter("birthDate");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String tel = request.getParameter("tel");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+
+		StaffDTO staffDTO = StaffDTO.builder()
+				.id(id).name(name).birthDate(birth).gender(gender).address(address)
+				.tel(tel).email(email).build();
+		System.out.println(staffDTO.toString());
+		if (staffDTO == null) {
+			response.sendRedirect(request.getContextPath() + "/user/login");
+		} else {
+			staffRepository.updateUserStaff(staffDTO, password, level,id2);
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		}
+	}
+
+
+	private void updateProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException, ServletException {
+		int id = Integer.parseInt( request.getParameter("id"));
+		int id2 = Integer.parseInt( request.getParameter("id2"));
+		int level = Integer.parseInt( request.getParameter("level"));
+		String name = request.getParameter("name");
+		java.sql.Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String tel = request.getParameter("tel");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		int deptId = Integer.parseInt(request.getParameter("deptId"));
+
+		ProfessorDTO professorDTO=ProfessorDTO.builder()
+				.id(id)
+				.name(name)
+				.birthDate(birthDate)
+				.gender(gender)
+				.address(address)
+				.tel(tel)
+				.email(email)
+				.deptId(deptId)
+				.build();
+		if(professorDTO==null) {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+			}
+		else {
+			staffRepository.updateUserProfessor(professorDTO, password, level,id2);
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+			}
+		}
+
+
+	private void updateStuPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+		int id = Integer.parseInt( request.getParameter("id"));
+		int id2 = Integer.parseInt( request.getParameter("id2"));
+		int level = Integer.parseInt( request.getParameter("level"));
+		String name = request.getParameter("name");
+		String birth = request.getParameter("birthDate");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		String tel = request.getParameter("tel");
+		String email = request.getParameter("email");
+		int dept_id = Integer.parseInt(request.getParameter("deptId"));
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		int semester = Integer.parseInt(request.getParameter("semester"));
+		String entranceDate = request.getParameter("entranceDate");
+		String password = request.getParameter("password");
+
+		StudentDTO studentDTO = StudentDTO.builder()
+				.id(id).name(name).birth_date(birth).gender(gender).address(address)
+				.tel(tel).email(email).dept_id(dept_id).grade(grade).semester(semester).entrance_date(entranceDate).build();
+		System.out.println(studentDTO.toString());
+		if (studentDTO == null) {
+			response.sendRedirect(request.getContextPath() + "/user/login");
+		} else {
+			staffRepository.updateUserStudent(studentDTO, password, level, id2);
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		}
+	}
+
 
 	private void selectRoom(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
 		int search = Integer.parseInt(request.getParameter("search"));
@@ -363,7 +491,6 @@ public class StaffController extends HttpServlet {
 	}
 
 	private void subjectPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
-		int id =Integer.parseInt( request.getParameter("id"));
 		String name=request.getParameter("name");
 		int professorId=Integer.parseInt( request.getParameter("professorId"));
 		String roomId=request.getParameter("roomId");
@@ -373,7 +500,7 @@ public class StaffController extends HttpServlet {
 		int semester=Integer.parseInt( request.getParameter("semester"));
 		int grades=Integer.parseInt( request.getParameter("grades"));
 		StaffSubjectDTO staffSubjectDTO=StaffSubjectDTO.builder()
-				.id(id).name(name).professorId(professorId).roomId(roomId)
+				.name(name).professorId(professorId).roomId(roomId)
 				.deptId(deptId).majorType(majorType).year(year).semester(semester).grades(grades)
 				.build();
 		if(staffSubjectDTO !=null) {
@@ -476,35 +603,36 @@ public class StaffController extends HttpServlet {
 
 	}
 
-	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	private void registProPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		String birth = request.getParameter("birthDate");
+		java.sql.Date birthDate = java.sql.Date.valueOf(request.getParameter("birthDate"));
 		String gender = request.getParameter("gender");
 		String address = request.getParameter("address");
 		String tel = request.getParameter("tel");
 		String email = request.getParameter("email");
-		String passwrod = request.getParameter("password");
+		String password = request.getParameter("password");
 		int deptId = Integer.parseInt(request.getParameter("deptId"));
 
-//		ProfessorDTO professorDTO=ProfessorDTO.builder()
-//				.name(name)
-//				.birthDate(birth)
-//				.gender(gender)
-//				.address(address)
-//				.tel(tel)
-//				.email(email)
-//				.build();
-//		System.out.println( professorDTO.toString());
-//		if(professorDTO==null) {
-//			response.sendRedirect(request.getContextPath()+"/user/login");
-//			}
-//		else {
-//			staffRepository.addUserStaff(professorDTO, passwrod);
-//			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
-//			}
-//		}
+		ProfessorDTO professorDTO=ProfessorDTO.builder()
+				.name(name)
+				.birthDate(birthDate)
+				.gender(gender)
+				.address(address)
+				.tel(tel)
+				.email(email)
+				.deptId(deptId)
+				.build();
+		System.out.println( professorDTO.toString());
+		if(professorDTO==null) {
+			response.sendRedirect(request.getContextPath()+"/user/login");
+			}
+		else {
+			staffRepository.addUserProfessor(professorDTO, password);
+			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+			}
+		}
 
-	}
+	
 
 	private void registStuPage(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws ServletException, IOException {
@@ -515,11 +643,14 @@ public class StaffController extends HttpServlet {
 		String tel = request.getParameter("tel");
 		String email = request.getParameter("email");
 		int dept_id = Integer.parseInt(request.getParameter("deptId"));
+		int grade = Integer.parseInt(request.getParameter("grade"));
+		int semester = Integer.parseInt(request.getParameter("semester"));
 		String entranceDate = request.getParameter("entranceDate");
 		String password = request.getParameter("password");
 
 		StudentDTO studentDTO = StudentDTO.builder().name(name).birth_date(birth).gender(gender).address(address)
-				.tel(tel).email(email).dept_id(dept_id).entrance_date(entranceDate).build();
+				.tel(tel).email(email).dept_id(dept_id)
+				.grade(grade).semester(semester).entrance_date(entranceDate).build();
 		System.out.println(studentDTO.toString());
 		if (studentDTO == null) {
 			response.sendRedirect(request.getContextPath() + "/user/login");

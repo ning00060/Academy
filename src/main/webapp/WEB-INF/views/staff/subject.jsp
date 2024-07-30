@@ -8,45 +8,36 @@
 		<form action="${pageContext.request.contextPath}/staff/subject" method="post">
 			<table class="table--container">
 				<tr>
-					<td><label for="id">학과 번호</label></td>
-					<td><input type="text" name="id" id="id" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="id2">변경할 학과번호</label></td>
-					<td><input type="text" name="id2" id="id2" class="input--box"></td>
-				</tr>
-				
-				<tr>
-					<td><label for="name">학과 이름</label></td>
-					<td><input type="text" name="name" id="name" class="input--box"></td>
+					<td><label for="name">강의 이름</label></td>
+					<td><input type="text" name="name" id="name" class="input--box" value="${hopeSubject.name}"></td>
 				</tr>
 				<tr>
 					<td><label for="professorId">교수번호</label></td>
-					<td><input type="text" name="professorId" id="professorId" class="input--box"></td>
+					<td><input type="text" name="professorId" id="professorId" class="input--box" value="${hopeSubject.professorId}"></td>
 				</tr>
 				<tr>
 					<td><label for="roomId">강의실번호</label></td>
-					<td><input type="text" name="roomId" id="roomId" class="input--box"></td>
+					<td><input type="text" name="roomId" id="roomId" class="input--box" value="${hopeSubject.roomId}"></td>
 				</tr>
 				<tr>
 					<td><label for="deptId">학과번호</label></td>
-					<td><input type="text" name="deptId" id="deptId" class="input--box"></td>
+					<td><input type="text" name="deptId" id="deptId" class="input--box" value="${hopeSubject.deptId}"></td>
 				</tr>
 				<tr>
 					<td><label for="majorType">전공타입</label></td>
-					<td><input type="text" name="majorType" id="majorType" class="input--box"></td>
+					<td><input type="text" name="majorType" id="majorType" class="input--box" value="${hopeSubject.majorType}"></td>
 				</tr>
 				<tr>
 					<td><label for="year">생성년도</label></td>
-					<td><input type="text" name="year" id="year" class="input--box"></td>
+					<td><input type="text" name="year" id="year" class="input--box" value="${hopeSubject.year}"></td>
 				</tr>
 				<tr>
 					<td><label for="semester">학기</label></td>
-					<td><input type="text" name="semester" id="semester" class="input--box"></td>
+					<td><input type="text" name="semester" id="semester" class="input--box" value="${hopeSubject.semester}"></td>
 				</tr>
 				<tr>
 					<td><label for="grades">학년</label></td>
-					<td><input type="text" name="grades" id="grades" class="input--box"></td>
+					<td><input type="text" name="grades" id="grades" class="input--box" value="${hopeSubject.grades}"></td>
 				</tr>
 			</table>
 			<div class="button--container">
@@ -54,15 +45,15 @@
 			</div>
 		</form>
 		<hr>
-		<h1>학과 수정</h1>
+		<h1>강의 수정</h1>
 		<form action="${pageContext.request.contextPath}/staff/subjectModify" method="post">
 			<table class="table--container">
 				<tr>
-					<td><label for="id">학과 번호</label></td>
+					<td><label for="id">강의 번호</label></td>
 					<td><input type="text" name="id" id="id" class="input--box" value="${id}"></td>
 				</tr>
 				<tr>
-					<td><label for="id2">변경할 학과번호</label></td>
+					<td><label for="id2">변경할 강의번호</label></td>
 					<td><input type="text" name="id2" id="id2" class="input--box"></td>
 				</tr>
 				
@@ -104,11 +95,11 @@
 			</div>
 		</form>
 		
-		<h1>학과 삭제</h1>
+		<h1>강의 삭제</h1>
 		<form action="${pageContext.request.contextPath}/staff/subjectDelete" method="post">
 			<table class="table--container">
 				<tr>
-					<td><label for="id">학과 번호</label></td>
+					<td><label for="id">강의 번호</label></td>
 					<td><input type="text" name="id" id="id" class="input--box" value="${id}]"></td>
 				</tr>
 			</table>
