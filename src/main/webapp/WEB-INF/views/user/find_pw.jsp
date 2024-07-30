@@ -14,11 +14,12 @@
         	<h2>찾기 결과</h2>
                 <div class="error-message">${errorMessage}</div>
             </c:when>
-            <c:when test="${not empty userDTO}">
+            <c:when test="${not empty staffUserDTO}">
                 <div class="">
-                	<h3>${userDTO.id}님의 정보입니다</h3>
+                	<h3>${staffUserDTO.id}님의 정보입니다</h3>
                 	<br>
-                	<h3>비밀번호 : ${userDTO.password}</h3>
+                	<h3>비밀번호 앞자리 3자 : ${staffUserDTO.password}</h3>
+                	<h3>권한 : ${staffUserDTO.permissionLevel}</h3>
                 </div>
             </c:when>
         </c:choose>
@@ -26,9 +27,9 @@
         
 		<div class="container">
 	        <h2>비밀번호 찾기</h2>
-	        <form action="/findId" method="post">
+	        <form action="${pageContext.request.contextPath}/user/findPw" method="post">
 	            <div class="form-group">
-	                <label for="id">이메일:</label>
+	                <label for="id">아이디:</label>
 	                <input type="text" id="id" name="id" required>
 	            </div>
 	            <div class="form-group">

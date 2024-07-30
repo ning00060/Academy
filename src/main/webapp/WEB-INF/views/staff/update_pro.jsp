@@ -3,69 +3,6 @@
 
  <%@ include file="../main_head.jsp" %>
 
-<style>
-.split--div {
-	margin: 20px 0 20px;
-}
-.table--container {
-	width: 500px;
-	border: 1px solid #D2D1D1;
-	border-width: 1px 0px;
-	margin-top: 50px;
-}
-.first--tr {
-	background-color: #f7f6f6;
-	height: 30px;
-	font-weight: bolder;
-}
-table tr, td {
-	border: 1px solid #D2D1D1;
-	border-width: 1px 0px;
-	padding: 5px 15px;
-}
-.button {
-	background-color: #023268;
-	border-radius: 5px;
-	color: #fff;
-	text-decoration: none;
-	margin: 5px;
-	padding: 3px;
-}
-input[type="submit"]{
-	background-color: #023268;
-	border-radius: 5px;
-	border: hidden;
-	color: #fff;
-	text-decoration: none;
-	margin: 5px;
-	padding: 3px;
-}
-.button:hover {
-	color: #fff;
-
-}
-.select--button {
-	margin-bottom: 30px;
-}
-
-.input--box {
-	border: 1px solid #D2D1D1;
-	border-radius: 3px;
-	height: 35px;
-	margin-right: 20px;
-	padding: 5px;
-}
-.form--container {
-	margin-top: 30px;
-}
-.delete {
-	font-weight: bold;
-}
-.button--container {
-	margin-left: 200px;
-}
-</style>
-
 <!-- 세부 메뉴 + 메인 -->
 <div class="d-flex justify-content-center align-items-start" style="min-width: 100em;">
 	<!-- 세부 메뉴 div-->
@@ -107,13 +44,26 @@ input[type="submit"]{
 
 	<!-- 메인 div -->
 	<main>
-		<h1>학생 등록</h1>
+		<h1>교수 등록</h1>
 		<div class="split--div"></div>
-		<form action="${pageContext.request.contextPath}/staff/registStu" method="post">
+		<form action="${pageContext.request.contextPath}/staff/updatePro" method="post">
+		
 			<table class="table--container">
 				<tr>
+					<td><label for="id"> 아이디</label></td>
+					<td><input type="text" name="id" id="id" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="id2">변경할 아이디</label></td>
+					<td><input type="text" name="id2" id="id2" class="input--box" ></td>
+				</tr>
+				<tr>
 					<td><label for="name">이름</label></td>
-					<td><input type="text" name="name" id="name" class="input--box"></td>
+					<td><input type="text" name="name" id="name" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="level">직군</label></td>
+					<td><input type="text" name="level" id="level" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="birthDate">생년월일</label></td>
@@ -122,37 +72,25 @@ input[type="submit"]{
 				<tr>
 					<td style="padding-top: 7px"><label>성별</label></td>
 					<td style="padding-top: 7px"><label for="male">남성</label> 
-					<input type="radio" value="남성" name="gender" id="male" checked="checked"> &nbsp;
+					<input type="radio"  name="gender" value="남성" id="male" checked="checked"> &nbsp;
 					<label for="female">여성</label> 
-					<input type="radio" value="여성" name="gender" id="female"></td>
+					<input type="radio"  name="gender" value="여성" id="female"></td>
 				</tr>
 				<tr>
 					<td><label for="address">주소</label></td>
-					<td><input type="text" name="address" id="address" class="input--box"></td>
+					<td><input type="text" name="address" id="address" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="tel">전화번호</label></td>
-					<td><input type="text" name="tel" id="tel" class="input--box"></td>
+					<td><input type="text" name="tel" id="tel" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="email">이메일</label></td>
-					<td><input type="text" name="email" id="email" class="input--box"></td>
+					<td><input type="text" name="email" id="email" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="deptId">과 ID</label></td>
-					<td><input type="text" name="deptId" id="deptId" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="grade">학년</label></td>
-					<td><input type="text" name="grade" id="grade" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="semester">학기</label></td>
-					<td><input type="text" name="semester" id="semester" class="input--box"></td>
-				</tr>
-				<tr>
-					<td><label for="entranceDate">입학일</label></td>
-					<td><input type="text" name="entranceDate" id="entranceDate" class="input--box" value="2024-03-02"></td>
+					<td><input type="text" name="deptId" id="deptId" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="password">비밀번호</label></td>

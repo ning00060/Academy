@@ -16,8 +16,12 @@ public class UserRepositoryImpl implements UserRepository {
 			+ "where email= ? and name= ? ";
 	private static final String SELECT_USERID_BY_NAME_EMAIL_STAFF = " select u.id from tb_user as u join tb_staff  as s on u.id=s.id\r\n"
 			+ "where email= ? and name= ? ";
-	private static final String SELECT_USERPW_BY_ID_NAME = " select u.password from tb_user as u join tb_student  as s on u.id=s.id\r\n"
-			+ "where u.id=? and name=?  ";
+	private static final String SELECT_USERPW_BY_ID_NAME = " select substr(password,1,3) as password,permission_level \r\n"
+															+ "from tb_user as u\r\n"
+															+ " left join tb_student  as s on u.id=s.id\r\n"
+															+ " left join tb_professor as p on u.id=p.id\r\n"
+															+ " left join tb_staff as st on u.id=st.id\r\n"
+															+ " where u.id=? and (s.name=? or p.name=? or st.name=? )  ";
 
 	@Override
 	public UserDTO userLogin(int id, String password) {
@@ -135,11 +139,14 @@ public class UserRepositoryImpl implements UserRepository {
 			PreparedStatement pstmt = conn.prepareStatement(SELECT_USERPW_BY_ID_NAME);
 			pstmt.setInt(1, id);
 			pstmt.setString(2, name);
+			pstmt.setString(3, name);
+			pstmt.setString(4, name);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				userDTO = StaffUserDTO.builder()
 						.id(id)
 						.password(rs.getString("password"))
+						.permissionLevel(rs.getInt("permission_level"))
 						.build();
 			}
 

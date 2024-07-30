@@ -8,6 +8,7 @@ public interface StaffSubjectRepository {
 
 	List<StaffSubjectDTO> selectSubjectAll();
 	StaffSubjectDTO selectSubjectById(int id);
+	List<StaffSubjectDTO> orderHopeclass();
 	void addSubject(StaffSubjectDTO staffSubjectDTO);
 	void updateSubject(StaffSubjectDTO subjectDTO,int id);
 	void deleteSubject(int id);

@@ -41,6 +41,7 @@ public class UserController extends HttpServlet {
 	private StudentRepository studentRepository;
 	private StaffRepository staffRepository;
 	private ProfessorRepository professorRepository;
+
 	public UserController() {
 		super();
 	}
@@ -55,8 +56,9 @@ public class UserController extends HttpServlet {
 
 		scheduleRepository = new ScheduleRepositoryImpl();
 		staffRepository = new StaffRepositoryImpl();
-		
+
 		professorRepository = new ProfessorRepositoryImpl();
+
 		System.out.println("12");
 	}
 
@@ -120,7 +122,7 @@ public class UserController extends HttpServlet {
 			session.setAttribute("studentDTO", student);
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
-			
+
 		case "/logout":
 			System.out.println("get : logout");
 			handleLogout(request, response);
@@ -129,26 +131,26 @@ public class UserController extends HttpServlet {
 			break;
 		}
 	}
-	
+
 	/**
 	 * 회원이 로그아웃 클릭 시 세션을 제거한다.
+	 * 
 	 * @param request
 	 * @param response
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private void handleLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 
-		if(session != null) {
+		if (session != null) {
 			session.removeAttribute("verifiedUser");
 			session.invalidate();
 			System.out.println("세션 삭제");
 		} else {
 			System.out.println("삭제안됨");
 		}
-		response.sendRedirect(request.getContextPath()+"/index.jsp");		
+		response.sendRedirect(request.getContextPath() + "/index.jsp");
 	}
-
 
 	private void handleEvaluation(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -159,7 +161,7 @@ public class UserController extends HttpServlet {
 		request.setAttribute("subjectId", subjectId);
 		request.setAttribute("subjectName", subjectName);
 		request.getRequestDispatcher("/WEB-INF/views/student/evaluation.jsp").forward(request, response);
-	
+
 	}
 
 	/**
@@ -171,8 +173,6 @@ public class UserController extends HttpServlet {
 	 * @throws ServletException
 	 */
 
-	
-	
 	private void handleInfoModify(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -214,7 +214,6 @@ public class UserController extends HttpServlet {
 		StudentDTO studentDTO = studentRepository.studentInfo(userDTO.getId());
 		request.setAttribute("studentDTO", studentDTO);
 
-
 		request.getRequestDispatcher("/WEB-INF/views/myInfo.jsp").forward(request, response);
 
 	}
@@ -243,8 +242,7 @@ public class UserController extends HttpServlet {
 		String action = request.getPathInfo();
 		System.out.println(action);
 		switch (action) {
-		
-		
+
 		case "/findId":
 			findIdPage(request, response);
 			break;
@@ -265,32 +263,37 @@ public class UserController extends HttpServlet {
 
 	}
 
-	private void findPwPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id=Integer.parseInt( request.getParameter("id"));
+	private void findPwPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
-		if(name == null || name.trim().isEmpty() || request.getParameter("id") == null || request.getParameter("id").trim().isEmpty()) {
-            request.setAttribute("errorMessage", "다시 입력해주세요");
-            request.getRequestDispatcher("/findPw.jsp").forward(request, response);
-		}else {
-			StaffUserDTO userDTO=userRepository.userPw(id,name);
-			request.setAttribute("userDTO", userDTO);
-			request.getRequestDispatcher("/findPw.jsp").forward(request, response);
+		if (name == null || name.trim().isEmpty() || request.getParameter("id") == null
+				|| request.getParameter("id").trim().isEmpty()) {
+			request.setAttribute("errorMessage", "다시 입력해주세요");
+			request.getRequestDispatcher("/WEB-INF/views/user/find_pw.jsp").forward(request, response);
+		} else {
+			StaffUserDTO staffUserDTO = userRepository.userPw(id, name);
+			request.setAttribute("staffUserDTO", staffUserDTO);
+			request.getRequestDispatcher("/WEB-INF/views/user/find_pw.jsp").forward(request, response);
 		}
-		
+
 	}
 
-	private void findIdPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void findIdPage(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String name = request.getParameter("name");
-		int num= Integer.parseInt(request.getParameter("num"));
-		if(name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty() ||String.valueOf( num) == null) {
-            request.setAttribute("errorMessage", "다시 입력해주세요");
-            request.getRequestDispatcher("/findId.jsp").forward(request, response);
-		}else {
-			StaffUserDTO userDTO=userRepository.userId(name, email, num);
+		int num = Integer.parseInt(request.getParameter("num"));
+		if (name == null || name.trim().isEmpty() || email == null || email.trim().isEmpty()
+				|| String.valueOf(num) == null) {
+			System.out.println("null값 존재");
+			request.setAttribute("errorMessage", "다시 입력해주세요");
+			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);
+		} else {
+			StaffUserDTO userDTO = userRepository.userId(name, email, num);
 			request.setAttribute("userDTO", userDTO);
 			request.setAttribute("name", name);
-			request.getRequestDispatcher("/findId.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);
 		}
 	}
 
@@ -329,10 +332,10 @@ public class UserController extends HttpServlet {
 		String password = (String) request.getParameter("password");
 		if ((userDTO = userRepository.userLogin(id, password)) != null) {
 			// 로그인 성공
-			
+
 			HttpSession session = request.getSession();
 			session.setAttribute("verifiedUser", userDTO);
-			
+
 			int permissionLevel = userDTO.getPermissionLevel();
 			// permission-level 확인 1=학생, 2=교수, 3= 관리직
 			switch (permissionLevel) {

@@ -22,11 +22,11 @@
                 </div>
             </c:when>
         </c:choose>
-        </div>
+    </div>
 
 		<div class="container">
 	        <h2>아이디 찾기</h2>
-	        <form action="/findId" method="post">
+	        <form action="${pageContext.request.contextPath}/user/findId" method="post">
 	            <div class="form-group">
 	                <label for="name">이름:</label>
 	                <input type="text" id="name" name="name" required>

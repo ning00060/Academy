@@ -109,11 +109,23 @@ input[type="submit"]{
 	<main>
 		<h1>학생 등록</h1>
 		<div class="split--div"></div>
-		<form action="${pageContext.request.contextPath}/staff/registStu" method="post">
+		<form action="${pageContext.request.contextPath}/staff/updateStu" method="post">
 			<table class="table--container">
 				<tr>
+					<td><label for="id"> 아이디</label></td>
+					<td><input type="text" name="id" id="id" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="id2">변경할 아이디</label></td>
+					<td><input type="text" name="id2" id="id2" class="input--box" ></td>
+				</tr>
+				<tr>
 					<td><label for="name">이름</label></td>
-					<td><input type="text" name="name" id="name" class="input--box"></td>
+					<td><input type="text" name="name" id="name" class="input--box" ></td>
+				</tr>
+				<tr>
+					<td><label for="level">직군</label></td>
+					<td><input type="text" name="level" id="level" class="input--box" ></td>
 				</tr>
 				<tr>
 					<td><label for="birthDate">생년월일</label></td>
