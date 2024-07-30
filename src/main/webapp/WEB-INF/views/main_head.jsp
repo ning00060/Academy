@@ -111,8 +111,14 @@
     }
 
     nav ul li {
-        margin: 0 10px;
+    	color: white;
+    	background-color: #0056b3; /* Box background color */
         font-size: 18px;
+        text-decoration: none;
+         padding: 10px 15px; /* Padding inside each box */
+        border-radius: 5px; /* Rounded corners for each box */
+        margin: 0 5px; /* Space between boxes */
+        
     }
 
     nav ul li a {
@@ -122,10 +128,14 @@
         padding: 10px 15px; /* Padding inside each box */
         border-radius: 5px; /* Rounded corners for each box */
         margin: 0 5px; /* Space between boxes */
-        transition: background-color 0.3s ease;
+        
     }
 
     nav ul li a:hover {
+        background-color: #003d80; /* Darker background on hover */
+    }
+
+    nav ul li:hover {
         background-color: #003d80; /* Darker background on hover */
     }
 
