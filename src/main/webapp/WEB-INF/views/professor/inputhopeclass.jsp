@@ -1,6 +1,7 @@
 <%@page import="com.tenco.model.professor.ProfessorDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,6 +59,4 @@
 	
 	
 	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
-	
-</body>
-</html>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>
