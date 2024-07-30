@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>휴/보강 관리</title>
+<title>Insert title here</title>
 </head>
-<body>	
-	<h2>휴/보강 관리</h2>
-	
-		
+<body>
+리스트 작성
 </body>
 </html>

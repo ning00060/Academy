@@ -5,6 +5,7 @@
 <%@page import="com.tenco.model.subject.SubjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,6 +47,9 @@
 				<button type="submit">수정하기</button></form>  
 				
 				<form action="${pageContext.request.contextPath}/professor/deleteRC" method="get">
+				<input type="hidden" name="year" value="<%=request.getAttribute("year")%>">
+				<input type="hidden" name="semester" value="<%=request.getAttribute("semester")%>">
+				<input type="hidden" name="professorId" value="<%=request.getAttribute("professorId")%>">
 				<input type="hidden" name="id" value="<%=restClassList.get(i).getId()%>">
 				<button type="submit">삭제하기</button></form>
 			</td>
@@ -70,5 +74,6 @@
 		<input type="hidden" name="professorId" value="<%=request.getParameter("professorId")%>">
 		<button type="submit">휴강 일정 추가하기</button>
 	</form>
-</body>
-</html>
+	
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

@@ -2,6 +2,7 @@
 	import="jakarta.security.auth.message.callback.PrivateKeyCallback.SubjectKeyIDRequest"%>
 <%@page import="com.tenco.model.student.StudentIdNameDTO"%>
 <%@page import="java.util.List"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -61,5 +62,5 @@
 	<%
 	}
 	%>
-</body>
-</html>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

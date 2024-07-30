@@ -14,6 +14,7 @@ import com.tenco.model.professor.RestClassDTO;
 import com.tenco.model.professor.StudentGradeDTO;
 import com.tenco.model.student.StudentDTO;
 import com.tenco.model.student.StudentIdNameDTO;
+import com.tenco.model.subject.HopeClassDTO;
 import com.tenco.model.subject.SubjectDTO;
 import com.tenco.util.DBUtil;
 
@@ -45,6 +46,79 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 	
 	private final static String SELECT_REST_CLASS_BY_ID = " select * from tb_restclass where id = ? ";
 	
+	private final static String SELECT_PROFESSOR_INFO_BY_ID = " select * from tb_professor where id = ? ";
+	
+	private final static String SELECT_ALL_HOPE_CLASS_BY_PROFESSOR_ID = " select * from tb_hopeclass where professor_id = ?  ";
+	
+	private final static String DELETE_HOPE_CLASS_BY_ID = " delete from tb_hopeclass where id = ? ";
+	
+	private final static String INSERT_HOPE_CLASS = " insert into tb_hopeclass(professor_id, name, room_id, dept_id, major_type, year, semester, grades) "
+			+ " values(?, ?, ?, ?, ?, ?, ?, ?) ";
+	
+	
+	public void inputHopeClass(int professorId, String name, String roomId, int deptId, String majorType, int year, int semester, int grades) {
+		try (Connection conn = DBUtil.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(INSERT_HOPE_CLASS)) {
+				pstmt.setInt(1, professorId);
+				pstmt.setString(2, name);
+				pstmt.setString(3, roomId);
+				pstmt.setInt(4, deptId);
+				pstmt.setString(5, majorType);
+				pstmt.setInt(6, year);
+				pstmt.setInt(7, semester);
+				pstmt.setInt(8, grades);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return;
+		
+	};
+	
+	
+	public void deleteHopeClassById(int id) {
+		try (Connection conn = DBUtil.getConnection()) {
+			conn.setAutoCommit(false);
+			try (PreparedStatement pstmt = conn.prepareStatement(DELETE_HOPE_CLASS_BY_ID)) {
+				pstmt.setInt(1, id);
+				pstmt.executeUpdate();
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return;
+	}
+	
+	public List<HopeClassDTO> selectAllHopeClassByProfessorId(int professorId){
+		List<HopeClassDTO> hopeClassList = new ArrayList<>();
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_ALL_HOPE_CLASS_BY_PROFESSOR_ID)) {
+			pstmt.setInt(1, professorId);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				hopeClassList.add(HopeClassDTO.builder().id(rs.getInt("id")).professorId(rs.getInt("professor_id"))
+														.name(rs.getString("name")).roomId(rs.getString("room_id"))
+														.deptId(rs.getInt("dept_id")).majorType(rs.getString("major_type"))
+														.year(rs.getInt("year")).semester(rs.getInt("semester"))
+														.grades(rs.getInt("grades")).build());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return hopeClassList;
+	}
 	
 	@Override
 	public List<StudentGradeDTO> selectAllStudentsGradeBySubjectId(int subjectId) {
@@ -217,7 +291,7 @@ public class ProfessorRepositoryImpl implements ProfessorRepository {
 
 				professorDTO = ProfessorDTO.builder()
 				.id(rs.getInt("id")).name(rs.getString("name"))
-				.birthDate(rs.getString("birth_date")).gender(rs.getString("gender"))
+				.birthDate(rs.getDate("birth_date")).gender(rs.getString("gender"))
 				.address(rs.getString("address")).tel(rs.getString("tel"))
 				.email(rs.getString("email")).deptId(rs.getInt("dept_id"))
 				.hireDate(rs.getDate("hire_date")).build();

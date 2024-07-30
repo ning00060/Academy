@@ -1,6 +1,7 @@
 <%@page import="com.tenco.model.professor.RestClassDTO"%>
 <%@page import="com.tenco.model.subject.SubjectDTO"%>
 <%@page import="java.util.List"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@page
     import="jakarta.security.auth.message.callback.PrivateKeyCallback.SubjectKeyIDRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -27,5 +28,5 @@
 		<input type="hidden" id="id" name="id" value="<%=request.getParameter("id")%>">
         <button type="submit">입력</button>
     </form>
-</body>
-</html>
+    <a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

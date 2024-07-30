@@ -4,6 +4,7 @@
 <%@page import="com.tenco.model.subject.SubjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,6 +48,7 @@
 				<form
 					action="${pageContext.request.contextPath}/professor/selectsubject"
 					method="GET">
+					
 					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
 					<button type="submit">성적 입력</button>
 				</form>
@@ -69,5 +71,5 @@
 	<%
 	}
 	%>
-</body>
-</html>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

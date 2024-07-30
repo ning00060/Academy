@@ -1,13 +1,10 @@
+<%@page import="com.tenco.model.professor.ProfessorDTO"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
+  
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>강의목록 조회하기</title>
-</head>
-<body>
+
 	<h2>강의목록 조회하기</h2>
 	<form action="${pageContext.request.contextPath}/professor/mysubject" method="GET">
 		<select id="year" name="year">
@@ -27,11 +24,11 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오.">
+		<%ProfessorDTO professorDTO = (ProfessorDTO)request.getAttribute("professorDTO");%>
+		<input type="hidden" id="professorId" name="professorId" value="<%=professorDTO.getId()%>">
 		<button type="submit">조회</button>
 	</form>
 	<br>
 	<br>
-	<a href="${pageContext.request.contextPath}/temp/home.jsp">홈으로 돌아가기</a>
-</body>
-</html>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

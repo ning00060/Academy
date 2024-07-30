@@ -143,6 +143,14 @@ input[type="submit"]{
 					<td><input type="text" name="deptId" id="deptId" class="input--box"></td>
 				</tr>
 				<tr>
+					<td><label for="grade">학년</label></td>
+					<td><input type="text" name="grade" id="grade" class="input--box"></td>
+				</tr>
+				<tr>
+					<td><label for="semester">학기</label></td>
+					<td><input type="text" name="semester" id="semester" class="input--box"></td>
+				</tr>
+				<tr>
 					<td><label for="entranceDate">입학일</label></td>
 					<td><input type="text" name="entranceDate" id="entranceDate" class="input--box" value="2024-03-02"></td>
 				</tr>

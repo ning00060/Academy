@@ -2,6 +2,7 @@
 <%@page import="java.util.List"%>
 <%@page
     import="jakarta.security.auth.message.callback.PrivateKeyCallback.SubjectKeyIDRequest"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
 
         <label for="subjectId">과목 선택</label>
 		<select id="selectSub" name="selectSub">
-		<%System.out.println(subjectList.toString()); %>
+		
         <% int i=0;
         for (i = 0; i < subjectList.size(); i++) {%>
 			<option value="<%=i%>">과목코드 : <%=subjectList.get(i).getId()%>, 강의명 : <%=subjectList.get(i).getName()%></option>
@@ -42,5 +43,5 @@
 	<%}else{ %>
 	<p>이번 학기에 개설하신 강좌가 없습니다.</p>
 	<%} %>
-</body>
-</html>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>

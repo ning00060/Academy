@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/main_footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/myInfo.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/professor/selectER.jsp=UTF-8
 encoding/<project>=UTF-8
