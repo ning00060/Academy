@@ -27,5 +27,6 @@
 		<input type="hidden" id="id" name="id" value="<%=request.getParameter("id")%>">
         <button type="submit">입력</button>
     </form>
+    <a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>

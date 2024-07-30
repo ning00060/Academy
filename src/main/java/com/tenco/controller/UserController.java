@@ -68,7 +68,26 @@ public class UserController extends HttpServlet {
 
 		String action = request.getPathInfo();
 		switch (action) {
+		case "/notice":
+			
+			HttpSession session = request.getSession();
+			List<NoticeDTO> noticeList2 = noticeRepository.SelectNoitceAll();
+			
+			request.setAttribute("noticeList", noticeList2);
+			UserDTO userDTO = (UserDTO) session.getAttribute("verifiedUser");
+			request.setAttribute("verifiedUser", userDTO);
+			request.getRequestDispatcher("/WEB-INF/views/staff/notice.jsp").forward(request, response);
 
+			break;
+		case "/plan":
+			HttpSession session2 = request.getSession();
+			List<ScheduleDTO> planList = scheduleRepository.SelectScheduleAll();
+			UserDTO userDTO2 = (UserDTO) session2.getAttribute("verifiedUser");
+			request.setAttribute("planList", planList);
+			request.setAttribute("verifiedUser", userDTO2);
+			request.getRequestDispatcher("/WEB-INF/views/staff/collegePlan.jsp").forward(request, response);
+
+			break;
 		case "/findId":
 			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);
 			break;
@@ -111,15 +130,15 @@ public class UserController extends HttpServlet {
 			// TODO - 내 정보를 수정하고 변경 버튼을 클릭 시 get 방식으로 이동한다.
 
 		case "/a":
-			HttpSession session = request.getSession();
+			HttpSession session3 = request.getSession();
 			List<NoticeDTO> noticeList = noticeRepository.SelectNoitceAll5();
 			request.setAttribute("noticeList", noticeList);
 			// 학사일정 getAll
 			List<ScheduleDTO> scheduleList = scheduleRepository.SelectScheduleAll5();
 			request.setAttribute("scheduleList", scheduleList);
-			UserDTO temp = (UserDTO) session.getAttribute("verifiedUser");
+			UserDTO temp = (UserDTO) session3.getAttribute("verifiedUser");
 			StudentDTO student = studentRepository.studentInfo(temp.getId());
-			session.setAttribute("studentDTO", student);
+			session3.setAttribute("studentDTO", student);
 			request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 			break;
 

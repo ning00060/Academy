@@ -25,9 +25,9 @@ public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
 				+ " JOIN tb_department as d ON s.dept_id = d.id "
 				+ " JOIN tb_college as c ON d.college_id = c.id "
 				+ " JOIN tb_professor as p ON s.professor_id = p.id "
-				+ " where s.major_type like ? and d.name like ? and s.name like ? ";
+				+ " Where s.major_type like ? and d.name like ? and s.name like ? ";
 		
-		List<EnrollSearchDTO> enrollSearchDTO = new ArrayList<>();
+		List<EnrollSearchDTO> enrollSearchDTO = new ArrayList<EnrollSearchDTO>();
 		
 		try(Connection conn = DBUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -35,6 +35,7 @@ public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
 			pstmt.setString(1, major);
 			pstmt.setString(2, departname);
 			pstmt.setString(3, subjectname);
+			
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				enrollSearchDTO.add(EnrollSearchDTO.builder()
@@ -132,6 +133,7 @@ public class EnrollSearchRepositoryImpl implements EnrollSearchRepository {
 		List<EnrollDTO> enrollDTO = new ArrayList<EnrollDTO>();
 		try(Connection conn = DBUtil.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, student_id);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				enrollDTO.add(EnrollDTO.builder()

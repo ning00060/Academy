@@ -28,16 +28,12 @@
 			<option value="1">1학기</option>
 			<option value="2">2학기</option>
 		</select>
-<<<<<<< HEAD
-		<input type="text"id="professorId" name="professorId" placeholder="ID를 입력하시오." required="required">
-=======
 		<%ProfessorDTO professorDTO = (ProfessorDTO)request.getAttribute("professorDTO");%>
 		<input type="hidden" id="professorId" name="professorId" value="<%=professorDTO.getId()%>">
->>>>>>> c8c76b23f8d6dab655313bea508c73da742a9193
 		<button type="submit">조회</button>
 	</form>
 	<br>
 	<br>
-	<a href="${pageContext.request.contextPath}/user/home">홈으로 돌아가기</a>
+	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
 </body>
 </html>

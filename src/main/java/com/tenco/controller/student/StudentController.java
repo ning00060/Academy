@@ -97,7 +97,6 @@ public class StudentController extends HttpServlet {
 		
 	case "/enrollSearch":
 		// 검색 할 시 정보를 출력한다.
-		System.out.println("~~");
 		enrollSearch(request,response);
 		break;
 	
@@ -216,10 +215,7 @@ public class StudentController extends HttpServlet {
 		StudentDTO studentDTO =  (StudentDTO) session.getAttribute("studentDTO");
 		request.setAttribute("studentDTO", studentDTO);
 		List<EnrollDTO> enrollSearchDTO = enrollSearchRepository.SearchEnrollList(studentDTO.getId());
-		request.setAttribute("enrollSearchDTO", enrollSearchDTO);
-		
-		System.out.println(searchDTO.toString());
-		
+		request.setAttribute("enrollSearchDTO", enrollSearchDTO); // 학생학번, 수업번호 추출하여 enrollRepository.jsp에 넣는다.
 		request.getRequestDispatcher("/WEB-INF/views/student/enrollRepository.jsp").forward(request, response);
 	}
 
