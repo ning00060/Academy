@@ -66,6 +66,17 @@ public class UserController extends HttpServlet {
 
 		String action = request.getPathInfo();
 		switch (action) {
+		
+		case "/notice":
+			HttpSession session2 = request.getSession();
+			List<NoticeDTO> noticeList2 = noticeRepository.SelectNoitceAll();
+			
+			request.setAttribute("noticeList", noticeList2);
+			UserDTO userDTO = (UserDTO) session2.getAttribute("verifiedUser");
+			request.setAttribute("verifiedUser", userDTO);
+			request.getRequestDispatcher("/WEB-INF/views/staff/notice.jsp").forward(request, response);
+
+			break;
 
 		case "/findId":
 			request.getRequestDispatcher("/WEB-INF/views/user/find_id.jsp").forward(request, response);

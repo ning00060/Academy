@@ -54,7 +54,7 @@
 			<c:when test="${i == currentPage}">
 				<span class="current-page">${i}</span>
 			</c:when>
-			<c:otherwise>
+				<c:otherwise>
 				<span><a href="${pageContext.request.contextPath}/board/list?page=${i}">${i}</a></span>
 			</c:otherwise>
 		</c:choose>
