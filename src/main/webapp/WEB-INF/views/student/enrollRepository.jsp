@@ -115,8 +115,17 @@
 	if (request.getAttribute("subjectList") != null && request.getAttribute("enrollSearchDTO") != null) {
 		dto = (List<EnrollSearchDTO>) request.getAttribute("subjectList");
 		dto2 = (List<EnrollDTO>)request.getAttribute("enrollSearchDTO");
+		
 		int i;
 		for (i = 0; i < dto.size(); i++) {
+			
+			boolean isEnrolled = false;
+            for (EnrollDTO enroll : dto2) {
+                if (Integer.valueOf(enroll.getSubjectId()).equals(Integer.valueOf(dto.get(i).getS_number()))) {
+                    isEnrolled = true;
+                    break;
+                }
+            }	
 	%>
 
 	<tr>
@@ -129,10 +138,18 @@
 			<td><%=dto.get(i).getP_name()%></td>
 			<td><%=dto.get(i).getS_grade()%></td>
 			<td><%=dto.get(i).getS_room_id()%></td>
-	    	<td><button type="submit">신청하기</button></td>
-			<input type="hidden" name="subjectname" value="<%=dto.get(i).getS_name()%>">
-			<input type="hidden" name="subjectnumber" value="<%=dto.get(i).getS_number()%>">
-	
+			<td>
+			 <%
+					if(isEnrolled == true){ %>
+						 <button type="button" disabled="disabled">신청완료</button>
+		                 
+					<%} else {%>
+						<button type="submit">신청하기</button>
+						<input type="hidden" name="subjectname" value="<%=dto.get(i).getS_name()%>">
+		                <input type="hidden" name="subjectnumber" value="<%=dto.get(i).getS_number()%>">
+					<%}%>
+			</td>
+			
 		</form>
 
 	</tr>
