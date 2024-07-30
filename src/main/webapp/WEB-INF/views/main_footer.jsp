@@ -6,15 +6,24 @@
 <meta charset="UTF-8">
 <title>대학교 웹 사이트</title>
 <style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
     body {
         font-family: 'Arial', sans-serif;
         color: #000000;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
     }
     footer {
         background-color: #F8F8F8;
         padding: 20px 0;
         border-top: 1px solid #E7E7E7;
         text-align: center;
+        margin-top: auto;
     }
     .footer-links {
         display: flex;
@@ -47,6 +56,9 @@
 </style>
 </head>
 <body>
+    <div style="flex-grow: 1">
+        <!-- 여기에 페이지의 나머지 내용을 입력하세요 -->
+    </div>
     <footer>
         <div class="footer-links">
             <a href="#">정보공시</a>

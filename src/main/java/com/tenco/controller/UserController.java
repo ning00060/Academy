@@ -337,7 +337,7 @@ public class UserController extends HttpServlet {
 		studentRepository.studentInfoModify(password, email, tel, address, userDTO.getId());
 
 		studentDTO = studentRepository.studentInfo(userDTO.getId());
-
+		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
 	}
 
 	// TODO 여기 들어오기전 필터 체크

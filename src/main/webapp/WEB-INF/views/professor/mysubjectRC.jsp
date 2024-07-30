@@ -5,11 +5,74 @@
 <%@page import="com.tenco.model.subject.SubjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    h2 {
+        color: #012169;
+        text-align: center;
+        padding: 20px 0;
+        border-bottom: 2px solid #00539B;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #00539B;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    button {
+        background-color: #00539B;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #012169;
+    }
+    form {
+        display: inline;
+    }
+    p {
+        text-align: center;
+        color: #00539B;
+    }
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .actions a, .actions button {
+        margin: 0 10px;
+    }
+</style>
 <meta charset="UTF-8">
 <title>휴/보강 목록</title>
 </head>
@@ -75,5 +138,4 @@
 	</form>
 	
 	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>
