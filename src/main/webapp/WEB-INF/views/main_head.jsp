@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <link href="../resource/style.css" rel="stylesheet" type="text/css">
-
 </head>
 <body>
 	<header>
@@ -22,7 +21,7 @@
 				
 			<c:if test="${verifiedUser.permissionLevel == 1}"> 
 				<!-- 학생 카테고리 6-->
-				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/user/myInfo">My</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/subjectList">수업</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/student/enrollSearch">수강신청</a> </h2>
@@ -43,10 +42,10 @@
 			
 			<c:if test="${verifiedUser.permissionLevel == 3}">
 				<!-- 관리직 카테고리   5-->
-				<h2> <a href="${pageContext.request.contextPath}/user/home">홈@</a> </h2>
+				<h2> <a href="${pageContext.request.contextPath}/user/home">홈</a> </h2>
 				<h2> <a href="${pageContext.request.contextPath}/test/My">My</a> </h2>
 			    <div class="dropdown">
-			        <button class="dropbtn">관리</button>
+			        <h2>관리</h2>
 			        <div class="dropdown-content">
 			            <a href="${pageContext.request.contextPath}/staff/tuition">등록금</a>
 			            <a href="${pageContext.request.contextPath}/staff/scholarship">장학금</a>
@@ -54,18 +53,18 @@
 			        </div>
 			    </div>
 			    <div class="dropdown">
-			        <h2>유저관리</h2>>
+			        <h2>유저관리</h2>
 			        <div class="dropdown-content">
 			        	<h3>등록</h3>
 			            <a href="${pageContext.request.contextPath}/staff/registPro">교수</a>
 			            <a href="${pageContext.request.contextPath}/staff/registStaff">직원</a>
 			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
-			        </div>
-			        <div class="dropdown-content">
+
 			        	<h3>수정</h3>
 			            <a href="${pageContext.request.contextPath}/staff/updatePro">교수</a>
 			            <a href="${pageContext.request.contextPath}/staff/updateStaff">직원</a>
 			            <a href="${pageContext.request.contextPath}/staff/updateStu">학생</a>
+
 			        </div>
 			    </div>
 				    <div class="dropdown">
