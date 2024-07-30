@@ -13,7 +13,8 @@ import com.tenco.util.DBUtil;
 public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 	private static final String SELECT_SUBJECT_ALL="select * from tb_subject ";
 	private static final String SELECT_SUBJECT_BY_ID="select * from tb_subject where id=? ";
-	private static final String ADD_SUBJECT="insert into tb_subject values(?, ?,?,?,?,?,?,?,?) ";
+	private static final String ADD_SUBJECT="insert into tb_subject(name,professor_id,room_id,dept_id,major_type,year,semester,grades) values( ?,?,?,?,?,?,?,?) ";
+	private static final String SELECT_HOPECLASS=" select * from tb_hopeclass  ";
 	private static final String UPDATE_SUBJECT=" update tb_room set id=? or name=? or professor_id=? or\r\n"
 			+ "		room_id=? or dept_id=? or major_type=? or year=? or semester=? or grades=? where id=? ";
 	private static final String DELETE_SUBJECT="delete from tb_subject where id=? ";
@@ -79,15 +80,14 @@ public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 		try (Connection conn=DBUtil.getConnection()){
 			conn.setAutoCommit(false);
 			try (PreparedStatement pstmt=conn.prepareStatement(ADD_SUBJECT)){
-				pstmt.setInt(1, staffSubjectDTO.getId());
-				pstmt.setString(2, staffSubjectDTO.getName());
-				pstmt.setInt(3, staffSubjectDTO.getProfessorId());
-				pstmt.setString(4, staffSubjectDTO.getRoomId());
-				pstmt.setInt(5, staffSubjectDTO.getDeptId());
-				pstmt.setString(6, staffSubjectDTO.getMajorType());
-				pstmt.setInt(7, staffSubjectDTO.getYear());
-				pstmt.setInt(8, staffSubjectDTO.getSemester());
-				pstmt.setInt(9, staffSubjectDTO.getGrades());
+				pstmt.setString(1, staffSubjectDTO.getName());
+				pstmt.setInt(2, staffSubjectDTO.getProfessorId());
+				pstmt.setString(3, staffSubjectDTO.getRoomId());
+				pstmt.setInt(4, staffSubjectDTO.getDeptId());
+				pstmt.setString(5, staffSubjectDTO.getMajorType());
+				pstmt.setInt(6, staffSubjectDTO.getYear());
+				pstmt.setInt(7, staffSubjectDTO.getSemester());
+				pstmt.setInt(8, staffSubjectDTO.getGrades());
 				pstmt.executeUpdate();
 				conn.commit();
 				System.out.println("add커밋됨:" +staffSubjectDTO.toString() );
@@ -146,6 +146,32 @@ public class StaffSubjectRepositoryImpl implements StaffSubjectRepository{
 			e.printStackTrace();
 		}
 		
+	}
+
+
+	@Override
+	public List<StaffSubjectDTO> orderHopeclass() {
+		List<StaffSubjectDTO> subjectList = new ArrayList<>();
+		try (Connection conn = DBUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(SELECT_HOPECLASS)) {
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				subjectList.add( StaffSubjectDTO.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.professorId(rs.getInt("professor_id"))
+						.roomId(rs.getString("room_id"))
+						.deptId(rs.getInt("dept_id"))
+						.majorType(rs.getString("major_type"))
+						.year(rs.getInt("year"))
+						.semester(rs.getInt("semester"))
+						.grades(rs.getInt("grades"))
+						.build());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return subjectList;
 	}
 
 }

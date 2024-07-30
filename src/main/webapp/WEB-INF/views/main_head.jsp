@@ -54,11 +54,18 @@
 			        </div>
 			    </div>
 			    <div class="dropdown">
-			        <button class="dropbtn">등록</button>
+			        <h2>유저관리</h2>>
 			        <div class="dropdown-content">
+			        	<h3>등록</h3>
 			            <a href="${pageContext.request.contextPath}/staff/registPro">교수</a>
 			            <a href="${pageContext.request.contextPath}/staff/registStaff">직원</a>
 			            <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
+			        </div>
+			        <div class="dropdown-content">
+			        	<h3>수정</h3>
+			            <a href="${pageContext.request.contextPath}/staff/updatePro">교수</a>
+			            <a href="${pageContext.request.contextPath}/staff/updateStaff">직원</a>
+			            <a href="${pageContext.request.contextPath}/staff/updateStu">학생</a>
 			        </div>
 			    </div>
 				    <div class="dropdown">
@@ -69,7 +76,7 @@
 				            <a href="${pageContext.request.contextPath}/staff/room">강의실관리</a>
 				            <a href="${pageContext.request.contextPath}/staff/selectRoom">강의실수정</a>
 				            <a href="${pageContext.request.contextPath}/staff/subject">강의관리</a>
-				            <a href="${pageContext.request.contextPath}/staff/selectSubject">강의수정</a>
+				            <a href="${pageContext.request.contextPath}/staff/selectSubject">강의요청</a>
 
 				        </div>
     			</div>

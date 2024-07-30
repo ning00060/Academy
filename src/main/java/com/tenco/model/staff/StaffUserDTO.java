@@ -1,7 +1,5 @@
 package com.tenco.model.staff;
 
-import com.tenco.model.user.UserDTO;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
