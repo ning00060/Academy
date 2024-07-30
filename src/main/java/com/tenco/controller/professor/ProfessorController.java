@@ -106,7 +106,8 @@ public class ProfessorController extends HttpServlet {
 		case "/deleteRC":
 			deleteRC(request, response);
 			break;
-			
+		
+		// 휴 보강 수정 내역을 db에 전송
 		case "/inputUpdateRC":
 			inputUpdateRC(request, response);
 			break;	
