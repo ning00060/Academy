@@ -81,7 +81,6 @@ public class UserController extends HttpServlet {
 		case "/plan":
 			HttpSession session2 = request.getSession();
 			List<ScheduleDTO> planList = scheduleRepository.SelectScheduleAll();
-			System.out.println(planList);
 			UserDTO userDTO2 = (UserDTO) session2.getAttribute("verifiedUser");
 			request.setAttribute("planList", planList);
 			request.setAttribute("verifiedUser", userDTO2);
