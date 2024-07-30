@@ -5,6 +5,7 @@
 <%@page import="com.tenco.model.subject.SubjectDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
+<%@ include file="/WEB-INF/views/main_head.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -75,5 +76,4 @@
 	</form>
 	
 	<a href="${pageContext.request.contextPath}/professor/gohome">홈으로 돌아가기</a>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/main_footer.jsp"%>
