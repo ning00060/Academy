@@ -85,7 +85,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
     <h2>강의평가 목록 조회하기</h2>
     <form action="${pageContext.request.contextPath}/professor/readEvaluationResult" method="GET">
         <div class="form-group">
