@@ -46,6 +46,9 @@
 				<button type="submit">수정하기</button></form>  
 				
 				<form action="${pageContext.request.contextPath}/professor/deleteRC" method="get">
+				<input type="hidden" name="year" value="<%=request.getAttribute("year")%>">
+				<input type="hidden" name="semester" value="<%=request.getAttribute("semester")%>">
+				<input type="hidden" name="professorId" value="<%=request.getAttribute("professorId")%>">
 				<input type="hidden" name="id" value="<%=restClassList.get(i).getId()%>">
 				<button type="submit">삭제하기</button></form>
 			</td>

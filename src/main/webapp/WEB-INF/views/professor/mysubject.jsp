@@ -47,9 +47,7 @@
 				<form
 					action="${pageContext.request.contextPath}/professor/selectsubject"
 					method="GET">
-					<input type="hidden" name="year" value="<%=request.getAttribute("year")%>">
-					<input type="hidden" name="semester" value="<%=request.getAttribute("semester")%>">
-					<input type="hidden" name="professorId" value="<%=request.getAttribute("professorId")%>">
+					
 					<input type="hidden" name="subjectId" value="<%=subjectList.get(i).getId()%>">
 					<button type="submit">성적 입력</button>
 				</form>
