@@ -122,9 +122,11 @@ public class UserController extends HttpServlet {
 
 		case "/Myinformation":
 			handleInformation(request, response);
+			break;
 
 		case "/update":
 			handleInfoModify(request, response);
+			break;
 
 		case "/myInfomodifyUpdate":
 			// TODO - 내 정보를 수정하고 변경 버튼을 클릭 시 get 방식으로 이동한다.
@@ -337,7 +339,8 @@ public class UserController extends HttpServlet {
 		studentRepository.studentInfoModify(password, email, tel, address, userDTO.getId());
 
 		studentDTO = studentRepository.studentInfo(userDTO.getId());
-		request.getRequestDispatcher("/WEB-INF/views/Home.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath()+"/user/a");
+		// request.getRequestDispatcher(request.getContextPath()+"/user/home").forward(request, response);
 	}
 
 	// TODO 여기 들어오기전 필터 체크

@@ -159,11 +159,15 @@ h1.info-title {
             </div>
         </div>
         
-        <div class="main-content">
-            <% StudentDTO studentDTO = (StudentDTO)request.getSession().getAttribute("studentDTO"); %>
-            <% breakappDTO breakappDTO = (breakappDTO)request.getAttribute("breakappDTO"); %>
-
-            <h1 class="info-title">휴학 신청 목록 입니다.</h1>
+    <div class="main-content">
+    <%
+   
+   		 breakappDTO breakappDTO = null;
+        if( request.getAttribute("breakappDTO") != null) {
+        	StudentDTO studentDTO = (StudentDTO)request.getSession().getAttribute("studentDTO"); 
+            breakappDTO = (breakappDTO)request.getAttribute("breakappDTO"); // 속성을 올바르게 캐스팅
+    %>
+            <h1 class="info-title">휴학 신청 목록입니다.</h1>
             <div class="split--div"></div>
             <table border="1" class="input--table">
                 <colgroup>
@@ -174,23 +178,32 @@ h1.info-title {
                 </colgroup>
                 <tr>
                     <th>신청일자</th>
-                    <td><%= breakappDTO.getApp_date() %></td>
+                    <td><%= breakappDTO.getApp_date() %></td> <!-- 올바른 변수 이름 사용 -->
                     <th>구분</th>
-                    <td><%= breakappDTO.getType() %></td>
+                    <td><%= breakappDTO.getType() %></td> <!-- 올바른 변수 이름 사용 -->
                 </tr>
                 <tr>
                     <th>시작학기</th>
-                    <td><%= breakappDTO.getFrom_semester() %></td>
+                    <td><%= breakappDTO.getFrom_semester() %></td> <!-- 올바른 변수 이름 사용 -->
                     <th>종료학기</th>
-                    <td><%= breakappDTO.getTo_semester() %></td>
+                    <td><%= breakappDTO.getTo_semester() %></td> <!-- 올바른 변수 이름 사용 -->
                 </tr>
                 <tr>
                     <th>처리상태</th>
-                    <td colspan="3"><%= breakappDTO.getStatus() %></td>
+                    <td colspan="3"><%= breakappDTO.getStatus() %></td> <!-- 올바른 변수 이름 사용 -->
                 </tr>
             </table>
         </div>
     </div>
 </div>
+    <%
+        } else {
+    %>
+        <h1>목록 없음</h1>
+    <%
+        }
+    %>
+
+            
 
 <%@ include file="../main_footer.jsp" %>

@@ -165,7 +165,7 @@ h1.info-title {
         </div>
         
         <div class="main-content">
-            <% StudentDTO student = (StudentDTO)request.getAttribute("studentDTO"); %>    
+            <% StudentDTO student = (StudentDTO)request.getAttribute("studentDTO"); %> 
             <h1 class="info-title">내 정보 조회</h1>
             <div class="split--div"></div>
             <form action="${pageContext.request.contextPath}/user/update" method="post">
@@ -176,15 +176,15 @@ h1.info-title {
                     </colgroup>
                     <tr>
                         <th>주소</th>
-                        <td><input type="text" name="address" value="<%= student.getAddress() %>"></td>
+                        <td><input type="text" name="address" value="<%= student.getAddress()%>"></td>
                     </tr>
                     <tr>
                         <th>전화번호</th>
-                        <td><input type="text" name="tel" value="<%= student.getTel() %>"></td>
+                        <td><input type="text" name="tel" value="<%= student.getTel()%>"></td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td><input type="text" name="email" value="<%= student.getEmail() %>"></td>
+                        <td><input type="text" name="email" value="<%= student.getEmail()%>"></td>
                     </tr>
                     <tr>
                         <th>비밀번호</th>
