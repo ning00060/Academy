@@ -191,8 +191,8 @@
 <body>
 <h2>게시글 목록</h2>
 <div class="action">
-	<a class="btn btn-create" href="${pageContext.request.contextPath}/board/create">새글 작성하기</a> <a class="btn btn-back" href="${pageContext.request.contextPath}/user/Home.jsp">홈
-		화면 </a>
+	<%-- <a class="btn btn-create" href="${pageContext.request.contextPath}/board/create">새글 작성하기</a> <a class="btn btn-back" href="${pageContext.request.contextPath}/user/Home.jsp">홈
+		화면 </a> --%>
 </div>
 
 
