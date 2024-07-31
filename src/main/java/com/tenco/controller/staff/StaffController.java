@@ -501,12 +501,15 @@ public class StaffController extends HttpServlet {
 		int year=Integer.parseInt( request.getParameter("year"));
 		int semester=Integer.parseInt( request.getParameter("semester"));
 		int grades=Integer.parseInt( request.getParameter("grades"));
+		int day=Integer.parseInt( request.getParameter("day"));
+		int period=Integer.parseInt( request.getParameter("period"));
+		int limitCount=Integer.parseInt( request.getParameter("limitCount"));
 		StaffSubjectDTO staffSubjectDTO=StaffSubjectDTO.builder()
 				.name(name).professorId(professorId).roomId(roomId)
 				.deptId(deptId).majorType(majorType).year(year).semester(semester).grades(grades)
 				.build();
 		if(staffSubjectDTO !=null) {
-		 staffSubjectRepository.addSubject(staffSubjectDTO);
+		 staffSubjectRepository.addSubject(staffSubjectDTO,day,period,limitCount);
 			response.sendRedirect(request.getContextPath() + "/user/home");
 		} else {
 			response.sendRedirect(request.getContextPath() + "/user/login");

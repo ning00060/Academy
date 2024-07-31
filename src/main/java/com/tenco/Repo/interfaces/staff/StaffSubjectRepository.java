@@ -9,7 +9,7 @@ public interface StaffSubjectRepository {
 	List<StaffSubjectDTO> selectSubjectAll();
 	StaffSubjectDTO selectSubjectById(int id);
 	List<StaffSubjectDTO> orderHopeclass();
-	void addSubject(StaffSubjectDTO staffSubjectDTO);
+	void addSubject(StaffSubjectDTO staffSubjectDTO,int day,int period,int limitCount);
 	void updateSubject(StaffSubjectDTO subjectDTO,int id);
 	void deleteSubject(int id);
 }
