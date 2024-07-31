@@ -2,53 +2,103 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
  <%@ include file="../main_head.jsp" %>
+ <style>  
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
 
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+        color: #444;
+    }
+
+    table {
+        width: 90%;
+        max-width: 1200px;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+
+    table th {
+        background-color: #f2f2f2;
+    }
+
+    table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+   .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .container h2 {
+        margin-top: 0;
+    }
+    .submit-btn {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 15%;
+    margin-left: 195px;
+    }
+</style>
 <!-- 세부 메뉴 + 메인 -->
 <div class="d-flex justify-content-center align-items-start" style="min-width: 100em;">
 	<!-- 세부 메뉴 div-->
-	<div class="sub--menu">
-		<div class="sub--menu--top">
-			<h2>학사관리</h2>
-		</div>
-		<!-- 메뉴 -->
-		<!-- 선택된 메뉴에 class="selected--menu" 추가해주세요 -->
-		<div class="sub--menu--mid">
-			<table class="sub--menu--table" border="1">
-				<tr>
-					<td><a href="/user/studentList">학생 명단 조회</a></td>
-				</tr>
-				<tr>
-					<td><a href="/user/professorList">교수 명단 조회</a></td>
-				</tr>
-				<tr>
-					<td><a href="/user/student">학생 등록</a></td>
-				</tr>
-				<tr>
-					<td><a href="/user/professor">교수 등록</a></td>
-				</tr>
-				<tr>
-					<td><a href="/user/staff" class="selected--menu">직원 등록</a></td>
-				</tr>
-				<tr>
-					<td><a href="/tuition/bill">등록금 고지서 발송</a></td>
-				</tr>
-				<tr>
-					<td><a href="/break/list/staff">휴학 처리</a></td>
-				</tr>
-				<tr>
-					<td><a href="/sugang/period">수강 신청 기간 설정</a></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-
+	
 	<!-- 메인 div -->
 	<main>
 		<h1>교수 등록</h1>
-		<div class="split--div"></div>
+		<div class=""></div>
 		<form action="${pageContext.request.contextPath}/staff/updatePro" method="post">
 		
-			<table class="table--container">
+			<table class="">
 				<tr>
 					<td><label for="id"> 아이디</label></td>
 					<td><input type="text" name="id" id="id" class="input--box" ></td>
@@ -98,7 +148,7 @@
 					
 				</tr>
 			</table>
-			<div class="button--container">
+			<div class="submit-btn">
 				<input type="submit" value="입력">
 			</div>
 		</form>

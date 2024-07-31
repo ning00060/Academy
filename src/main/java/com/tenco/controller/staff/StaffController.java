@@ -158,6 +158,8 @@ public class StaffController extends HttpServlet {
 	}
 
 	private void hopeSubject(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+		String id2=request.getParameter("id");
+		if(id2!=null) {
 		int id =Integer.parseInt( request.getParameter("id"));
 		String name=request.getParameter("name");
 		int professorId=Integer.parseInt( request.getParameter("professorId"));
@@ -172,7 +174,6 @@ public class StaffController extends HttpServlet {
 				.deptId(deptId).majorType(majorType).year(year).semester(semester).grades(grades)
 				.build();
 		
-		if(hopeSubject!=null) {
 		request.setAttribute("hopeSubject", hopeSubject);
 		request.getRequestDispatcher("/WEB-INF/views/staff/subject.jsp").forward(request, response);
 		}else {
@@ -394,6 +395,7 @@ public class StaffController extends HttpServlet {
 
 	private void selectRoom(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
 		int search = Integer.parseInt(request.getParameter("search"));
+		System.out.println("search는받음");
 		if (String.valueOf(search) != null) {
 			List<RoomDTO> roomList = roomRepository.selectRoomByCollegeId(search);
 			request.setAttribute("roomList", roomList);

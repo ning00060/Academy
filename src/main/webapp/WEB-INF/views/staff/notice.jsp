@@ -164,8 +164,8 @@
 
         .user-info a {
             text-decoration: none;
-            color: #007bff;
-            transition: color 0.3s ease;
+            
+            
         }
 
         .user-info a:hover {
