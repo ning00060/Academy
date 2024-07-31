@@ -11,13 +11,13 @@ import com.tenco.model.temp.EnrollDTO;
 import com.tenco.util.DBUtil;
 
 public class EnrollRepositoryImpl implements EnrollRepository{
-		private static final String SELECT_BY_STUDENT_ID=" select student_id,sc.subject_id,su.name,p.name,p.dept_id,day,period,room_id\r\n"
-				+ "from tb_enroll as e\r\n"
-				+ "join tb_student as s on e.student_id=s.id\r\n"
-				+ "join tb_subject as  su on e.subject_id=su.id\r\n"
-				+ "join tb_sub_schedule as sc on sc.subject_id=su.id\r\n"
-				+ "left outer join tb_professor as p on su.professor_id=p.id\r\n"
-				+ "where student_id=? ";
+		private static final String SELECT_BY_STUDENT_ID=" select student_id,sc.subject_id,su.name,p.name,p.dept_id,day,period,room_id "
+				+ " from tb_enroll as e "
+				+ " join tb_student as s on e.student_id=s.id "
+				+ " join tb_subject as  su on e.subject_id=su.id "
+				+ " join tb_sub_schedule as sc on sc.subject_id=su.id "
+				+ " left outer join tb_professor as p on su.professor_id=p.id "
+				+ " where student_id=? ";
 	
 	
 	
@@ -44,7 +44,7 @@ public class EnrollRepositoryImpl implements EnrollRepository{
 			}
 			System.out.println(enrollList.toString()+"=enroll");
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return enrollList;
 	}

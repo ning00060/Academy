@@ -6,8 +6,10 @@ import java.util.List;
 
 import com.tenco.Repo.interfaces.student.EnrollSearchRepository;
 import com.tenco.Repo.interfaces.student.StudentRepository;
+import com.tenco.Repo.interfaces.temp.EnrollRepository;
 import com.tenco.Repo.student.EnrollSearchRepositoryImpl;
 import com.tenco.Repo.student.StudentRepositoryImpl;
+import com.tenco.Repo.temp.EnrollRepositoryImpl;
 import com.tenco.model.student.AnswerDTO;
 import com.tenco.model.student.EnrollSearchDTO;
 import com.tenco.model.student.EnrollSearchListDTO;
@@ -27,6 +29,7 @@ public class StudentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private StudentRepository studentRepository;  
     private EnrollSearchRepository enrollSearchRepository;
+    private EnrollRepository enrollRepository;
 	
     public StudentController() {
         super();
@@ -36,6 +39,7 @@ public class StudentController extends HttpServlet {
     public void init() throws ServletException {
     	studentRepository = new StudentRepositoryImpl();
     	enrollSearchRepository = new EnrollSearchRepositoryImpl();
+    	enrollRepository = new EnrollRepositoryImpl();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,14 +48,16 @@ public class StudentController extends HttpServlet {
 		case "/breakApp":
 			request.getRequestDispatcher("/WEB-INF/views/student/breakapp.jsp").forward(request, response);
 			break;
+		case "/subjectList":
+			subjectList(request, response);
+
+			break;
 			
 		case "/breakSearch":
 			HandlerbreakSearch(request, response);
 			break;
 		
-		case "/subjectList":
-			request.getRequestDispatcher("/WEB-INF/views/student/breakapp.jsp\"").forward(request, response);
-			break;
+		
 			
 		case "/enrollSearch":
 			// 대학교 강의 목록 조회 페이지로 이동한다.
@@ -61,6 +67,16 @@ public class StudentController extends HttpServlet {
 		default:
 			break;
 		}
+	}
+
+	private void subjectList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		StudentDTO studentDTO = (StudentDTO)session.getAttribute("studentDTO");
+		List<EnrollDTO> enrollList=enrollRepository.selectByStudentId(studentDTO.getId());
+		System.out.println(studentDTO.getId());
+		request.setAttribute("enrollList", enrollList);
+		request.getRequestDispatcher("/WEB-INF/views/temp/schedule.jsp").forward(request, response);
+		
 	}
 
 	/**

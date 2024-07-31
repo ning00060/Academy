@@ -50,7 +50,7 @@ public class UserController extends HttpServlet {
 	public void init() throws ServletException {
 		userRepository = new UserRepositoryImpl();
 		noticeRepository = new NoticeRepositoryImpl();
-
+		
 		scheduleRepository = new ScheduleRepositoryImpl();
 		studentRepository = new StudentRepositoryImpl();
 
