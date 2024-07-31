@@ -193,11 +193,11 @@
                 <div class="dropdown">
                     <button class="dropbtn">유저관리</button>
                     <div class="dropdown-content">
-                        <h4>등록</h4>
+                        <h3>등록</h3>
                         <a href="${pageContext.request.contextPath}/staff/registPro">교수</a>
                         <a href="${pageContext.request.contextPath}/staff/registStaff">직원</a>
                         <a href="${pageContext.request.contextPath}/staff/registStu">학생</a>
-                        <h4>수정</h4>
+                        <h3>수정</h3>
                         <a href="${pageContext.request.contextPath}/staff/updatePro">교수</a>
                         <a href="${pageContext.request.contextPath}/staff/updateStaff">직원</a>
                         <a href="${pageContext.request.contextPath}/staff/updateStu">학생</a>
