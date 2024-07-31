@@ -7,9 +7,8 @@
 <meta charset="UTF-8">
 <title>Title Here</title>
 <link href="../resource/style.css" rel="stylesheet" type="text/css">
-
 <style>
-    body {
+ body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -111,8 +110,14 @@
     }
 
     nav ul li {
-        margin: 0 10px;
+    	color: white;
+    	background-color: #0056b3; /* Box background color */
         font-size: 18px;
+        text-decoration: none;
+         padding: 10px 15px; /* Padding inside each box */
+        border-radius: 5px; /* Rounded corners for each box */
+        margin: 0 5px; /* Space between boxes */
+        
     }
 
     nav ul li a {
@@ -122,10 +127,14 @@
         padding: 10px 15px; /* Padding inside each box */
         border-radius: 5px; /* Rounded corners for each box */
         margin: 0 5px; /* Space between boxes */
-        transition: background-color 0.3s ease;
+        
     }
 
     nav ul li a:hover {
+        background-color: #003d80; /* Darker background on hover */
+    }
+
+    nav ul li:hover {
         background-color: #003d80; /* Darker background on hover */
     }
 
@@ -173,13 +182,12 @@
             </c:if>
             <c:if test="${verifiedUser.permissionLevel == 3}">
                 <h3><a href="${pageContext.request.contextPath}/user/home">홈</a></h3>
-                <h3><a href="${pageContext.request.contextPath}/test/My">My</a></h3>
                 <div class="dropdown">
                     <button class="dropbtn">관리</button>
                     <div class="dropdown-content">
                         <a href="${pageContext.request.contextPath}/staff/tuition">등록금</a>
+                        <a href="${pageContext.request.contextPath}/staff/tuitionModify">등록금 등록</a>
                         <a href="${pageContext.request.contextPath}/staff/scholarship">장학금</a>
-                        <a href="${pageContext.request.contextPath}/staff/subjectList">학사관리</a>
                     </div>
                 </div>
                 <div class="dropdown">

@@ -94,7 +94,6 @@ public class StudentController extends HttpServlet {
 		System.out.println(studentDTO.toString());
 		breakappDTO breakappDTO = studentRepository.searchBreakapp(studentDTO.getId());
 		request.setAttribute("breakappDTO", breakappDTO);
-		System.out.println(breakappDTO.toString());
 		
 		request.getRequestDispatcher("/WEB-INF/views/student/breakappsearch.jsp").forward(request, response);
 	}

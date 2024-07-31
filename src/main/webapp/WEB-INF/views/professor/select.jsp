@@ -5,6 +5,82 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+	color: #333;
+}
+
+h2 {
+	text-align: center;
+	margin-top: 20px;
+	color: #444;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 50%;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+select, button {
+	padding: 10px;
+	margin: 5px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	width: 100%;
+}
+
+button {
+	background-color: #007bff;
+	color: #fff;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	border: none;
+}
+
+button:hover {
+	background-color: #0056b3;
+}
+
+a {
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	text-decoration: none;
+	color: #007bff;
+	transition: color 0.3s ease;
+}
+
+a:hover {
+	color: #0056b3;
+}
+
+.home-link {
+	text-align: center;
+	margin-top: 20px;
+}
+</style>
 	<h2>강의목록 조회하기</h2>
 	<form action="${pageContext.request.contextPath}/professor/mysubject" method="GET">
 		<select id="year" name="year">

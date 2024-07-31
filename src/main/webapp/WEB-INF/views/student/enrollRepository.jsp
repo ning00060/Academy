@@ -11,12 +11,70 @@
 
 <%@ include file="../main_head.jsp"%>
 
-<h2 style="margin-top: 100px">강의 시간표 조회 enrollRepository.jsp</h2>
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    h2 {
+        color: #012169;
+        text-align: center;
+        padding: 20px 0;
+        border-bottom: 2px solid #00539B;
+        margin-bottom: 20px;
+    }
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 12px;
+        text-align: center;
+    }
+    th {
+        background-color: #00539B;
+        color: white;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    button {
+        background-color: #00539B;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    button:hover {
+        background-color: #012169;
+    }
+    form {
+        display: inline;
+    }
+    p {
+        text-align: center;
+        color: #00539B;
+    }
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .actions a, .actions button {
+        margin: 0 10px;
+    }
+</style>
 
-
-
-
-
+<h2 style="margin-top: 100px">강의 시간표 조회</h2>
 
 <div style="flex-direction: row;">
 	<form action="${pageContext.request.contextPath}/student/enrollSearchList" method="post">

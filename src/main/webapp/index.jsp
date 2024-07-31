@@ -89,7 +89,7 @@
 
     <div class="login--div">
         <div class="main--logo">
-            <a href="#"><img class="logo" alt="Logo" src="/images/logo.png"></a>
+            <a href="#"><img class="logo" alt="Logo" src="resource/logo2.png"></a>
         </div>
 
         <form action="${pageContext.request.contextPath}/user/login" method="post">
