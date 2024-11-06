@@ -5,17 +5,24 @@
 
 &nbsp;
 ### 목차
-1. 프로젝트 개요
-2. 구성원 및 맡은 역할
-3. 서비스 환경
-4. 사용 라이브러리 및 프로토콜
-5. 시퀀스 다이어그램
-6. 주요 기능
-7. ERD 다이어그램
-&nbsp; 
-## 1️⃣ 프로젝트 개요
+ 프로젝트 개요
+ 주요 기능
+ ERD 다이어그램
+ ##  프로젝트 개요
 * JSP,JSTL을 사용한 학사정보관리 웹사이트 제작
 * 프로젝트 수행을 통한 협업 및 일정 관리 툴 사용법 학습
+ ###  사용 라이브러리
+|라이브러리명|버전명|용도|
+|------|---|---|
+|HikariCP|HikariCP 5.1.0| Connection Pool을 통한 효율적인 DB 연결 관리 |
+|jakarta.servlet.jsp.jstl|Jakarta.servlet.jsp.jstl.api 3.0.0| 커스텀 라이브러리 구현체 사용을 위한 인터페이스 |
+|jakarta.servlet.jsp.jstl|jakarta.servlet.jsp.jstl 3.0.0| 커스텀 라이브러리 구현체 사용 |
+|Lombok|Lombok| 간편한 생성자 및 메서드 사용 |
+|MySQL Connector Java|MySQL Connector Java 8.0.21| MySQL 테이블, DAO&DTO, 검색 기능 및 페이징 기능 구현 |
+|SLF4J|SLF4J API 2.0.0| 다양한 로깅 프레임워크에 대한 추상화 및 연결 |커스텀 라이브러리 구현체|
+|SLF4J|SLF4J simple 2.0.0| SLF4J 인터페이스를 로깅 구현체와 연결 |커스텀 라이브러리 구현체 사용을 위한 인터페이스|
+&nbsp; 
+##  화면 및 기능 설명 
 (1) 공통 - 로그인 &nbsp;
 ![로그인](https://github.com/user-attachments/assets/bf23b481-f332-4d10-a428-905937ec026c) &nbsp;
 (1) 공통 - 메인 화면 &nbsp;
