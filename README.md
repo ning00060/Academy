@@ -37,7 +37,7 @@
 ![전체 강의 조회](https://github.com/user-attachments/assets/7727d170-d178-4302-8899-02a619d8062b)
 
 
-조원진행도
+## 조원진행도
 ![image](https://github.com/user-attachments/assets/a0703742-fea7-4d16-811e-31d1febd28c1)
 [학사 일정WBS. xlsx.xlsx](https://github.com/user-attachments/files/17643175/WBS.xlsx.xlsx)
 
