@@ -38,5 +38,6 @@
 
 
 조원진행도
+![image](https://github.com/user-attachments/assets/a0703742-fea7-4d16-811e-31d1febd28c1)
 [학사 일정WBS. xlsx.xlsx](https://github.com/user-attachments/files/17643175/WBS.xlsx.xlsx)
 
