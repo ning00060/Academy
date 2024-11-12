@@ -6,6 +6,7 @@
 &nbsp;
 ### 목차
  프로젝트 개요
+ 팀원및 역할
  주요 기능
  ERD 다이어그램
  ##  프로젝트 개요
@@ -22,6 +23,9 @@
 |SLF4J|SLF4J API 2.0.0| 다양한 로깅 프레임워크에 대한 추상화 및 연결 |커스텀 라이브러리 구현체|
 |SLF4J|SLF4J simple 2.0.0| SLF4J 인터페이스를 로깅 구현체와 연결 |커스텀 라이브러리 구현체 사용을 위한 인터페이스|
 &nbsp; 
+##
+![image](https://github.com/user-attachments/assets/11bb51e2-2da4-45d6-ad0a-4299244961b3)
+
 ##  화면 및 기능 설명 
 (1) 공통 - 로그인 &nbsp;
 ![로그인](https://github.com/user-attachments/assets/bf23b481-f332-4d10-a428-905937ec026c) &nbsp;
